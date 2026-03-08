@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 100" width="600" height="100">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&amp;display=swap');
+    .logo-text { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: 600; font-size: 58px; fill: #2d1b69; }
+  </style>
+  
+  <!-- Full text with the "i" included but we'll overlay the pin on top of the dot -->
+  <text class="logo-text" x="12" y="72" letter-spacing="-0.5">PINPOINT 311</text>
+  
+  <!-- White rectangle to cover the original dot on the "i" in POINT -->
+  <!-- The "i" in POINT is approximately at x=218 based on character widths -->
+  <rect x="213" y="20" width="16" height="18" fill="white"/>
+  
+  <!-- Map pin icon replacing the dot - positioned above the "i" stem -->
+  <!-- Pin body (teardrop shape) -->
+  <path d="M221 14 C221 8.5, 225.5 4, 231 4 C236.5 4, 241 8.5, 241 14 C241 19.5, 231 30, 231 30 C231 30, 221 19.5, 221 14 Z" fill="#8b5cf6"/>
+  <!-- Pin inner circle (hole) -->
+  <circle cx="231" cy="13.5" r="4" fill="white"/>
+</svg>
