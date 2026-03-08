@@ -257,7 +257,7 @@ Google Maps powers the location picker, request map, and address autocomplete.
 
 ## 8. Configure Google Cloud (AI Features)
 
-Pinpoint 311 uses Google Vertex AI (Gemini 3.0 Flash) for intelligent features like photo analysis, request triage, priority scoring, and the AI Analytics Advisor.
+Pinpoint 311 uses Google Vertex AI (Gemini 3.1 Flash-Lite) for intelligent features like photo analysis, request triage, priority scoring, and the AI Analytics Advisor.
 
 ### Step 1: Enable APIs
 
@@ -558,17 +558,28 @@ Before sharing the Resident Portal URL with your community, verify:
 
 ### Database Backups
 
-Schedule regular PostgreSQL backups:
+Pinpoint 311 includes a built-in backup system that encrypts snapshots with AES-256 and stores them in S3-compatible object storage.
+
+**Setup (one-time):**
+
+1. Go to **Admin Console → Setup & Integration**
+2. Find the **Database Backups** card
+3. Enter your S3 bucket name, access key, secret key, and encryption passphrase
+4. Optionally configure a custom endpoint and region (for Oracle Object Storage, MinIO, etc.)
+
+**Creating backups:**
+
+1. Go to **Admin Console → Compliance → Database Backups**
+2. Click **Create Backup** — a full encrypted snapshot is uploaded to your S3 bucket
+3. Old backups are automatically cleaned up per your retention policy
+
+**Manual backup (alternative):**
 
 ```bash
-# Manual backup
 docker compose exec db pg_dump -U township township_db > backup_$(date +%Y%m%d).sql
-
-# Restore from backup
-docker compose exec -T db psql -U township township_db < backup_20250101.sql
 ```
 
-> **💡 Tip:** Set up a cron job to automate daily backups.
+> **⚠️ Privacy note:** Backups contain a full database snapshot including resident PII. Old backup files are deleted per the retention policy, but PII anonymization only applies to the live database — not to previously created backup files. Store your encryption passphrase securely.
 
 ### Updating the System
 
