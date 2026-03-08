@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Started — Deploy Pinpoint 311 Free | Setup Guide</title>
+  <meta name="description"
+    content="Deploy Pinpoint 311 in minutes. Free onboarding wizard and step-by-step setup guide for municipalities. Docker-based deployment with prebuilt images — no build required." />
+  <meta name="keywords"
+    content="Pinpoint 311 setup, deploy 311 system, municipal software installation, Docker deployment, government tech setup" />
+  <link rel="canonical" href="https://pinpoint311.org/get-started" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Get Started — Deploy Pinpoint 311 Free" />
+  <meta property="og:description"
+    content="Deploy a free, open-source 311 system for your municipality in minutes. Step-by-step guide included." />
+  <meta property="og:url" content="https://pinpoint311.org/get-started" />
+  <meta property="og:site_name" content="Pinpoint 311" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Get Started — Deploy Pinpoint 311 Free" />
+  <meta name="twitter:description" content="Free 311 platform setup guide. Docker deployment in 15-30 minutes." />
+
+  <!-- Structured Data: HowTo -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Deploy Pinpoint 311",
+    "description": "Step-by-step guide to deploy the free, open-source Pinpoint 311 municipal reporting platform using Docker.",
+    "totalTime": "PT30M",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "USD",
+      "value": "0"
+    },
+    "step": [
+      {"@type": "HowToStep", "name": "Install Prerequisites", "text": "Install Docker, Docker Compose, and Git on your server or VM. Minimum: 1 vCPU, 1 GB RAM."},
+      {"@type": "HowToStep", "name": "Clone the Repository", "text": "Run: git clone https://github.com/Pinpoint-311/Pinpoint-311.git && cd Pinpoint-311"},
+      {"@type": "HowToStep", "name": "Configure Environment", "text": "Copy .env.example to .env and set DB_PASSWORD and SECRET_KEY."},
+      {"@type": "HowToStep", "name": "Start the System", "text": "Run: docker compose -f docker-compose.yml -f docker-compose.prod.yml pull && docker compose up -d"}
+    ]
+  }
+  </script>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Lora:ital,wght@0,600;1,400;1,600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --navy: #151929;
+      --navy-2: #1c2240;
+      --navy-card: #1e2544;
+      --navy-3: #232b4e;
+      --purple: #6366f1;
+      --purple-dim: rgba(99, 102, 241, 0.18);
+      --purple-border: rgba(99, 102, 241, 0.28);
+      --purple-glow: rgba(99, 102, 241, 0.3);
+      --purple-light: #a5b4fc;
+      --green: #22d3a5;
+      --green-dim: rgba(34, 211, 165, 0.12);
+      --green-border: rgba(34, 211, 165, 0.28);
+      --white: #ffffff;
+      --muted: rgba(255, 255, 255, 0.5);
+      --border: rgba(255, 255, 255, 0.07);
+      --border2: rgba(255, 255, 255, 0.12);
+      --red: #f87171;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+      background: rgba(21, 25, 41, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #818cf8, #4f52c8);
+      display: grid;
+      place-items: center;
+      font-size: .95rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .nav-back {
+      font-size: .83rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      transition: color .2s;
+    }
+
+    .nav-back:hover {
+      color: var(--white)
+    }
+
+    /* MAIN LAYOUT */
+    .wizard-wrap {
+      min-height: 100vh;
+      padding: 80px 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      width: 100%;
+      max-width: 580px;
+      margin-bottom: 2.5rem;
+    }
+
+    .progress-steps {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Connecting line behind all dots */
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .p-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .p-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: .72rem;
+      font-weight: 700;
+      border: 2px solid var(--border2);
+      background: var(--navy);
+      color: var(--muted);
+      transition: all .3s;
+    }
+
+    .p-dot.active {
+      border-color: var(--purple);
+      background: var(--purple-dim);
+      color: var(--purple-light);
+      box-shadow: 0 0 14px var(--purple-glow);
+    }
+
+    .p-dot.done {
+      border-color: var(--green);
+      background: var(--green-dim);
+      color: var(--green);
+    }
+
+    .p-line {
+      position: absolute;
+      top: 14px;
+      left: calc(50% + 15px);
+      width: calc(100% - 30px);
+      height: 2px;
+      background: var(--border);
+      transition: background .3s;
+      z-index: 0;
+    }
+
+    .p-line.done {
+      background: var(--green);
+    }
+
+    .p-label {
+      font-size: .7rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-align: center;
+      white-space: nowrap;
+      transition: color .3s;
+    }
+
+    .p-label.active {
+      color: var(--purple-light);
+    }
+
+    .p-label.done {
+      color: var(--green);
+    }
+
+    /* CARD */
+    .wizard-card {
+      width: 100%;
+      max-width: 580px;
+      background: var(--navy-card);
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .wc-header {
+      padding: 1.75rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wc-step-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: .45rem;
+    }
+
+    .wc-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -.015em;
+      margin-bottom: .3rem;
+    }
+
+    .wc-desc {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .wc-body {
+      padding: 1.75rem 2rem
+    }
+
+    .wc-footer {
+      padding: 1.25rem 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* PANELS */
+    .panel {
+      display: none
+    }
+
+    .panel.active {
+      display: block
+    }
+
+    /* FORM ELEMENTS */
+    .field {
+      margin-bottom: 1.2rem
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.2rem
+    }
+
+    label {
+      display: block;
+      font-size: .77rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .7);
+      margin-bottom: .4rem;
+      letter-spacing: .02em;
+    }
+
+    .required {
+      color: var(--purple-light);
+      margin-left: .15rem
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=tel],
+    input[type=number],
+    select,
+    textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border2);
+      border-radius: 9px;
+      padding: .72rem .95rem;
+      color: var(--white);
+      font-size: .875rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type=text]:focus,
+    input[type=email]:focus,
+    input[type=tel]:focus,
+    input[type=number]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--purple-border);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, .12);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255, 255, 255, .25)
+    }
+
+    select option {
+      background: var(--navy-2);
+      color: var(--white)
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.5
+    }
+
+    .field-hint {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: .35rem;
+      line-height: 1.45;
+    }
+
+    .field-error {
+      font-size: .72rem;
+      color: var(--red);
+      margin-top: .35rem;
+      display: none;
+    }
+
+    .field.has-error input,
+    .field.has-error select,
+    .field.has-error textarea {
+      border-color: var(--red);
+    }
+
+    .field.has-error .field-error {
+      display: block
+    }
+
+    /* RADIO / CHECKBOX GROUPS */
+    .radio-group,
+    .check-group {
+      display: flex;
+      flex-direction: column;
+      gap: .55rem
+    }
+
+    .radio-opt,
+    .check-opt {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .7rem .9rem;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .radio-opt:hover,
+    .check-opt:hover {
+      border-color: var(--purple-border);
+      background: var(--purple-dim);
+    }
+
+    .radio-opt input,
+    .check-opt input {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      accent-color: var(--purple);
+      margin: 0;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .radio-opt input:focus,
+    .check-opt input:focus {
+      box-shadow: none
+    }
+
+    .radio-opt label,
+    .check-opt label {
+      margin: 0;
+      font-size: .855rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .75);
+      cursor: pointer;
+      letter-spacing: 0;
+    }
+
+    /* RANGE SLIDER */
+    .pop-slider-wrap {
+      margin-top: .5rem
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--purple);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--purple-glow);
+    }
+
+    .pop-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: .67rem;
+      color: var(--muted);
+      margin-top: .45rem;
+    }
+
+    .pop-display {
+      text-align: center;
+      margin-top: .75rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .pop-display span {
+      color: var(--purple-light)
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      padding: .72rem 1.65rem;
+      border-radius: 9px;
+      font-size: .92rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 0 20px var(--purple-glow);
+      transition: transform .18s, box-shadow .18s, opacity .18s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      opacity: .9
+    }
+
+    .btn-primary:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border2);
+      padding: .72rem 1.4rem;
+      border-radius: 9px;
+      font-size: .92rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color .18s, border-color .18s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, .22)
+    }
+
+    /* SUCCESS STATE */
+    .success-wrap {
+      width: 100%;
+      max-width: 580px;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--green-dim);
+      border: 2px solid var(--green-border);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    .success-wrap h2 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: -.025em;
+      margin-bottom: .75rem;
+    }
+
+    .success-wrap h2 em {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-weight: 600;
+      background: linear-gradient(130deg, #a5b4fc, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .success-wrap p {
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 440px;
+      margin: 0 auto 2rem;
+    }
+
+    .deploy-box {
+      background: var(--navy-card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 1.75rem;
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+
+    .deploy-box h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+    }
+
+    .deploy-step {
+      display: flex;
+      gap: .85rem;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .deploy-step:last-child {
+      border-bottom: none;
+      padding-bottom: 0
+    }
+
+    .deploy-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: .68rem;
+      font-weight: 800;
+      color: var(--purple-light);
+      margin-top: .05rem;
+    }
+
+    .deploy-step-title {
+      font-size: .875rem;
+      font-weight: 700;
+      margin-bottom: .25rem
+    }
+
+    .deploy-step-desc {
+      font-size: .79rem;
+      color: var(--muted);
+      line-height: 1.55
+    }
+
+    .code-block {
+      background: rgba(0, 0, 0, .35);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 8px;
+      padding: .65rem .9rem;
+      margin-top: .6rem;
+      font-family: monospace;
+      font-size: .78rem;
+      color: #a5b4fc;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .deploy-cta {
+      display: flex;
+      gap: .85rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .deploy-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .72rem 1.5rem;
+      border-radius: 9px;
+      font-size: .875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity .2s, transform .15s;
+    }
+
+    .deploy-link.primary {
+      background: var(--purple);
+      color: var(--white)
+    }
+
+    .deploy-link.ghost {
+      border: 1px solid var(--border2);
+      color: var(--muted)
+    }
+
+    .deploy-link:hover {
+      opacity: .85;
+      transform: translateY(-1px)
+    }
+
+    /* LOADING SPINNER */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, .3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: .5rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    /* GLOW */
+    .bg-glow {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+
+    .bg-glow-1 {
+      width: 500px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, .14) 0%, transparent 70%);
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .bg-glow-2 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(34, 211, 165, .07) 0%, transparent 70%);
+      bottom: 0;
+      right: 5%;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:640px) {
+      nav {
+        padding: 0 1.1rem
+      }
+
+      .wizard-wrap {
+        padding: 76px 1rem 2.5rem
+      }
+
+      .wc-header {
+        padding: 1.35rem 1.35rem 1.1rem
+      }
+
+      .wc-body {
+        padding: 1.35rem
+      }
+
+      .wc-footer {
+        padding: 1rem 1.35rem;
+        flex-wrap: wrap
+      }
+
+      .field-row {
+        grid-template-columns: 1fr
+      }
+
+      .progress-bar {
+        margin-bottom: 1.75rem
+      }
+
+      .p-label {
+        font-size: .6rem
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <nav>
+    <a class="nav-logo" href="/">
+      <div class="nav-logo-mark">P</div>
+      Pinpoint 311
+    </a>
+    <a class="nav-back" href="/">← Back to site</a>
+  </nav>
+
+  <div class="wizard-wrap" id="wizardWrap">
+
+    <!-- PROGRESS -->
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-steps">
+        <div class="p-step">
+          <div class="p-dot active" id="dot1">1</div>
+          <div class="p-label active" id="lbl1">Your town</div>
+          <div class="p-line" id="line1"></div>
+        </div>
+        <div class="p-step">
+          <div class="p-dot" id="dot2">2</div>
+          <div class="p-label" id="lbl2">Contact</div>
+          <div class="p-line" id="line2"></div>
+        </div>
+        <div class="p-step">
+          <div class="p-dot" id="dot3">3</div>
+          <div class="p-label" id="lbl3">Setup needs</div>
+          <div class="p-line" id="line3"></div>
+        </div>
+        <div class="p-step" style="flex:1">
+          <div class="p-dot" id="dot4">4</div>
+          <div class="p-label" id="lbl4">Review</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="wizard-card" id="wizardCard">
+
+      <!-- ── STEP 1: Town Info ── -->
+      <div class="panel active" id="step1">
+        <div class="wc-header">
+          <div class="wc-step-label">Step 1 of 4</div>
+          <div class="wc-title">Tell us about your town</div>
+          <div class="wc-desc">Basic information helps us make sure Pinpoint 311 is the right fit and that we can follow
+            up with anything useful.</div>
+        </div>
+        <div class="wc-body">
+          <div class="field-row">
+            <div class="field" id="f-town">
+              <label>Municipality name <span class="required">*</span></label>
+              <input type="text" id="townName" placeholder="e.g. West Windsor Township" autocomplete="off" />
+              <div class="field-error">Please enter your municipality name</div>
+            </div>
+            <div class="field" id="f-state">
+              <label>State <span class="required">*</span></label>
+              <select id="townState">
+                <option value="">Select state…</option>
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>California</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>Delaware</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Indiana</option>
+                <option>Iowa</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Maine</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+              </select>
+              <div class="field-error">Please select a state</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Approximate population</label>
+            <div class="pop-slider-wrap">
+              <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
+                <input type="range" id="popRange" min="0" max="7" value="2" style="flex:1" />
+                <input type="number" id="popNumberInput" min="0" max="9999999" value="10000"
+                  style="width:100px;padding:.42rem .55rem;font-size:.82rem;border-radius:8px;text-align:right;background:rgba(255,255,255,.05);border:1px solid var(--border2);color:var(--white);font-family:inherit;outline:none;-moz-appearance:textfield"
+                  placeholder="10000" />
+              </div>
+              <div class="pop-labels">
+                <span>&lt;1K</span><span>5K</span><span>10K</span><span>25K</span>
+                <span>50K</span><span>100K</span><span>250K</span><span>500K+</span>
+              </div>
+              <div class="pop-display" id="popDisplay">~<span>10,000</span> residents</div>
+            </div>
+          </div>
+
+          <div class="field" id="f-website">
+            <label>Municipal website <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+            <input type="text" id="townWebsite" placeholder="e.g. www.westwindsortwp.com" />
+            <div class="field-hint">Helps us understand your existing setup.</div>
+          </div>
+
+          <div class="field">
+            <label>Do you currently have a 311 / request system?</label>
+            <div class="radio-group">
+              <label class="radio-opt"><input type="radio" name="current311" value="no" /> <span>No — residents contact
+                  us by phone/email</span></label>
+              <label class="radio-opt"><input type="radio" name="current311" value="basic" /> <span>Basic web form
+                  only</span></label>
+              <label class="radio-opt"><input type="radio" name="current311" value="paid" /> <span>Yes — paid platform
+                  (SeeClickFix, GovPilot, etc.)</span></label>
+              <label class="radio-opt"><input type="radio" name="current311" value="other" /> <span>Something
+                  else</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="wc-footer">
+          <div style="font-size:.75rem;color:var(--muted)">No account needed</div>
+          <button class="btn-primary" onclick="nextStep(1)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Contact ── -->
+      <div class="panel" id="step2">
+        <div class="wc-header">
+          <div class="wc-step-label">Step 2 of 4</div>
+          <div class="wc-title">Who should we be in touch with?</div>
+          <div class="wc-desc">We'll reach out with setup guidance and answer any questions. We don't share or sell your
+            information.</div>
+        </div>
+        <div class="wc-body">
+          <div class="field-row">
+            <div class="field" id="f-fname">
+              <label>First name <span class="required">*</span></label>
+              <input type="text" id="contactFirst" placeholder="Jane" autocomplete="given-name" />
+              <div class="field-error">Required</div>
+            </div>
+            <div class="field" id="f-lname">
+              <label>Last name <span class="required">*</span></label>
+              <input type="text" id="contactLast" placeholder="Smith" autocomplete="family-name" />
+              <div class="field-error">Required</div>
+            </div>
+          </div>
+          <div class="field" id="f-email">
+            <label>Work email <span class="required">*</span></label>
+            <input type="email" id="contactEmail" placeholder="jane.smith@yourtown.gov" autocomplete="email" />
+            <div class="field-error">Please enter a valid email address</div>
+          </div>
+          <div class="field" id="f-title">
+            <label>Your title / role <span class="required">*</span></label>
+            <input type="text" id="contactTitle" placeholder="e.g. IT Director, Township Administrator" />
+            <div class="field-error">Required</div>
+          </div>
+          <div class="field">
+            <label>Phone <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+            <input type="tel" id="contactPhone" placeholder="(609) 555-0100" autocomplete="tel" />
+          </div>
+        </div>
+        <div class="wc-footer">
+          <button class="btn-ghost" onclick="prevStep(2)">← Back</button>
+          <button class="btn-primary" onclick="nextStep(2)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Setup Needs ── -->
+      <div class="panel" id="step3">
+        <div class="wc-header">
+          <div class="wc-step-label">Step 3 of 4</div>
+          <div class="wc-title">A bit more about your setup</div>
+          <div class="wc-desc">This helps us send you relevant deployment guidance and check if there's anything we can
+            do to help.</div>
+        </div>
+        <div class="wc-body">
+          <div class="field">
+            <label>Do you have in-house IT staff or a server to deploy on?</label>
+            <div class="radio-group">
+              <label class="radio-opt"><input type="radio" name="itSetup" value="yes_it" /> <span>Yes — we have IT staff
+                  and/or a server</span></label>
+              <label class="radio-opt"><input type="radio" name="itSetup" value="cloud" /> <span>We'd use a cloud VM
+                  (DigitalOcean, AWS, etc.)</span></label>
+              <label class="radio-opt"><input type="radio" name="itSetup" value="unsure" /> <span>Not sure — need
+                  guidance</span></label>
+              <label class="radio-opt"><input type="radio" name="itSetup" value="no" /> <span>No IT capacity — would
+                  need help</span></label>
+            </div>
+          </div>
+
+
+          <div class="field" style="margin-top:1.2rem">
+            <label>Anything else you'd like us to know? <span
+                style="color:var(--muted);font-weight:400">(optional)</span></label>
+            <textarea id="extraNotes" placeholder="Timeline, specific questions, concerns about setup, etc."></textarea>
+          </div>
+        </div>
+        <div class="wc-footer">
+          <button class="btn-ghost" onclick="prevStep(3)">← Back</button>
+          <button class="btn-primary" onclick="nextStep(3)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Review ── -->
+      <div class="panel" id="step4">
+        <div class="wc-header">
+          <div class="wc-step-label">Step 4 of 4</div>
+          <div class="wc-title">Review &amp; submit</div>
+          <div class="wc-desc">Double-check everything looks right, then submit. We'll be in touch within a couple of
+            days.</div>
+        </div>
+        <div class="wc-body">
+          <div id="reviewContent" style="display:flex;flex-direction:column;gap:.55rem"></div>
+          <div
+            style="margin-top:1.25rem;padding:.9rem 1rem;background:rgba(34,211,165,.06);border:1px solid var(--green-border);border-radius:9px;font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.55">
+            After submitting, we'll send you the deployment link right away so you can get started. We'll follow up via
+            email with setup guidance tailored to your situation.
+          </div>
+        </div>
+        <div class="wc-footer">
+          <button class="btn-ghost" onclick="prevStep(4)">← Back</button>
+          <button class="btn-primary" id="submitBtn" onclick="submitForm()">Submit &amp; Get Deploy Link →</button>
+        </div>
+      </div>
+
+    </div><!-- end wizard-card -->
+
+    <!-- SUCCESS + UNIFIED GUIDE -->
+    <div class="success-wrap" id="successWrap" style="display:none">
+      <div class="success-icon">✓</div>
+      <h2>You're all set,<br /><em>let's get you deployed.</em></h2>
+      <p>We've received your info and will follow up within a couple of days. Scroll down for the full setup guide.</p>
+    </div>
+
+  </div><!-- end wizard-wrap -->
+
+  <!-- STICKY PROGRESS TRACKER -->
+  <div id="guideTracker" style="display:none">
+    <div class="tracker-inner">
+      <div class="tracker-left">
+        <div class="tracker-pct" id="trackerPct">0%</div>
+        <div class="tracker-bar">
+          <div class="tracker-fill" id="trackerFill"></div>
+        </div>
+      </div>
+      <div class="tracker-right">
+        <span class="tracker-time" id="trackerTime">⏱ ~45 min remaining</span>
+        <span class="tracker-step" id="trackerStep">Step 1 of 20</span>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #guideTracker {
+      position: sticky;
+      top: 60px;
+      z-index: 150;
+      background: rgba(21, 25, 41, .92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: .6rem 0;
+      transition: opacity .3s
+    }
+
+    .tracker-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem
+    }
+
+    .tracker-left {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      flex: 1
+    }
+
+    .tracker-pct {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--purple-light);
+      min-width: 32px
+    }
+
+    .tracker-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .tracker-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--purple), var(--green));
+      border-radius: 4px;
+      transition: width .3s;
+      width: 0%
+    }
+
+    .tracker-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem
+    }
+
+    .tracker-time {
+      font-size: .72rem;
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap
+    }
+
+    .tracker-step {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap
+    }
+
+    @media(max-width:500px) {
+      .tracker-right {
+        flex-direction: column;
+        gap: .15rem;
+        align-items: flex-end
+      }
+
+      .tracker-inner {
+        gap: .75rem
+      }
+    }
+  </style>
+
+  <!-- UNIFIED SETUP GUIDE -->
+  <div class="setup-guide" id="setup-guide">
+
+    <div class="setup-hero">
+      <h2>Complete Setup Guide</h2>
+      <p>Everything you need to go from zero to a fully running Pinpoint 311 deployment, step by step.</p>
+      <div class="setup-time">⏱ 15–30 min basic · 45–60 min full production</div>
+    </div>
+
+    <div class="setup-toc">
+      <h3>Setup Steps</h3>
+      <div class="toc-grid">
+        <a class="toc-item" href="#ss-1">
+          <div class="toc-num">1</div>Prerequisites
+        </a>
+        <a class="toc-item" href="#ss-2">
+          <div class="toc-num">2</div>Get the Code
+        </a>
+        <a class="toc-item" href="#ss-3">
+          <div class="toc-num">3</div>Configure .env
+        </a>
+        <a class="toc-item" href="#ss-4">
+          <div class="toc-num">4</div>Start the System
+        </a>
+        <a class="toc-item" href="#ss-5">
+          <div class="toc-num">5</div>Bootstrap Access
+        </a>
+        <a class="toc-item" href="#ss-6">
+          <div class="toc-num">6</div>Auth0 SSO
+        </a>
+        <a class="toc-item" href="#ss-7">
+          <div class="toc-num">7</div>Google Maps
+        </a>
+        <a class="toc-item" href="#ss-8">
+          <div class="toc-num">8</div>Google Cloud (AI)
+        </a>
+        <a class="toc-item" href="#ss-9">
+          <div class="toc-num">9</div>Email (SMTP)
+        </a>
+        <a class="toc-item" href="#ss-10">
+          <div class="toc-num">10</div>SMS (Optional)
+        </a>
+        <a class="toc-item" href="#ss-11">
+          <div class="toc-num">11</div>Boundaries
+        </a>
+        <a class="toc-item" href="#ss-12">
+          <div class="toc-num">12</div>Services
+        </a>
+        <a class="toc-item" href="#ss-13">
+          <div class="toc-num">13</div>Branding
+        </a>
+        <a class="toc-item" href="#ss-14">
+          <div class="toc-num">14</div>Legal Docs
+        </a>
+        <a class="toc-item" href="#ss-15">
+          <div class="toc-num">15</div>Custom Domain
+        </a>
+        <a class="toc-item" href="#ss-16">
+          <div class="toc-num">16</div>Auto-Updates
+        </a>
+        <a class="toc-item" href="#ss-17">
+          <div class="toc-num">17</div>Secret Manager
+        </a>
+        <a class="toc-item" href="#ss-18">
+          <div class="toc-num">18</div>Add Staff
+        </a>
+        <a class="toc-item" href="#ss-19">
+          <div class="toc-num">19</div>Go-Live Checklist
+        </a>
+        <a class="toc-item" href="#ss-20">
+          <div class="toc-num">20</div>Maintenance
+        </a>
+      </div>
+    </div>
+    <style>
+      .setup-guide {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 1.5rem 5rem;
+        position: relative;
+        z-index: 1;
+        display: none
+      }
+
+      .setup-hero {
+        text-align: center;
+        padding: 4rem 0 2.5rem;
+        border-top: 1px solid var(--border)
+      }
+
+      .setup-hero h2 {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 300;
+        letter-spacing: -.025em;
+        margin-bottom: .6rem;
+        line-height: 1.15
+      }
+
+      .setup-hero h2 em {
+        font-family: 'Lora', serif;
+        font-style: italic;
+        font-weight: 600;
+        background: linear-gradient(130deg, #a5b4fc, #6366f1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text
+      }
+
+      .setup-hero p {
+        font-size: .92rem;
+        color: var(--muted);
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.65
+      }
+
+      .setup-time {
+        display: inline-flex;
+        align-items: center;
+        gap: .45rem;
+        background: var(--purple-dim);
+        border: 1px solid var(--purple-border);
+        border-radius: 100px;
+        padding: .35rem 1rem;
+        font-size: .78rem;
+        font-weight: 600;
+        color: var(--purple-light);
+        margin-top: 1.25rem
+      }
+
+      .setup-toc {
+        background: var(--navy-card);
+        border: 1px solid var(--border2);
+        border-radius: 16px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2.5rem
+      }
+
+      .setup-toc h3 {
+        font-size: .95rem;
+        font-weight: 700;
+        margin-bottom: 1rem
+      }
+
+      .toc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .35rem .75rem
+      }
+
+      @media(max-width:500px) {
+        .toc-grid {
+          grid-template-columns: 1fr
+        }
+      }
+
+      .toc-item {
+        display: flex;
+        align-items: center;
+        gap: .55rem;
+        padding: .45rem .6rem;
+        border-radius: 7px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, .6);
+        font-size: .795rem;
+        font-weight: 500;
+        transition: background .2s, color .2s
+      }
+
+      .toc-item:hover {
+        background: rgba(255, 255, 255, .04);
+        color: var(--white)
+      }
+
+      .toc-num {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        flex-shrink: 0;
+        background: var(--purple-dim);
+        border: 1px solid var(--purple-border);
+        display: grid;
+        place-items: center;
+        font-size: .62rem;
+        font-weight: 800;
+        color: var(--purple-light)
+      }
+
+      .setup-step {
+        margin-bottom: 2rem;
+        background: var(--navy-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: border-color .25s
+      }
+
+      .setup-step:hover {
+        border-color: var(--purple-border)
+      }
+
+      .ss-header {
+        padding: 1.5rem 1.75rem 1.25rem;
+        display: flex;
+        align-items: flex-start;
+        gap: .85rem;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+        user-select: none
+      }
+
+      .ss-num {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        flex-shrink: 0;
+        background: var(--purple-dim);
+        border: 1px solid var(--purple-border);
+        display: grid;
+        place-items: center;
+        font-size: .72rem;
+        font-weight: 800;
+        color: var(--purple-light);
+        margin-top: .05rem
+      }
+
+      .ss-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: .2rem
+      }
+
+      .ss-subtitle {
+        font-size: .8rem;
+        color: var(--muted);
+        line-height: 1.5
+      }
+
+      .ss-chevron {
+        margin-left: auto;
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-size: .8rem;
+        transition: transform .25s;
+        margin-top: .3rem
+      }
+
+      .setup-step.open .ss-chevron {
+        transform: rotate(180deg)
+      }
+
+      .ss-body {
+        padding: 0 1.75rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .4s ease, padding .3s ease
+      }
+
+      .setup-step.open .ss-body {
+        max-height: 3000px;
+        padding: 1.5rem 1.75rem
+      }
+
+      .ss-body p {
+        font-size: .84rem;
+        color: rgba(255, 255, 255, .65);
+        line-height: 1.65;
+        margin-bottom: .85rem
+      }
+
+      .ss-body p:last-child {
+        margin-bottom: 0
+      }
+
+      .ss-body h4 {
+        font-size: .875rem;
+        font-weight: 700;
+        color: var(--white);
+        margin: 1.25rem 0 .5rem
+      }
+
+      .ss-body h4:first-child {
+        margin-top: 0
+      }
+
+      .ss-body ul {
+        padding-left: 1.1rem;
+        margin: .5rem 0 .85rem
+      }
+
+      .ss-body li {
+        font-size: .82rem;
+        color: rgba(255, 255, 255, .6);
+        line-height: 1.55;
+        margin-bottom: .35rem
+      }
+
+      .ss-body .cb {
+        background: rgba(0, 0, 0, .35);
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 8px;
+        padding: .65rem .9rem;
+        margin: .6rem 0;
+        font-family: monospace;
+        font-size: .78rem;
+        color: #a5b4fc;
+        overflow-x: auto;
+        white-space: pre;
+        line-height: 1.5
+      }
+
+      .ss-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: .75rem 0;
+        font-size: .8rem
+      }
+
+      .ss-table th {
+        text-align: left;
+        padding: .55rem .7rem;
+        font-size: .7rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border-bottom: 1px solid var(--border)
+      }
+
+      .ss-table td {
+        padding: .55rem .7rem;
+        color: rgba(255, 255, 255, .65);
+        border-bottom: 1px solid var(--border)
+      }
+
+      .ss-table tr:last-child td {
+        border-bottom: none
+      }
+
+      .ss-note {
+        display: flex;
+        align-items: flex-start;
+        gap: .6rem;
+        padding: .85rem 1rem;
+        margin: .75rem 0;
+        background: rgba(99, 102, 241, .06);
+        border: 1px solid var(--purple-border);
+        border-radius: 9px;
+        font-size: .8rem;
+        color: rgba(255, 255, 255, .65);
+        line-height: 1.55
+      }
+
+      .ss-note.warn {
+        background: rgba(245, 158, 11, .06);
+        border-color: rgba(245, 158, 11, .25)
+      }
+
+      .ss-note.success {
+        background: rgba(34, 211, 165, .06);
+        border-color: rgba(34, 211, 165, .25)
+      }
+
+      .ss-note-icon {
+        flex-shrink: 0;
+        font-size: 1rem;
+        margin-top: .05rem
+      }
+
+      .ss-body a {
+        color: var(--purple-light)
+      }
+
+      .ss-body code {
+        color: var(--purple-light);
+        font-size: .82em
+      }
+
+      @media(max-width:640px) {
+        .setup-guide {
+          padding: 0 1rem 4rem
+        }
+
+        .ss-header {
+          padding: 1.15rem 1.2rem 1rem
+        }
+
+        .setup-step.open .ss-body {
+          padding: 1.15rem 1.2rem
+        }
+
+        .setup-toc {
+          padding: 1.15rem 1.2rem
+        }
+      }
+    </style>
+
+
+
+
+    <div class="setup-step open" id="ss-1">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">1</div>
+        <div>
+          <div class="ss-title">Prerequisites</div>
+          <div class="ss-subtitle">What you need before starting</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <h4>Required</h4>
+        <table class="ss-table">
+          <tr>
+            <th>Requirement</th>
+            <th>How to get it</th>
+          </tr>
+          <tr>
+            <td><strong>Server or VM</strong></td>
+            <td>Any cloud provider or on-premise. Min: 1 vCPU, 1 GB RAM.</td>
+          </tr>
+          <tr>
+            <td><strong>Docker & Compose</strong></td>
+            <td><a href="https://docs.docker.com/get-docker/" target="_blank">Install Docker →</a></td>
+          </tr>
+          <tr>
+            <td><strong>Git</strong></td>
+            <td>Pre-installed on most servers. If not: <code>sudo apt install git</code></td>
+          </tr>
+        </table>
+        <h4>Recommended</h4>
+        <table class="ss-table">
+          <tr>
+            <th>Requirement</th>
+            <th>Why</th>
+          </tr>
+          <tr>
+            <td><strong>Google Cloud</strong></td>
+            <td>Maps, Vertex AI (Gemini), Translate, Secret Manager</td>
+          </tr>
+          <tr>
+            <td><strong>Auth0 Account</strong></td>
+            <td>Staff SSO, MFA, passkeys — <a href="https://auth0.com/signup" target="_blank">free tier</a></td>
+          </tr>
+          <tr>
+            <td><strong>Custom Domain</strong></td>
+            <td>e.g. <code>311.yourtown.gov</code></td>
+          </tr>
+          <tr>
+            <td><strong>SMTP Server</strong></td>
+            <td>Confirmation & status emails</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-2">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">2</div>
+        <div>
+          <div class="ss-title">Get the Code</div>
+          <div class="ss-subtitle">Clone the repository to your server</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <p>Open a terminal on your server:</p>
+        <div class="cb">git clone https://github.com/Pinpoint-311/Pinpoint-311.git
+          cd Pinpoint-311</div>
+        <p>That's it — the entire codebase is on your server.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-3">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">3</div>
+        <div>
+          <div class="ss-title">Configure Environment Variables</div>
+          <div class="ss-subtitle">Set your database password and secret key</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <div class="cb">cp .env.example .env
+          nano .env</div>
+        <h4>Required variables</h4>
+        <table class="ss-table">
+          <tr>
+            <th>Variable</th>
+            <th>What to set</th>
+          </tr>
+          <tr>
+            <td><code>DOMAIN</code></td>
+            <td>Your domain, or <code>localhost</code> for testing</td>
+          </tr>
+          <tr>
+            <td><code>DB_PASSWORD</code></td>
+            <td>A strong, unique database password</td>
+          </tr>
+          <tr>
+            <td><code>SECRET_KEY</code></td>
+            <td>Generate with the command below</td>
+          </tr>
+          <tr>
+            <td><code>ADMIN_EMAIL</code></td>
+            <td>Your admin contact email</td>
+          </tr>
+        </table>
+        <p>Generate your SECRET_KEY:</p>
+        <div class="cb">openssl rand -base64 32</div>
+        <div class="ss-note success">
+          <div class="ss-note-icon">💡</div>
+          <div>Most API keys can be configured later via the Admin Console. You only <em>need</em> DB_PASSWORD,
+            SECRET_KEY, and DOMAIN to start.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-4">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">4</div>
+        <div>
+          <div class="ss-title">Start the System</div>
+          <div class="ss-subtitle">Pull images and launch all services</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <h4>Production (recommended)</h4>
+        <div class="cb">docker compose -f docker-compose.yml \
+          -f docker-compose.prod.yml pull
+          docker compose -f docker-compose.yml \
+          -f docker-compose.prod.yml up -d</div>
+        <h4>Development (builds locally)</h4>
+        <div class="cb">docker compose up --build -d</div>
+        <h4>Verify</h4>
+        <div class="cb">docker compose ps</div>
+        <p>You should see <strong>backend</strong>, <strong>frontend</strong>, <strong>db</strong>,
+          <strong>redis</strong>, <strong>caddy</strong>, <strong>celery_worker</strong>, and
+          <strong>celery_beat</strong> — all <code>Up</code>.
+        </p>
+        <h4>Access points</h4>
+        <table class="ss-table">
+          <tr>
+            <th>Portal</th>
+            <th>URL</th>
+          </tr>
+          <tr>
+            <td>Resident Portal</td>
+            <td><code>http://localhost/</code></td>
+          </tr>
+          <tr>
+            <td>Staff Dashboard</td>
+            <td><code>http://localhost/staff</code></td>
+          </tr>
+          <tr>
+            <td>Admin Console</td>
+            <td><code>http://localhost/admin</code></td>
+          </tr>
+          <tr>
+            <td>Research Lab</td>
+            <td><code>http://localhost/research</code></td>
+          </tr>
+          <tr>
+            <td>API Docs</td>
+            <td><code>http://localhost/api/docs</code></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-5">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">5</div>
+        <div>
+          <div class="ss-title">Get Bootstrap Access</div>
+          <div class="ss-subtitle">Initial admin access before Auth0</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <div class="cb">curl -X POST http://localhost/api/auth/bootstrap</div>
+        <p>Click the returned <strong>magic link</strong> — it logs you into the Admin Console with full privileges.
+        </p>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div>Bootstrap access is temporary and auto-disabled once Auth0 is configured.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-6">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">6</div>
+        <div>
+          <div class="ss-title">Configure Auth0 (SSO)</div>
+          <div class="ss-subtitle">Zero-password staff authentication</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <h4>1. Create an Auth0 application</h4>
+        <ul>
+          <li>Log into <a href="https://manage.auth0.com/" target="_blank">Auth0 Dashboard</a></li>
+          <li><strong>Applications → Create Application → Regular Web Application</strong></li>
+        </ul>
+        <h4>2. Configure callback URLs</h4>
+        <table class="ss-table">
+          <tr>
+            <th>Setting</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Callback URLs</td>
+            <td><code>https://311.yourtown.gov/api/auth/callback</code></td>
+          </tr>
+          <tr>
+            <td>Logout URLs</td>
+            <td><code>https://311.yourtown.gov/staff</code></td>
+          </tr>
+          <tr>
+            <td>Web Origins</td>
+            <td><code>https://311.yourtown.gov</code></td>
+          </tr>
+        </table>
+        <h4>3. Enter in Admin Console</h4>
+        <p>Go to <strong>Setup & Integration</strong>, enter your Auth0 <strong>Domain</strong>, <strong>Client
+            ID</strong>, and <strong>Client Secret</strong>.</p>
+        <div class="ss-note success">
+          <div class="ss-note-icon">🔒</div>
+          <div>Bootstrap access is now auto-disabled. All logins use Auth0 SSO with optional MFA and passkeys.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-7">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">7</div>
+        <div>
+          <div class="ss-title">Configure Google Maps</div>
+          <div class="ss-subtitle">Location picker, maps, autocomplete</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <ul>
+          <li><a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console →
+              Credentials → Create API Key</a></li>
+          <li>Restrict to: <strong>Maps JavaScript</strong>, <strong>Places</strong>, <strong>Geocoding</strong> APIs
+          </li>
+          <li>Restrict referrers to your domain</li>
+        </ul>
+        <p>Enter the key in Admin Console → <strong>Setup & Integration → Google Maps</strong>.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-8">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">8</div>
+        <div>
+          <div class="ss-title">Google Cloud (AI Features)</div>
+          <div class="ss-subtitle">Vertex AI, Translation, Secret Manager</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <h4>Enable APIs</h4>
+        <p>In Google Cloud Console, enable <strong>Vertex AI API</strong> and <strong>Cloud Translation API</strong>.
+        </p>
+        <h4>Create a service account</h4>
+        <ul>
+          <li><strong>IAM → Service Accounts → Create</strong></li>
+          <li>Roles: <strong>Vertex AI User</strong>, <strong>Cloud Translation API User</strong></li>
+          <li>Create key → <strong>JSON</strong> → download</li>
+        </ul>
+        <p>Upload in Admin Console → <strong>Setup & Integration → Google Cloud</strong>. The key is encrypted with
+          AES-128-CBC.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-9">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">9</div>
+        <div>
+          <div class="ss-title">Email Notifications</div>
+          <div class="ss-subtitle">SMTP for confirmation & status emails</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <p>In Admin Console → <strong>Setup & Integration</strong>:</p>
+        <table class="ss-table">
+          <tr>
+            <th>Field</th>
+            <th>Example</th>
+          </tr>
+          <tr>
+            <td>SMTP Host</td>
+            <td><code>smtp.gmail.com</code></td>
+          </tr>
+          <tr>
+            <td>SMTP Port</td>
+            <td><code>587</code> (TLS)</td>
+          </tr>
+          <tr>
+            <td>Username</td>
+            <td><code>311@yourtown.gov</code></td>
+          </tr>
+          <tr>
+            <td>From Address</td>
+            <td><code>311@yourtown.gov</code></td>
+          </tr>
+        </table>
+        <div class="ss-note">
+          <div class="ss-note-icon">💡</div>
+          <div>Gmail users: create an <a href="https://support.google.com/accounts/answer/185833" target="_blank">App
+              Password</a>. Emails auto-inject your township's branding.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-10">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">10</div>
+        <div>
+          <div class="ss-title">SMS (Optional)</div>
+          <div class="ss-subtitle">Twilio text alerts</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <ul>
+          <li>Create a <a href="https://www.twilio.com/try-twilio" target="_blank">Twilio account</a></li>
+          <li>Get a phone number with SMS capability</li>
+          <li>Enter <strong>Account SID</strong>, <strong>Auth Token</strong>, and <strong>From Number</strong> in
+            Admin
+            Console</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-11">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">11</div>
+        <div>
+          <div class="ss-title">Municipality Boundaries</div>
+          <div class="ss-subtitle">GeoJSON service area</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <p>Requests outside the boundary are automatically rejected. Get your file from:</p>
+        <ul>
+          <li>Your GIS department</li>
+          <li><a href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html"
+              target="_blank">Census TIGER/Line</a></li>
+          <li><a href="https://geojson.io/" target="_blank">geojson.io</a> — draw manually</li>
+        </ul>
+        <p>Upload in <strong>Setup & Integration → Municipality Boundaries</strong>.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-12">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">12</div>
+        <div>
+          <div class="ss-title">Services & Departments</div>
+          <div class="ss-subtitle">Categories, routing, custom questions</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <p>In <strong>Admin Console → Services</strong>, create categories (Pothole, Streetlight, etc.):</p>
+        <table class="ss-table">
+          <tr>
+            <th>Setting</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><strong>Routing</strong></td>
+            <td>Township Handled, Third-Party, or Road-Based</td>
+          </tr>
+          <tr>
+            <td><strong>Department</strong></td>
+            <td>Which team handles it</td>
+          </tr>
+          <tr>
+            <td><strong>Questions</strong></td>
+            <td>Follow-up questions per service</td>
+          </tr>
+        </table>
+        <div class="ss-note">
+          <div class="ss-note-icon">💡</div>
+          <div><strong>Road-Based routing</strong> splits jurisdiction per street — all configured without code.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-13">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">13</div>
+        <div>
+          <div class="ss-title">Branding</div>
+          <div class="ss-subtitle">Logo, colors, fonts</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <p>In <strong>Admin Console → Branding</strong>:</p>
+        <ul>
+          <li><strong>Municipality Name</strong> — headers, emails, portal</li>
+          <li><strong>Logo</strong> — nav, emails, portal</li>
+          <li><strong>Primary & Secondary Colors</strong></li>
+          <li><strong>Font</strong></li>
+        </ul>
+        <p>Auto-applied to Resident Portal, all emails, SMS, and Staff Dashboard.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-14">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">14</div>
+        <div>
+          <div class="ss-title">Legal Documents</div>
+          <div class="ss-subtitle">Privacy, Terms, Accessibility</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <p>In <strong>Branding → Legal Documents</strong>:</p>
+        <ul>
+          <li><strong>Privacy Policy</strong> — data collection, retention, rights</li>
+          <li><strong>Terms of Service</strong> — includes non-emergency disclaimer</li>
+          <li><strong>Accessibility</strong> — WCAG 2.1 AA, Section 508</li>
+        </ul>
+        <p>All support Markdown formatting. Sensible defaults included.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-15">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">15</div>
+        <div>
+          <div class="ss-title">Custom Domain</div>
+          <div class="ss-subtitle">Auto HTTPS via Let's Encrypt</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <h4>1. Point DNS</h4>
+        <table class="ss-table">
+          <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>A</td>
+            <td><code>311.yourtown.gov</code></td>
+            <td>Your server IP</td>
+          </tr>
+        </table>
+        <h4>2. Update .env</h4>
+        <div class="cb">DOMAIN=311.yourtown.gov</div>
+        <h4>3. Restart Caddy</h4>
+        <div class="cb">docker compose restart caddy</div>
+        <p>Caddy auto-provisions SSL and redirects HTTP → HTTPS.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-16">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">16</div>
+        <div>
+          <div class="ss-title">Automatic Updates (Optional)</div>
+          <div class="ss-subtitle">Watchtower patches at 3 AM daily</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <div class="cb"># Enable
+          docker compose up -d watchtower
+
+          # Disable
+          docker compose stop watchtower
+
+          # Status
+          docker compose ps watchtower</div>
+        <div class="ss-note success">
+          <div class="ss-note-icon">💡</div>
+          <div>Works perfectly without Watchtower. Use for hands-off updates, or disable for manual control.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-17">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">17</div>
+        <div>
+          <div class="ss-title">Secret Manager (Optional)</div>
+          <div class="ss-subtitle">Enterprise secret storage via GCP</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <ul>
+          <li>Ensure GCP service account has <strong>Secret Manager Admin</strong> role</li>
+          <li>In Admin Console, click <strong>Enable Secret Manager</strong></li>
+          <li>All secrets auto-migrate</li>
+        </ul>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div>Two bootstrap keys (<code>GCP_SERVICE_ACCOUNT_JSON</code>, <code>GOOGLE_CLOUD_PROJECT</code>) stay in
+            the
+            local DB — they're needed to access Secret Manager itself.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-18">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">18</div>
+        <div>
+          <div class="ss-title">Add Staff Users</div>
+          <div class="ss-subtitle">Invite and assign roles</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <p>In <strong>Staff Management</strong>:</p>
+        <table class="ss-table">
+          <tr>
+            <th>Role</th>
+            <th>Access</th>
+          </tr>
+          <tr>
+            <td><strong>Staff</strong></td>
+            <td>View, manage, resolve requests</td>
+          </tr>
+          <tr>
+            <td><strong>Admin</strong></td>
+            <td>Full Admin Console access</td>
+          </tr>
+          <tr>
+            <td><strong>Researcher</strong></td>
+            <td>Privacy-preserved analytics</td>
+          </tr>
+        </table>
+        <p>Staff log in via Auth0 SSO — no passwords needed.</p>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-19">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">19</div>
+        <div>
+          <div class="ss-title">Go-Live Checklist</div>
+          <div class="ss-subtitle">Verify before sharing with residents</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <table class="ss-table">
+          <tr>
+            <th>✓</th>
+            <th>Item</th>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Secure DB_PASSWORD and SECRET_KEY (not defaults)</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Auth0 configured, bootstrap disabled</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Google Maps key working</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Municipality boundary uploaded</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>At least one service category</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>At least one department with staff</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>SMTP email configured and tested</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Branding set (logo, name, colors)</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Legal documents reviewed</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Custom domain with HTTPS</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td>Full lifecycle test: submit → staff → resolve → email</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-20">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">20</div>
+        <div>
+          <div class="ss-title">Ongoing Maintenance</div>
+          <div class="ss-subtitle">Backups, updates, troubleshooting</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <h4>Database backups</h4>
+        <div class="cb">docker compose exec db pg_dump -U township township_db > backup_$(date +%Y%m%d).sql</div>
+        <h4>Manual updates</h4>
+        <div class="cb">docker compose -f docker-compose.yml \
+          -f docker-compose.prod.yml pull
+          docker compose -f docker-compose.yml \
+          -f docker-compose.prod.yml up -d</div>
+        <h4>Database migrations</h4>
+        <div class="cb">docker compose exec backend alembic upgrade head</div>
+        <h4>View logs</h4>
+        <div class="cb">docker compose logs -f backend</div>
+        <h4>Record retention</h4>
+        <table class="ss-table">
+          <tr>
+            <th>State</th>
+            <th>Period</th>
+          </tr>
+          <tr>
+            <td>Texas</td>
+            <td>10 years</td>
+          </tr>
+          <tr>
+            <td>NJ, PA, WI</td>
+            <td>7 years</td>
+          </tr>
+          <tr>
+            <td>NY, MI, WA, CT</td>
+            <td>6 years</td>
+          </tr>
+          <tr>
+            <td>CA, FL, most</td>
+            <td>5 years (default)</td>
+          </tr>
+          <tr>
+            <td>GA, MA</td>
+            <td>3 years</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:2rem 0 1rem;margin-top:1rem">
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.25rem">Need help? We're here for you.</p>
+      <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+        <a class="deploy-link primary" href="https://github.com/Pinpoint-311/Pinpoint-311" target="_blank"
+          style="font-size:.82rem;padding:.6rem 1.25rem">GitHub Repository →</a>
+        <a class="deploy-link ghost" href="https://github.com/Pinpoint-311/Pinpoint-311/issues" target="_blank"
+          style="font-size:.82rem;padding:.6rem 1.25rem">Report an Issue</a>
+        <a class="deploy-link ghost" href="https://hcb.hackclub.com/pinpoint-311" target="_blank"
+          style="font-size:.82rem;padding:.6rem 1.25rem">Donate (tax-deductible)</a>
+      </div>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.2);margin-top:2rem">© 2024–2026 Pinpoint 311 · MIT License ·
+        Fiscally sponsored by Hack Club 501(c)(3)</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleSetupStep(h) { h.closest('.setup-step').classList.toggle('open') }
+
+    // Scroll-based progress tracker
+    const TOTAL_STEPS = 20;
+    const TOTAL_TIME_MIN = 45;
+    function updateTracker() {
+      const guide = document.getElementById('setup-guide');
+      const tracker = document.getElementById('guideTracker');
+      if (!guide || guide.style.display === 'none' || !tracker || tracker.style.display === 'none') return;
+
+      const steps = guide.querySelectorAll('.setup-step');
+      const scrollY = window.scrollY + window.innerHeight * 0.4;
+      let currentStep = 0;
+      steps.forEach((step, i) => {
+        if (step.getBoundingClientRect().top + window.scrollY < scrollY) currentStep = i + 1;
+      });
+      currentStep = Math.max(1, Math.min(currentStep, TOTAL_STEPS));
+      const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
+      const remaining = Math.max(1, Math.round(TOTAL_TIME_MIN * (1 - currentStep / TOTAL_STEPS)));
+
+      document.getElementById('trackerPct').textContent = pct + '%';
+      document.getElementById('trackerFill').style.width = pct + '%';
+      document.getElementById('trackerStep').textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
+      if (pct >= 100) {
+        document.getElementById('trackerTime').textContent = '🎉 Complete!';
+        document.getElementById('trackerTime').style.color = 'var(--green)';
+      } else {
+        document.getElementById('trackerTime').textContent = '⏱ ~' + remaining + ' min remaining';
+      }
+    }
+    window.addEventListener('scroll', updateTracker, { passive: true });
+  </script>
+
+  <!-- Hidden Formspree form for actual submission -->
+  <form id="hiddenForm" action="https://formspree.io/f/mqeyadld" method="POST" style="display:none">
+    <input type="hidden" name="_subject" value="New Pinpoint 311 Municipality Interest" />
+    <input type="hidden" name="municipality" id="hf-municipality" />
+    <input type="hidden" name="state" id="hf-state" />
+    <input type="hidden" name="population" id="hf-population" />
+    <input type="hidden" name="website" id="hf-website" />
+    <input type="hidden" name="current_311" id="hf-current311" />
+    <input type="hidden" name="contact_name" id="hf-name" />
+    <input type="hidden" name="contact_email" id="hf-email" />
+    <input type="hidden" name="contact_title" id="hf-title" />
+    <input type="hidden" name="contact_phone" id="hf-phone" />
+    <input type="hidden" name="it_setup" id="hf-it" />
+    <input type="hidden" name="important_features" id="hf-features" />
+    <input type="hidden" name="notes" id="hf-notes" />
+    <input type="hidden" name="_replyto" id="hf-replyto" />
+  </form>
+
+  <script>
+    const popBreakpoints = [500, 2500, 7500, 17500, 37500, 75000, 175000, 375000];
+    const popRepresentative = [1000, 5000, 10000, 25000, 50000, 100000, 250000, 500000];
+    const popLabels = ['<span>&lt;1,000</span>', '<span>5,000</span>', '<span>10,000</span>',
+      '<span>25,000</span>', '<span>50,000</span>', '<span>100,000</span>',
+      '<span>250,000</span>', '<span>500,000+</span>'];
+
+    const popDisplay = document.getElementById('popDisplay');
+    const popRange = document.getElementById('popRange');
+    const popNumIn = document.getElementById('popNumberInput');
+
+    function popToIndex(pop) {
+      for (let i = popBreakpoints.length - 1; i >= 0; i--) {
+        if (pop >= popBreakpoints[i]) return i;
+      }
+      return 0;
+    }
+
+    function updatePopFromSlider() {
+      const v = parseInt(popRange.value);
+      popNumIn.value = popRepresentative[v];
+      popDisplay.innerHTML = '~' + popLabels[v] + ' residents';
+      const pct = (v / 7) * 100;
+      popRange.style.background = `linear-gradient(to right,var(--purple) ${pct}%,rgba(255,255,255,.1) ${pct}%)`;
+    }
+
+    function updatePopFromInput() {
+      const pop = parseInt(popNumIn.value) || 0;
+      const idx = popToIndex(pop);
+      popRange.value = idx;
+      popDisplay.innerHTML = '~' + popLabels[idx] + ' residents';
+      const pct = (idx / 7) * 100;
+      popRange.style.background = `linear-gradient(to right,var(--purple) ${pct}%,rgba(255,255,255,.1) ${pct}%)`;
+    }
+
+    popRange.addEventListener('input', updatePopFromSlider);
+    popNumIn.addEventListener('input', updatePopFromInput);
+    popNumIn.addEventListener('focus', function () { this.select(); });
+    updatePopFromSlider();
+
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    function setStep(n) {
+      // hide all panels
+      for (let i = 1; i <= totalSteps; i++) {
+        document.getElementById('step' + i).classList.remove('active');
+        const dot = document.getElementById('dot' + i);
+        const lbl = document.getElementById('lbl' + i);
+        if (i < n) { dot.className = 'p-dot done'; dot.textContent = '✓'; lbl.className = 'p-label done'; }
+        else if (i === n) { dot.className = 'p-dot active'; dot.textContent = i; lbl.className = 'p-label active'; }
+        else { dot.className = 'p-dot'; dot.textContent = i; lbl.className = 'p-label'; }
+        if (i < totalSteps) {
+          document.getElementById('line' + i).className = 'p-line' + (i < n ? ' done' : '');
+        }
+      }
+      document.getElementById('step' + n).classList.add('active');
+      currentStep = n;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep1() {
+      let ok = true;
+      const town = document.getElementById('townName');
+      const state = document.getElementById('townState');
+      if (!town.value.trim()) { document.getElementById('f-town').classList.add('has-error'); ok = false; }
+      else document.getElementById('f-town').classList.remove('has-error');
+      if (!state.value) { document.getElementById('f-state').classList.add('has-error'); ok = false; }
+      else document.getElementById('f-state').classList.remove('has-error');
+      return ok;
+    }
+
+    function validateStep2() {
+      let ok = true;
+      const fields = [
+        ['contactFirst', 'f-fname'], ['contactLast', 'f-lname'],
+        ['contactTitle', 'f-title']
+      ];
+      fields.forEach(([id, fid]) => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { document.getElementById(fid).classList.add('has-error'); ok = false; }
+        else document.getElementById(fid).classList.remove('has-error');
+      });
+      const email = document.getElementById('contactEmail');
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+      if (!emailValid) { document.getElementById('f-email').classList.add('has-error'); ok = false; }
+      else document.getElementById('f-email').classList.remove('has-error');
+      return ok;
+    }
+
+    function nextStep(from) {
+      if (from === 1 && !validateStep1()) return;
+      if (from === 2 && !validateStep2()) return;
+      if (from === 3) { buildReview(); }
+      setStep(from + 1);
+    }
+    function prevStep(from) { setStep(from - 1); }
+
+    function getRadio(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : 'Not specified';
+    }
+    function getCheckboxes(name) {
+      const els = document.querySelectorAll(`input[name="${name}"]:checked`);
+      if (!els.length) return 'None selected';
+      return Array.from(els).map(e => e.value).join(', ');
+    }
+
+    const current311Labels = {
+      no: 'No — phone/email only', basic: 'Basic web form',
+      paid: 'Paid platform (SeeClickFix, GovPilot, etc.)', other: 'Other'
+    };
+    const itLabels = {
+      yes_it: 'Has IT staff / server', cloud: 'Cloud VM',
+      unsure: 'Unsure — needs guidance', no: 'No IT capacity'
+    };
+    const featureLabels = {
+      ai: 'AI triage', multilingual: 'Multilingual support',
+      geo: 'Geospatial / mapping', sms: 'SMS notifications',
+      research: 'Research exports', branding: 'Custom domain & branding'
+    };
+
+    function buildReview() {
+      const rows = [
+        ['Municipality', document.getElementById('townName').value || '—'],
+        ['State', document.getElementById('townState').value || '—'],
+        ['Population', (parseInt(document.getElementById('popNumberInput').value) || 0).toLocaleString() + ' residents'],
+        ['Website', document.getElementById('townWebsite').value || '—'],
+        ['Current 311', current311Labels[getRadio('current311')] || 'Not specified'],
+        ['Contact', `${document.getElementById('contactFirst').value} ${document.getElementById('contactLast').value}`],
+        ['Title', document.getElementById('contactTitle').value || '—'],
+        ['Email', document.getElementById('contactEmail').value || '—'],
+        ['Phone', document.getElementById('contactPhone').value || '—'],
+        ['IT Setup', itLabels[getRadio('itSetup')] || 'Not specified'],
+        ['Notes', document.getElementById('extraNotes').value || '—'],
+      ];
+      const rc = document.getElementById('reviewContent');
+      rc.innerHTML = rows.map(([k, v]) => `
+    <div style="display:flex;gap:.75rem;padding:.65rem .85rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;align-items:flex-start">
+      <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);width:110px;flex-shrink:0;padding-top:.05rem">${k}</div>
+      <div style="font-size:.84rem;color:rgba(255,255,255,.8);flex:1;word-break:break-word">${v}</div>
+    </div>
+  `).join('');
+    }
+
+    async function submitForm() {
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+      // Fill hidden form
+      document.getElementById('hf-municipality').value = document.getElementById('townName').value;
+      document.getElementById('hf-state').value = document.getElementById('townState').value;
+      document.getElementById('hf-population').value = (parseInt(document.getElementById('popNumberInput').value) || 0).toLocaleString() + ' residents';
+      document.getElementById('hf-website').value = document.getElementById('townWebsite').value;
+      document.getElementById('hf-current311').value = current311Labels[getRadio('current311')] || '';
+      document.getElementById('hf-name').value = `${document.getElementById('contactFirst').value} ${document.getElementById('contactLast').value}`;
+      document.getElementById('hf-email').value = document.getElementById('contactEmail').value;
+      document.getElementById('hf-replyto').value = document.getElementById('contactEmail').value;
+      document.getElementById('hf-title').value = document.getElementById('contactTitle').value;
+      document.getElementById('hf-phone').value = document.getElementById('contactPhone').value;
+      document.getElementById('hf-it').value = itLabels[getRadio('itSetup')] || '';
+      document.getElementById('hf-notes').value = document.getElementById('extraNotes').value;
+
+      const form = document.getElementById('hiddenForm');
+      const data = new FormData(form);
+
+      try {
+        const res = await fetch('https://formspree.io/f/mqeyadld', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          showSuccess();
+        } else {
+          // Show success anyway — don't block deploy link on form service issues
+          showSuccess();
+        }
+      } catch (e) {
+        // Same — always show success and deploy link
+        showSuccess();
+      }
+    }
+
+    function showSuccess() {
+      document.getElementById('progressBar').style.display = 'none';
+      document.getElementById('wizardCard').style.display = 'none';
+      document.getElementById('successWrap').style.display = 'block';
+      document.getElementById('wizardWrap').style.minHeight = 'auto';
+      document.getElementById('setup-guide').style.display = 'block';
+      document.getElementById('guideTracker').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(updateTracker, 500);
+    }
+
+    // Hamburger (nav doesn't have links here, just in case)
+  </script>
+</body>
+
+</html>

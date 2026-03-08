@@ -1,0 +1,3405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinpoint 311 — Free Open-Source Municipal Reporting Software</title>
+  <meta name="description"
+    content="Pinpoint 311 is a free, open-source 311 reporting platform for local governments. AI-powered triage, Google Maps integration, and self-hosted — replace expensive systems like SeeClickFix at zero cost." />
+  <meta name="keywords"
+    content="311 system, municipal reporting, open source, free government software, civic tech, infrastructure reporting, SeeClickFix alternative, GovPilot alternative, pothole reporting, city services" />
+  <meta name="author" content="Parth Gupta" />
+  <link rel="canonical" href="https://pinpoint311.org/pinpoint311.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pinpoint 311 — Free Open-Source Municipal Reporting Software" />
+  <meta property="og:description"
+    content="Replace expensive 311 systems with a free, AI-powered, open-source platform. Self-hosted, privacy-first, and designed for every community." />
+  <meta property="og:url" content="https://pinpoint311.org/pinpoint311.html" />
+  <meta property="og:site_name" content="Pinpoint 311" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pinpoint 311 — Free Municipal Reporting Software" />
+  <meta name="twitter:description"
+    content="Free, open-source 311 platform with AI triage, Google Maps, and self-hosting. Zero cost for municipalities." />
+
+  <!-- AI / LLM Discovery -->
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
+
+  <!-- Structured Data: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pinpoint 311",
+    "description": "Free, open-source 311 municipal reporting platform for local governments. AI-powered triage, Google Maps integration, multi-language support, and self-hosted deployment.",
+    "applicationCategory": "GovernmentApplication",
+    "operatingSystem": "Linux, Docker",
+    "url": "https://pinpoint311.org",
+    "downloadUrl": "https://github.com/Pinpoint-311/Pinpoint-311",
+    "softwareVersion": "1.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Parth Gupta",
+      "url": "https://www.linkedin.com/in/parth-gupta-57b122398/"
+    },
+    "sourceOrganization": {
+      "@type": "Organization",
+      "name": "Pinpoint 311",
+      "url": "https://pinpoint311.org",
+      "nonprofit": true,
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Hack Club",
+        "url": "https://hackclub.com"
+      }
+    },
+    "featureList": [
+      "AI-powered request triage via Google Vertex AI",
+      "Google Maps integration with boundary enforcement",
+      "Multi-language support (100+ languages)",
+      "Auth0 SSO with MFA and passkeys",
+      "SMS notifications via Twilio",
+      "Self-hosted Docker deployment",
+      "Real-time analytics dashboard",
+      "Privacy-first architecture"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does Pinpoint 311 cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pinpoint 311 is completely free. It is an open-source, MIT-licensed platform with no subscription fees, no per-seat charges, and no hidden costs. The only expenses are your own server hosting (as low as $5/month) and optional Google Cloud API usage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Pinpoint 311 compare to SeeClickFix or GovPilot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pinpoint 311 provides comparable features to SeeClickFix ($15,000-50,000/year) and GovPilot ($25,000-80,000/year) at zero cost. It includes AI-powered triage, multi-language support, and full data ownership — features that competitors charge extra for or don't offer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Pinpoint 311 a nonprofit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Pinpoint 311 is a 501(c)(3) nonprofit project fiscally sponsored by Hack Club (EIN: 81-2908499). All donations are tax-deductible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can my municipality self-host Pinpoint 311?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Pinpoint 311 runs on any Linux server with Docker. You maintain full control of your data. Deployment takes 15-30 minutes with prebuilt Docker images."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Lora:ital,wght@0,600;1,400;1,600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --navy: #151929;
+      --navy-2: #1c2240;
+      --navy-3: #232b4e;
+      --navy-card: #1e2544;
+      --purple: #6366f1;
+      --purple-dim: rgba(99, 102, 241, 0.18);
+      --purple-border: rgba(99, 102, 241, 0.28);
+      --purple-glow: rgba(99, 102, 241, 0.3);
+      --purple-light: #a5b4fc;
+      --green: #22d3a5;
+      --green-dim: rgba(34, 211, 165, 0.12);
+      --green-border: rgba(34, 211, 165, 0.28);
+      --red: #f87171;
+      --white: #ffffff;
+      --muted: rgba(255, 255, 255, 0.5);
+      --muted2: rgba(255, 255, 255, 0.3);
+      --border: rgba(255, 255, 255, 0.07);
+      --border2: rgba(255, 255, 255, 0.12);
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 6px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--navy)
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--navy-3);
+      border-radius: 3px
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+      background: rgba(21, 25, 41, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #818cf8, #4f52c8);
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.855rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white)
+    }
+
+    .nav-btn {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      padding: 0.5rem 1.15rem;
+      border-radius: 8px;
+      font-size: 0.855rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity .2s, transform .15s;
+    }
+
+    .nav-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px)
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 1.5rem 5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* glow blobs */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-1 {
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .glow-2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(34, 211, 165, 0.09) 0%, transparent 70%);
+      bottom: 0;
+      right: 5%;
+    }
+
+    .glow-3 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+      bottom: 40px;
+      left: 5%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      border-radius: 100px;
+      padding: 0.32rem 0.9rem 0.32rem 0.55rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--purple-light);
+      margin-bottom: 1.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+      animation: up .55s ease both;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 7px var(--green);
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .4
+      }
+    }
+
+    .hero-h1 {
+      position: relative;
+      z-index: 2;
+      font-size: clamp(2.4rem, 5.5vw, 4.1rem);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      max-width: 820px;
+      animation: up .55s .08s ease both;
+    }
+
+    .hero-h1 em {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-weight: 600;
+      background: linear-gradient(130deg, #a5b4fc 20%, #6366f1 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-h1 strong {
+      font-weight: 700;
+      -webkit-text-fill-color: var(--white);
+    }
+
+    /* rotating line */
+    .rotating-line {
+      position: relative;
+      z-index: 2;
+      margin-top: 1.6rem;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      flex-wrap: wrap;
+      animation: up .55s .16s ease both;
+    }
+
+    .rot-wrap {
+      display: inline-block;
+      height: 1.5em;
+      overflow: hidden;
+      vertical-align: middle;
+      position: relative;
+    }
+
+    .rot-track {
+      display: flex;
+      flex-direction: column;
+      will-change: transform;
+    }
+
+    .rot-item {
+      height: 1.5em;
+      display: flex;
+      align-items: center;
+      padding: 0 .6em;
+      border-radius: 6px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap;
+      font-size: 1em;
+    }
+
+    .hero-sub {
+      position: relative;
+      z-index: 2;
+      margin-top: 1rem;
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.38);
+      max-width: 450px;
+      line-height: 1.7;
+      animation: up .55s .22s ease both;
+    }
+
+    .hero-actions {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: up .55s .28s ease both;
+    }
+
+    .btn-primary {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      padding: 0.72rem 1.65rem;
+      border-radius: 9px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 0 28px var(--purple-glow);
+      transition: transform .18s, box-shadow .18s, opacity .18s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      opacity: .9;
+      box-shadow: 0 6px 36px var(--purple-glow)
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border2);
+      padding: 0.72rem 1.4rem;
+      border-radius: 9px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color .18s, border-color .18s, transform .18s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, .22);
+      transform: translateY(-2px)
+    }
+
+    .hero-proof {
+      position: relative;
+      z-index: 2;
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      animation: up .55s .34s ease both;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .proof-avatars {
+      display: flex
+    }
+
+    .av {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      border: 2px solid var(--navy);
+      margin-left: -7px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+    }
+
+    .av:first-child {
+      margin-left: 0
+    }
+
+    .av1 {
+      background: linear-gradient(135deg, #818cf8, #4f52c8)
+    }
+
+    .av2 {
+      background: linear-gradient(135deg, #22d3a5, #0d9488)
+    }
+
+    .av3 {
+      background: linear-gradient(135deg, #f59e0b, #b45309)
+    }
+
+    .av4 {
+      background: linear-gradient(135deg, #ec4899, #9d174d)
+    }
+
+    .proof-sep {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.12)
+    }
+
+    /* ── MOCKUP ── */
+    .hero-mockup {
+      position: relative;
+      z-index: 2;
+      margin-top: 3.5rem;
+      width: 100%;
+      max-width: 880px;
+      animation: up .65s .4s ease both;
+    }
+
+    .mockup-shell {
+      background: var(--navy-card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, .6), 0 0 80px rgba(99, 102, 241, .07);
+    }
+
+    .mockup-bar {
+      background: rgba(255, 255, 255, .035);
+      border-bottom: 1px solid var(--border);
+      padding: .6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+    }
+
+    .mdot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%
+    }
+
+    .mdot:nth-child(1) {
+      background: #ff5f57
+    }
+
+    .mdot:nth-child(2) {
+      background: #febc2e
+    }
+
+    .mdot:nth-child(3) {
+      background: #28c840
+    }
+
+    .murl {
+      margin: 0 auto;
+      background: rgba(255, 255, 255, .05);
+      border-radius: 5px;
+      padding: .2rem .9rem;
+      font-size: .7rem;
+      color: var(--muted);
+    }
+
+    .mockup-inner {
+      background: linear-gradient(180deg, #1e2450 0%, #191e3a 100%);
+      padding: 1.75rem 1.75rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .m-head {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .7rem
+    }
+
+    .m-search {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 9px;
+      padding: .6rem 1rem;
+      color: var(--muted);
+      font-size: .82rem;
+      margin-bottom: 1.2rem;
+      text-align: left;
+    }
+
+    .m-cards {
+      display: flex;
+      gap: .65rem;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .m-card {
+      background: rgba(255, 255, 255, .045);
+      border: 1px solid rgba(255, 255, 255, .07);
+      border-radius: 11px;
+      padding: .85rem .8rem;
+      width: 125px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .m-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(99, 102, 241, .22);
+      display: grid;
+      place-items: center;
+      font-size: .8rem;
+      color: var(--purple-light);
+      font-weight: 700;
+    }
+
+    .m-label {
+      font-size: .7rem;
+      font-weight: 600;
+      color: var(--white);
+      text-align: center
+    }
+
+    .m-fade {
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--navy-card));
+      margin-top: -18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── STATS ── */
+    .stats-bar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 680px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .025);
+      overflow: hidden;
+      animation: up .65s .46s ease both;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 1.3rem 1rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child {
+      border-right: none
+    }
+
+    .stat-val {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: .28rem;
+    }
+
+    .stat-val span {
+      color: var(--green)
+    }
+
+    .stat-lbl {
+      font-size: .73rem;
+      color: var(--muted);
+      line-height: 1.4
+    }
+
+    /* ── GENERAL LAYOUT ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.75rem
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 1rem;
+    }
+
+    .section-h2 {
+      font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-h2 em {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-weight: 600;
+      background: linear-gradient(130deg, #a5b4fc, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      font-size: .95rem;
+      color: rgba(255, 255, 255, .45);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ── DIVIDER ── */
+    .div-line {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border2), transparent);
+      margin: 0;
+    }
+
+    /* ─────────────────────────────────────
+   VALUE PROP GRID
+───────────────────────────────────── */
+    .vp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2.5rem 0 2.5rem;
+    }
+
+    @media(max-width:900px) {
+      .vp-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:480px) {
+      .vp-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .vp-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 1.2rem 1.35rem;
+    }
+
+    .vp-card-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: .45rem;
+    }
+
+    .vp-card-value {
+      font-size: .84rem;
+      color: rgba(255, 255, 255, .65);
+      line-height: 1.6;
+    }
+
+    /* ─────────────────────────────────────
+   COMPARISON SECTION
+───────────────────────────────────── */
+    .compare-section {
+      padding: 6rem 0
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .compare-col {
+      background: var(--navy-2)
+    }
+
+    .compare-col.highlight {
+      background: rgba(99, 102, 241, .07)
+    }
+
+    .compare-head {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: .9rem;
+    }
+
+    .compare-col.highlight .compare-head {
+      color: var(--purple-light);
+      font-size: .9rem;
+    }
+
+    .compare-tag {
+      display: inline-block;
+      background: var(--purple-dim);
+      color: var(--purple-light);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .15rem .45rem;
+      border-radius: 4px;
+      margin-left: .5rem;
+    }
+
+    .compare-row {
+      display: contents;
+    }
+
+    .compare-cell {
+      padding: .85rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-size: .845rem;
+      color: rgba(255, 255, 255, .65);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .compare-cell:last-child {
+      border-bottom: none
+    }
+
+    .compare-col.highlight .compare-cell {
+      color: var(--white);
+    }
+
+    .compare-label {
+      padding: .85rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-size: .78rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .35);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .check {
+      color: var(--green);
+      font-weight: 700
+    }
+
+    .cross {
+      color: var(--red);
+      font-weight: 700
+    }
+
+    .warn {
+      color: #f59e0b
+    }
+
+    /* ─────────────────────────────────────
+   FOR WHO SECTION
+───────────────────────────────────── */
+    .who-section {
+      padding: 6rem 0
+    }
+
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .who-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      transition: border-color .25s, transform .2s;
+    }
+
+    .who-card:hover {
+      border-color: var(--purple-border);
+      transform: translateY(-3px)
+    }
+
+    .who-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      font-size: .85rem;
+      font-weight: 800;
+      margin-bottom: 1.1rem;
+      letter-spacing: -.01em;
+    }
+
+    .who-icon.p {
+      background: rgba(99, 102, 241, .18);
+      color: var(--purple-light)
+    }
+
+    .who-icon.g {
+      background: rgba(34, 211, 165, .12);
+      color: var(--green)
+    }
+
+    .who-icon.b {
+      background: rgba(251, 191, 36, .1);
+      color: #fbbf24
+    }
+
+    .who-icon.r {
+      background: rgba(248, 113, 113, .1);
+      color: #f87171
+    }
+
+    .who-h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: .35rem
+    }
+
+    .who-desc {
+      font-size: .825rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.1rem
+    }
+
+    .who-tags {
+      display: flex;
+      flex-direction: column;
+      gap: .35rem
+    }
+
+    .who-tag {
+      font-size: .775rem;
+      color: rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+    }
+
+    .who-tag::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0
+    }
+
+    /* ─────────────────────────────────────
+   FEATURES SECTION
+───────────────────────────────────── */
+    .features-section {
+      padding: 6rem 0
+    }
+
+    .features-tabs {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .ftab {
+      padding: .45rem 1rem;
+      border-radius: 7px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      transition: all .2s;
+    }
+
+    .ftab.active {
+      background: var(--purple-dim);
+      border-color: var(--purple-border);
+      color: var(--purple-light);
+    }
+
+    .feature-panel {
+      display: none
+    }
+
+    .feature-panel.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.1rem
+    }
+
+    .feat-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.35rem 1.3rem;
+      transition: border-color .2s;
+    }
+
+    .feat-card:hover {
+      border-color: var(--purple-border)
+    }
+
+    .feat-head {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      margin-bottom: .6rem
+    }
+
+    .feat-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--purple-light);
+    }
+
+    .feat-title {
+      font-size: .9rem;
+      font-weight: 700
+    }
+
+    .feat-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    /* ─────────────────────────────────────
+   AI SECTION
+───────────────────────────────────── */
+    .ai-section {
+      padding: 6rem 0
+    }
+
+    .ai-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media(max-width:720px) {
+      .ai-inner {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .ai-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem
+    }
+
+    .ai-item {
+      display: flex;
+      gap: .85rem;
+      padding: 1rem 1.1rem;
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+    }
+
+    .ai-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: .7rem;
+      font-weight: 800;
+      color: var(--purple-light);
+      margin-top: .05rem;
+    }
+
+    .ai-item-title {
+      font-size: .875rem;
+      font-weight: 700;
+      margin-bottom: .25rem
+    }
+
+    .ai-item-desc {
+      font-size: .795rem;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    .ai-visual {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .ai-vis-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .ai-vis-title {
+      font-size: .85rem;
+      font-weight: 700
+    }
+
+    .ai-badge {
+      font-size: .68rem;
+      font-weight: 700;
+      background: var(--purple-dim);
+      color: var(--purple-light);
+      border: 1px solid var(--purple-border);
+      padding: .18rem .55rem;
+      border-radius: 4px;
+    }
+
+    .ai-row {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ai-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0
+    }
+
+    .ai-row-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--purple-dim);
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: .65rem;
+      font-weight: 800;
+      color: var(--purple-light);
+    }
+
+    .ai-row-content {
+      flex: 1
+    }
+
+    .ai-row-label {
+      font-size: .72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 600;
+      margin-bottom: .2rem
+    }
+
+    .ai-row-val {
+      font-size: .83rem;
+      font-weight: 600;
+      color: var(--white)
+    }
+
+    .ai-score-bar {
+      height: 5px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, .08);
+      margin-top: .4rem;
+      overflow: hidden
+    }
+
+    .ai-score-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--purple), var(--green))
+    }
+
+    /* ─────────────────────────────────────
+   RESEARCH SECTION
+───────────────────────────────────── */
+    .research-section {
+      padding: 6rem 0
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .pack-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.15rem;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .pack-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px)
+    }
+
+    .pack-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-bottom: .85rem;
+    }
+
+    .pack-title {
+      font-size: .875rem;
+      font-weight: 700;
+      margin-bottom: .3rem
+    }
+
+    .pack-sub {
+      font-size: .775rem;
+      color: var(--muted);
+      line-height: 1.55
+    }
+
+
+    /* ─────────────────────────────────────
+   COST CALCULATOR
+───────────────────────────────────── */
+    .cost-section {
+      padding: 6rem 0
+    }
+
+    .calc-shell {
+      background: var(--navy-card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 1.75rem;
+    }
+
+    .calc-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .calc-row {
+      display: flex;
+      align-items: center;
+      padding: .9rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--navy-2);
+      gap: 1rem;
+      transition: background .2s;
+    }
+
+    .calc-row-left {
+      flex: 1
+    }
+
+    .calc-row-name {
+      font-size: .855rem;
+      font-weight: 600;
+      color: var(--white)
+    }
+
+    .calc-row-note {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: .1rem
+    }
+
+    .calc-row-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      min-width: 36px;
+      text-align: right;
+      transition: color .3s;
+    }
+
+    .calc-row-val.free {
+      color: var(--green)
+    }
+
+    /* range slider */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--purple);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--purple-glow);
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--purple);
+      cursor: pointer;
+    }
+
+
+    /* ─────────────────────────────────────
+   TECH SECTION
+───────────────────────────────────── */
+    .tech-section {
+      padding: 6rem 0
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .tech-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+      transition: border-color .2s;
+    }
+
+    .tech-card:hover {
+      border-color: var(--border2)
+    }
+
+    .tech-name {
+      font-size: .875rem;
+      font-weight: 700;
+      margin-bottom: .2rem
+    }
+
+    .tech-desc {
+      font-size: .75rem;
+      color: var(--muted)
+    }
+
+    .resource-bar {
+      margin-top: 2.5rem;
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+    }
+
+    .resource-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .resource-title {
+      font-size: .9rem;
+      font-weight: 700
+    }
+
+    .resource-note {
+      font-size: .78rem;
+      color: var(--muted)
+    }
+
+    .resource-rows {
+      display: flex;
+      flex-direction: column;
+      gap: .65rem
+    }
+
+    .r-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem
+    }
+
+    .r-label {
+      font-size: .78rem;
+      color: var(--muted);
+      width: 120px;
+      flex-shrink: 0
+    }
+
+    .r-bar {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, .07);
+      border-radius: 3px;
+      overflow: hidden
+    }
+
+    .r-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--purple), var(--purple-light))
+    }
+
+    .r-mem {
+      font-size: .75rem;
+      color: rgba(255, 255, 255, .5);
+      width: 55px;
+      text-align: right
+    }
+
+    /* ─────────────────────────────────────
+   SECURITY SECTION
+───────────────────────────────────── */
+    .security-section {
+      padding: 5rem 0
+    }
+
+    .sec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.1rem;
+      margin-top: 2.5rem;
+    }
+
+    .sec-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.35rem 1.3rem;
+    }
+
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .55rem
+    }
+
+    .sec-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      display: grid;
+      place-items: center;
+      font-size: .62rem;
+      font-weight: 800;
+      color: var(--purple-light);
+      flex-shrink: 0;
+    }
+
+    .sec-title {
+      font-size: .875rem;
+      font-weight: 700
+    }
+
+    .sec-desc {
+      font-size: .795rem;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    /* ─────────────────────────────────────
+   CTA SECTION
+───────────────────────────────────── */
+    .cta-section {
+      padding: 7rem 0 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-glow {
+      position: absolute;
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, .15) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    .cta-h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      letter-spacing: -.03em;
+      max-width: 700px;
+      margin: 0 auto 1rem;
+      line-height: 1.15;
+    }
+
+    .cta-h2 em {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-weight: 600;
+      background: linear-gradient(130deg, #a5b4fc, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-sub {
+      font-size: .92rem;
+      color: rgba(255, 255, 255, .4);
+      max-width: 420px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: .8rem;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .cta-links {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-link {
+      font-size: .8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .cta-link:hover {
+      color: var(--white)
+    }
+
+    /* ─────────────────────────────────────
+   FOOTER
+───────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      font-size: .78rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-link:hover {
+      color: var(--white)
+    }
+
+    .footer-badge {
+      font-size: .72rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .25rem .6rem;
+    }
+
+    .footer-copy {
+      text-align: center;
+      padding: 1rem 0;
+      font-size: .73rem;
+      color: rgba(255, 255, 255, .2);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes up {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .4rem;
+      width: 36px;
+      height: 36px;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2px;
+      width: 22px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all .25s;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0)
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    @media(max-width:640px) {
+      .hamburger {
+        display: flex
+      }
+
+      .nav-btn {
+        display: none
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(19, 23, 46, .97);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 0;
+        padding: .5rem 0;
+        z-index: 199;
+      }
+
+      .nav-links.open {
+        display: flex
+      }
+
+      .nav-links a {
+        padding: .9rem 1.5rem;
+        font-size: .95rem;
+        border-bottom: 1px solid var(--border);
+        display: block;
+      }
+
+      .nav-links li:last-child a {
+        border-bottom: none
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+
+    /* Tablet */
+    @media(max-width:900px) {
+      .ai-inner {
+        grid-template-columns: 1fr
+      }
+
+      .compare-grid {
+        grid-template-columns: 1fr;
+        gap: 0
+      }
+
+      .compare-col:not(.highlight) {
+        display: none
+      }
+
+      .compare-cell,
+      .compare-label,
+      .compare-head {
+        padding: .75rem 1.1rem
+      }
+
+      .tech-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr))
+      }
+    }
+
+    /* Mobile */
+    @media(max-width:640px) {
+
+      /* NAV */
+      nav {
+        padding: 0 1.1rem
+      }
+
+      .nav-links {
+        display: none
+      }
+
+      .nav-btn {
+        font-size: .78rem;
+        padding: .42rem .85rem
+      }
+
+      /* HERO */
+      .hero {
+        padding: 88px 1.1rem 3.5rem;
+        min-height: auto
+      }
+
+      .hero-h1 {
+        font-size: clamp(1.85rem, 8vw, 2.6rem);
+        letter-spacing: -.025em
+      }
+
+      .rotating-line {
+        font-size: .92rem;
+        gap: .3rem
+      }
+
+      .rot-item {
+        padding: 0 .45em;
+        font-size: .92em
+      }
+
+      .hero-sub {
+        font-size: .85rem
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 320px
+      }
+
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        text-align: center;
+        padding: .78rem 1rem
+      }
+
+      .hero-proof {
+        gap: .6rem;
+        font-size: .75rem
+      }
+
+      .proof-sep {
+        display: none
+      }
+
+      /* MOCKUP */
+      .hero-mockup {
+        margin-top: 2.5rem
+      }
+
+      .mockup-inner {
+        padding: 1.25rem 1rem 0
+      }
+
+      .m-head {
+        font-size: 1.1rem
+      }
+
+      .m-cards {
+        gap: .5rem
+      }
+
+      .m-card {
+        width: calc(33.33% - .35rem);
+        padding: .7rem .5rem
+      }
+
+      .m-label {
+        font-size: .62rem
+      }
+
+      .m-icon {
+        width: 30px;
+        height: 30px;
+        font-size: .65rem
+      }
+
+      /* STATS BAR */
+      .stats-bar {
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        flex: 1 1 50%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat:nth-child(odd) {
+        border-right: 1px solid var(--border)
+      }
+
+      .stat:nth-last-child(-n+2) {
+        border-bottom: none
+      }
+
+      .stat-val {
+        font-size: 1.25rem
+      }
+
+      /* CONTAINERS */
+      .container {
+        padding: 0 1.1rem
+      }
+
+      .section-h2 {
+        font-size: clamp(1.55rem, 6vw, 2rem)
+      }
+
+      /* COMPARE */
+      .compare-grid {
+        border-radius: 11px
+      }
+
+      .compare-cell,
+      .compare-label,
+      .compare-head {
+        padding: .7rem .9rem;
+        font-size: .8rem
+      }
+
+      .compare-tag {
+        font-size: .6rem
+      }
+
+      /* WHO */
+      .who-section {
+        padding: 4rem 0
+      }
+
+      .who-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem
+      }
+
+      /* FEATURES TABS */
+      .features-section {
+        padding: 4rem 0
+      }
+
+      .features-tabs {
+        gap: .4rem
+      }
+
+      .ftab {
+        font-size: .73rem;
+        padding: .38rem .75rem
+      }
+
+      .feature-panel.active {
+        grid-template-columns: 1fr
+      }
+
+      /* AI SECTION */
+      .ai-section {
+        padding: 4rem 0
+      }
+
+      .ai-list {
+        gap: .75rem
+      }
+
+      .ai-item {
+        padding: .85rem .9rem
+      }
+
+      .ai-num {
+        width: 22px;
+        height: 22px;
+        font-size: .65rem
+      }
+
+      .ai-item-title {
+        font-size: .83rem
+      }
+
+      .ai-item-desc {
+        font-size: .76rem
+      }
+
+      .ai-visual {
+        padding: 1.1rem
+      }
+
+      .ai-vis-head {
+        flex-wrap: wrap;
+        gap: .5rem
+      }
+
+      .ai-badge {
+        font-size: .62rem
+      }
+
+      /* RESEARCH */
+      .research-section {
+        padding: 4rem 0
+      }
+
+      .research-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      /* COST */
+      .cost-section {
+        padding: 4rem 0
+      }
+
+      .calc-shell {
+        padding: 1.1rem
+      }
+
+      .calc-head {
+        gap: .75rem
+      }
+
+      .calc-row {
+        padding: .75rem .85rem
+      }
+
+      .calc-row-name {
+        font-size: .8rem
+      }
+
+      .calc-row-note {
+        font-size: .68rem
+      }
+
+      /* TECH */
+      .tech-section {
+        padding: 4rem 0
+      }
+
+      .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: .75rem
+      }
+
+      .resource-bar {
+        padding: 1.25rem 1rem
+      }
+
+      .resource-head {
+        flex-direction: column;
+        gap: .35rem;
+        align-items: flex-start
+      }
+
+      .r-label {
+        width: 90px;
+        font-size: .72rem
+      }
+
+      .r-mem {
+        font-size: .7rem;
+        width: 45px
+      }
+
+      /* SECURITY */
+      .security-section {
+        padding: 4rem 0
+      }
+
+      .sec-grid {
+        grid-template-columns: 1fr
+      }
+
+      /* CTA */
+      .cta-section {
+        padding: 4.5rem 0 3.5rem
+      }
+
+      .cta-h2 {
+        font-size: clamp(1.7rem, 6.5vw, 2.4rem)
+      }
+
+      .cta-actions {
+        flex-direction: column;
+        align-items: center
+      }
+
+      .cta-actions .btn-primary,
+      .cta-actions .btn-ghost {
+        width: 100%;
+        max-width: 300px;
+        text-align: center
+      }
+
+      .cta-links {
+        gap: 1rem;
+        font-size: .75rem
+      }
+
+      /* FOOTER */
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem
+      }
+
+      .footer-right {
+        gap: 1rem;
+        flex-wrap: wrap
+      }
+
+      .footer-badge {
+        display: none
+      }
+    }
+
+    /* Very small screens */
+    @media(max-width:380px) {
+      .hero-h1 {
+        font-size: 1.7rem
+      }
+
+      .m-cards {
+        gap: .4rem
+      }
+
+      .m-card {
+        width: calc(50% - .2rem)
+      }
+
+      .m-card:last-child {
+        display: none
+      }
+
+      .research-grid {
+        grid-template-columns: 1fr
+      }
+
+      .tech-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .stats-bar {
+        flex-direction: column
+      }
+
+      .stat {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border) !important
+      }
+
+      .stat:last-child {
+        border-bottom: none !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a class="nav-logo" href="pinpoint311.html">
+      <div class="nav-logo-mark">P</div>
+      Pinpoint 311
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#features" onclick="closeMenu()">Features</a></li>
+      <li><a href="#compare" onclick="closeMenu()">Compare</a></li>
+      <li><a href="#cost" onclick="closeMenu()">Pricing</a></li>
+      <li><a href="#tech" onclick="closeMenu()">Tech</a></li>
+      <li><a href="about.html" onclick="closeMenu()">About</a></li>
+      <li><a href="https://github.com/Pinpoint-311/Pinpoint-311" target="_blank" onclick="closeMenu()">GitHub</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <button class="nav-btn" onclick="window.location.href='get-started.html'">Get Started Free</button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+
+    <div class="hero-badge"><span class="badge-dot"></span>Free &amp; open source — MIT license</div>
+
+    <h1 class="hero-h1">
+      <em>Advanced</em> municipal reporting software.<br />
+      <strong>Zero cost.</strong> No compromise.
+    </h1>
+
+    <div class="rotating-line">
+      <span>That means more budget for</span>
+      <div class="rot-wrap" id="rotWrap">
+        <div class="rot-track" id="rotTrack"></div>
+      </div>
+      <span>— not software.</span>
+    </div>
+
+    <p class="hero-sub">Give residents a seamless way to report issues and your staff powerful tools to manage them.
+      Keep every dollar where it belongs.</p>
+
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="window.location.href='get-started.html'">Get
+        Started Free →</button>
+      <button class="btn-ghost" onclick="window.open('https://github.com/Pinpoint-311/Pinpoint-311','_blank')">View on
+        GitHub</button>
+    </div>
+
+    <div class="hero-proof">
+      <span>Open311 v2 compliant</span>
+      <div class="proof-sep"></div>
+      <span>Runs on a $5/mo server</span>
+      <div class="proof-sep"></div>
+      <span>109 languages</span>
+      <div class="proof-sep"></div>
+      <span>Deploy in minutes</span>
+    </div>
+
+    <div class="hero-mockup">
+      <div class="mockup-shell">
+        <div class="mockup-bar">
+          <div class="mdot"></div>
+          <div class="mdot"></div>
+          <div class="mdot"></div>
+          <div class="murl" style="text-align:center">311.yourtown.gov</div>
+        </div>
+        <div class="mockup-inner">
+          <div class="m-head">How can we help?</div>
+          <div class="m-search">Search services...</div>
+          <div class="m-cards">
+            <div class="m-card">
+              <div class="m-icon">RD</div>
+              <div class="m-label">Pothole / Road</div>
+            </div>
+            <div class="m-card">
+              <div class="m-icon">SW</div>
+              <div class="m-label">Sidewalk Issue</div>
+            </div>
+            <div class="m-card">
+              <div class="m-icon">LT</div>
+              <div class="m-label">Street Light</div>
+            </div>
+            <div class="m-card">
+              <div class="m-icon">TR</div>
+              <div class="m-label">Trash / Litter</div>
+            </div>
+            <div class="m-card">
+              <div class="m-icon">GR</div>
+              <div class="m-label">Graffiti</div>
+            </div>
+            <div class="m-card">
+              <div class="m-icon">SG</div>
+              <div class="m-label">Sign Problem</div>
+            </div>
+          </div>
+        </div>
+        <div class="m-fade"></div>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-val"><span>$0</span></div>
+        <div class="stat-lbl">Annual license cost</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">109<span></span></div>
+        <div class="stat-lbl">Languages supported</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">60<span>+</span></div>
+        <div class="stat-lbl">Research data fields</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">~160<span>MB</span></div>
+        <div class="stat-lbl">Total memory footprint</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── COMPARE ── -->
+  <section class="compare-section" id="compare">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Why Pinpoint</div>
+        <h2 class="section-h2">Built for municipalities,<br /><em>not for vendor profit</em></h2>
+        <p class="section-sub">SeeClickFix and similar platforms charge $5,000–20,000/year, lock you in, and own your
+          data. Pinpoint 311 gives you the same or better for free.</p>
+      </div>
+
+      <!-- Value prop reel -->
+      <div class="vp-grid reveal">
+        <div class="vp-card">
+          <div class="vp-card-label">Save time</div>
+          <div class="vp-card-value">Automatically routes requests — blocks state roads, hands off county roads, no
+            manual sorting ever.</div>
+        </div>
+        <div class="vp-card">
+          <div class="vp-card-label">Save money</div>
+          <div class="vp-card-value">Free software, forever. Small towns pay as little as $2/month in direct API costs.
+            No license fees.</div>
+        </div>
+        <div class="vp-card">
+          <div class="vp-card-label">Improve resident experience</div>
+          <div class="vp-card-value">60-second submissions, no account needed, live status tracking in any of 109
+            languages.</div>
+        </div>
+        <div class="vp-card">
+          <div class="vp-card-label">Own your data</div>
+          <div class="vp-card-value">Fully self-hosted on your infrastructure. MIT license — fork, modify, and run it
+            independently, forever.</div>
+        </div>
+      </div>
+
+      <div class="compare-grid reveal">
+        <!-- Headers -->
+        <div class="compare-col">
+          <div class="compare-head" style="color:var(--muted)">Feature</div>
+        </div>
+        <div class="compare-col">
+          <div class="compare-head" style="color:var(--muted)">SeeClickFix / Commercial</div>
+        </div>
+        <div class="compare-col highlight">
+          <div class="compare-head">Pinpoint 311 <span class="compare-tag">Free</span></div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Pricing</div>
+          <div class="compare-cell compare-col"><span class="cross">✗</span> $5–20K/year</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> Free &amp; open source</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Data ownership</div>
+          <div class="compare-cell compare-col"><span class="cross">✗</span> Vendor-hosted</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> Self-hosted, you own it</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Source code</div>
+          <div class="compare-cell compare-col"><span class="cross">✗</span> Proprietary</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> MIT License</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">AI triage</div>
+          <div class="compare-cell compare-col"><span class="cross">✗</span> Basic rules only</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> Gemini 3.1 Flash-Lite</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Photo analysis</div>
+          <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> Vision AI built-in</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Languages</div>
+          <div class="compare-cell compare-col"><span class="warn">~</span> ~10 languages</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> 109 languages</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Resident login</div>
+          <div class="compare-cell compare-col"><span class="cross">✗</span> Required</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> No account needed</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Geofencing</div>
+          <div class="compare-cell compare-col"><span class="warn">~</span> Limited</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> GeoJSON boundaries</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Research export</div>
+          <div class="compare-cell compare-col"><span class="warn">~</span> Extra cost</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> 60+ fields, free</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">PII protection</div>
+          <div class="compare-cell compare-col"><span class="warn">~</span> Basic</div>
+          <div class="compare-cell compare-col highlight"><span class="check">✓</span> Auto-redacted + KMS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── FOR WHO ── -->
+  <section class="who-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Who it's for</div>
+        <h2 class="section-h2">Four portals.<br /><em>One platform.</em></h2>
+      </div>
+      <div class="who-grid">
+        <div class="who-card reveal">
+          <div class="who-icon p">R</div>
+          <div class="who-h3">Residents</div>
+          <div class="who-desc">Report issues in 60 seconds — no account needed. Track status via a magic link in any
+            language.</div>
+          <div class="who-tags">
+            <div class="who-tag">No account needed</div>
+            <div class="who-tag">109 languages</div>
+            <div class="who-tag">Magic link tracking</div>
+            <div class="who-tag">Multi-photo upload</div>
+          </div>
+        </div>
+        <div class="who-card reveal">
+          <div class="who-icon g">S</div>
+          <div class="who-h3">Staff</div>
+          <div class="who-desc">A full command center: AI triage, priority scoring, maps, internal comments, and audit
+            logs.</div>
+          <div class="who-tags">
+            <div class="who-tag">AI-powered triage</div>
+            <div class="who-tag">Conversational AI advisor</div>
+            <div class="who-tag">Department routing</div>
+            <div class="who-tag">Proximity &amp; hotspot analysis</div>
+          </div>
+        </div>
+        <div class="who-card reveal">
+          <div class="who-icon b">A</div>
+          <div class="who-h3">Admins</div>
+          <div class="who-desc">Configure everything without touching code — branding, routing rules, service
+            categories, API keys.</div>
+          <div class="who-tags">
+            <div class="who-tag">Full white-label branding</div>
+            <div class="who-tag">GeoJSON map layers</div>
+            <div class="who-tag">Feature module toggles</div>
+            <div class="who-tag">One-click updates</div>
+          </div>
+        </div>
+        <div class="who-card reveal">
+          <div class="who-icon r">Re</div>
+          <div class="who-h3">Researchers</div>
+          <div class="who-desc">Privacy-preserving analytics for universities studying equity, infrastructure, and civic
+            engagement.</div>
+          <div class="who-tags">
+            <div class="who-tag">60+ research fields</div>
+            <div class="who-tag">CSV &amp; GeoJSON export</div>
+            <div class="who-tag">Census integration</div>
+            <div class="who-tag">PII-preserved exports</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── FEATURES ── -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Features</div>
+        <h2 class="section-h2">Everything a modern municipality needs.<br /><em>Nothing you don't.</em></h2>
+      </div>
+
+      <div class="features-tabs" id="ftabs">
+        <button class="ftab active" data-panel="resident">Resident Portal</button>
+        <button class="ftab" data-panel="staff">Staff Dashboard</button>
+        <button class="ftab" data-panel="admin">Admin Console</button>
+        <button class="ftab" data-panel="geo">Geospatial</button>
+      </div>
+
+      <!-- Resident -->
+      <div class="feature-panel active" id="panel-resident">
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">UX</div>
+            <div class="feat-title">No-login submission</div>
+          </div>
+          <div class="feat-desc">Residents submit in under 60 seconds with no account. Email magic links let them track
+            status without passwords.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">ML</div>
+            <div class="feat-title">109 language support</div>
+          </div>
+          <div class="feat-desc">Google Translate powers full UI translation including service categories, status
+            labels, and all notification emails in the resident's language.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">PH</div>
+            <div class="feat-title">Multi-photo upload</div>
+          </div>
+          <div class="feat-desc">Up to 3 high-res images with client-side compression. Photos feed directly into AI
+            visual analysis.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">TL</div>
+            <div class="feat-title">Status timeline</div>
+          </div>
+          <div class="feat-desc">Clean visualization of the request journey: Received → In Progress → Resolved → Closed,
+            with SMS and email updates.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">MP</div>
+            <div class="feat-title">Public request map</div>
+          </div>
+          <div class="feat-desc">Interactive map of all open and resolved requests, filterable by department, status,
+            date range, and service type.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">RT</div>
+            <div class="feat-title">Smart routing</div>
+          </div>
+          <div class="feat-desc">Road-based routing rules automatically redirect state or county road reports to the
+            right agency with custom messaging.</div>
+        </div>
+      </div>
+
+      <!-- Staff -->
+      <div class="feature-panel" id="panel-staff">
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">LF</div>
+            <div class="feat-title">Live feed</div>
+          </div>
+          <div class="feat-desc">Auto-refreshes every 30 seconds with "NEW" badging. Split-pane view with independent
+            scrolling for list and detail.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">AI</div>
+            <div class="feat-title">AI insights panel</div>
+          </div>
+          <div class="feat-desc">Safety flags, proximity to schools and hospitals, sentiment analysis, weather context,
+            and similar nearby reports — all powered by Gemini 3.1 Flash-Lite.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">HI</div>
+            <div class="feat-title">Human-in-the-loop priority</div>
+          </div>
+          <div class="feat-desc">AI suggests a 1–10 urgency score. Staff must explicitly accept it — scores are never
+            automatically saved, ensuring human accountability.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">CO</div>
+            <div class="feat-title">Collaboration tools</div>
+          </div>
+          <div class="feat-desc">Private internal comments for staff coordination. External updates visible to
+            residents. Full immutable audit log of every action.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">CA</div>
+            <div class="feat-title">AI analytics advisor</div>
+          </div>
+          <div class="feat-desc">Conversational AI interface powered by Gemini 3.1 Flash-Lite. Ask natural language
+            questions
+            about your data — equity gaps, triage times, response patterns.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">AH</div>
+            <div class="feat-title">Asset history</div>
+          </div>
+          <div class="feat-desc">When a request is tied to a physical asset (e.g., Hydrant #404), automatically surfaces
+            all past reports for that specific asset.</div>
+        </div>
+      </div>
+
+      <!-- Admin -->
+      <div class="feature-panel" id="panel-admin">
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">BR</div>
+            <div class="feat-title">Full white-label branding</div>
+          </div>
+          <div class="feat-desc">Township logo, colors, and font settings automatically injected into every page, email,
+            and SMS notification.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">SR</div>
+            <div class="feat-title">Service routing rules</div>
+          </div>
+          <div class="feat-desc">Route each service to internal departments, third-party contractors, or road-based
+            jurisdiction splits — all without code.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">GL</div>
+            <div class="feat-title">Custom GeoJSON layers</div>
+          </div>
+          <div class="feat-desc">Upload GeoJSON to visualize township assets on the staff map — parks, storm drains,
+            zoning districts, hydrants.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">UP</div>
+            <div class="feat-title">One-click updates</div>
+          </div>
+          <div class="feat-desc">Pull the latest code from GitHub and rebuild containers with a single button. Database
+            backup and health check included automatically.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">DR</div>
+            <div class="feat-title">Document retention</div>
+          </div>
+          <div class="feat-desc">State-specific retention policies (TX, NJ, CA, etc.) with legal hold support and
+            automatic Celery Beat archival.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">LG</div>
+            <div class="feat-title">Legal pages</div>
+          </div>
+          <div class="feat-desc">Fully customizable Privacy Policy, Terms of Service, and Accessibility Statement with
+            sensible municipal defaults built in.</div>
+        </div>
+      </div>
+
+      <!-- Geo -->
+      <div class="feature-panel" id="panel-geo">
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">GF</div>
+            <div class="feat-title">Boundary enforcement</div>
+          </div>
+          <div class="feat-desc">Point-in-polygon checks against uploaded GeoJSON boundaries. Requests dropped outside
+            jurisdiction are auto-rejected.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">AS</div>
+            <div class="feat-title">Asset selection</div>
+          </div>
+          <div class="feat-desc">Residents click directly on infrastructure assets on the map and select the specific
+            one their report relates to.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">HS</div>
+            <div class="feat-title">Hotspot detection</div>
+          </div>
+          <div class="feat-desc">PostGIS ST_ClusterDBSCAN automatically clusters requests to identify problem areas,
+            like pothole clusters on specific roads.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">MC</div>
+            <div class="feat-title">Marker clustering</div>
+          </div>
+          <div class="feat-desc">Auto-groups nearby markers on the resident-facing map via Google Maps MarkerClusterer
+            for clean visual density.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">PX</div>
+            <div class="feat-title">Proximity analysis</div>
+          </div>
+          <div class="feat-desc">AI checks if issues are near critical infrastructure — schools, hospitals, fire
+            stations — using PostGIS with Nominatim fallback.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">BD</div>
+            <div class="feat-title">User bias detection</div>
+          </div>
+          <div class="feat-desc">Spatial statistics flag suspicious activity, like a single user submitting dozens of
+            reports within a 10-meter radius.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── AI SECTION ── -->
+  <section class="ai-section">
+    <div class="container">
+      <div class="ai-inner">
+        <div>
+          <div class="reveal">
+            <div class="section-label">Intelligence</div>
+            <h2 class="section-h2">AI that works<br /><em>for your staff,</em><br />not around them.</h2>
+            <p class="section-sub" style="margin-top:.75rem">Every AI action requires human approval. No score is ever
+              auto-applied — creating a full audit trail of who decided what and when.</p>
+          </div>
+          <div class="ai-list">
+            <div class="ai-item reveal">
+              <div class="ai-num">1</div>
+              <div>
+                <div class="ai-item-title">Visual analysis</div>
+                <div class="ai-item-desc">Gemini 3.1 Flash-Lite "sees" uploaded photos to categorize hazards and provide
+                  richer context for staff triage.</div>
+              </div>
+            </div>
+            <div class="ai-item reveal">
+              <div class="ai-num">2</div>
+              <div>
+                <div class="ai-item-title">Multilingual AI</div>
+                <div class="ai-item-desc">When residents submit in non-English, AI provides a literal English
+                  translation first so staff can read every submission.</div>
+              </div>
+            </div>
+            <div class="ai-item reveal">
+              <div class="ai-num">3</div>
+              <div>
+                <div class="ai-item-title">Conversational analytics advisor</div>
+                <div class="ai-item-desc">Ask plain English questions: "Are there equity gaps in our response times?"
+                  Get data-driven answers with real numbers.</div>
+              </div>
+            </div>
+            <div class="ai-item reveal">
+              <div class="ai-num">4</div>
+              <div>
+                <div class="ai-item-title">PII auto-redaction</div>
+                <div class="ai-item-desc">Names, phones, and emails are automatically stripped from public logs before
+                  any AI or researcher ever sees the data.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ai-visual reveal">
+          <div class="ai-vis-head">
+            <div>
+              <div class="ai-vis-title">AI Analysis</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">Gemini 3.1 Flash-Lite</div>
+            </div>
+            <div class="ai-badge"
+              style="background:rgba(34,211,165,.1);border-color:rgba(34,211,165,.25);color:var(--green)">Visual +
+              Spatial Context</div>
+          </div>
+
+          <!-- Summary text -->
+          <div
+            style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+            Cracked pavement extends ~4m along the curb lane. Surface displacement suggests subsurface water damage.
+            High pedestrian-traffic corridor.
+          </div>
+
+          <!-- Priority + Accept -->
+          <div
+            style="margin-bottom:1rem;padding:1rem;background:rgba(34,211,165,.06);border:1px solid rgba(34,211,165,.18);border-radius:10px;">
+            <div
+              style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:.4rem">
+              AI Suggested Priority</div>
+            <div style="font-size:2rem;font-weight:700;color:var(--green);line-height:1;margin-bottom:.5rem">7.4 <span
+                style="font-size:1rem;color:var(--muted);font-weight:400">/ 10</span></div>
+            <div class="ai-score-bar" style="margin-bottom:.85rem">
+              <div class="ai-score-fill" style="width:74%"></div>
+            </div>
+            <div
+              style="display:flex;align-items:center;justify-content:space-between;padding:.65rem .9rem;background:rgba(34,211,165,.1);border:1px solid rgba(34,211,165,.28);border-radius:8px;cursor:pointer;">
+              <div style="font-size:.82rem;font-weight:600;color:var(--green)">✓ Accept AI Priority</div>
+              <div
+                style="font-size:.75rem;color:rgba(34,211,165,.6);border:1px solid rgba(34,211,165,.25);padding:.18rem .55rem;border-radius:5px">
+                Edit</div>
+            </div>
+          </div>
+
+          <!-- Detail rows with evidence -->
+          <div class="ai-row">
+            <div class="ai-row-content">
+              <div style="display:flex;justify-content:space-between">
+                <div class="ai-row-label" style="color:var(--purple-light)">Infrastructure Proximity</div>
+                <div style="font-size:.7rem;color:var(--muted)">Severity: <span
+                    style="color:#f87171;font-weight:700">HIGH</span></div>
+              </div>
+              <div class="ai-row-val" style="font-size:.8rem;font-weight:400;color:rgba(255,255,255,.7)">Located 60m
+                from Lincoln Elementary School crosswalk.</div>
+              <div style="font-size:.7rem;color:var(--purple-light);margin-top:.25rem;opacity:.7">Evidence: PostGIS
+                proximity · 3 schools within 200m</div>
+            </div>
+          </div>
+          <div class="ai-row">
+            <div class="ai-row-content">
+              <div class="ai-row-label" style="color:#f59e0b">Historical Trend</div>
+              <div class="ai-row-val" style="font-size:.8rem;font-weight:400;color:rgba(255,255,255,.7)">3 similar
+                reports in this block in the past 90 days — recurring drainage issue likely.</div>
+              <div style="font-size:.7rem;color:#f59e0b;margin-top:.25rem;opacity:.7">Evidence: REQ-20260201-A3F1,
+                REQ-20260214-BB02, REQ-20260228-C19D</div>
+            </div>
+          </div>
+          <div class="ai-row">
+            <div class="ai-row-content">
+              <div class="ai-row-label" style="color:var(--muted)">Weather Criticality</div>
+              <div class="ai-row-val" style="font-size:.8rem;font-weight:400;color:rgba(255,255,255,.7)">Freeze-thaw
+                cycle ongoing — 28°F overnight. Hazard likely to worsen by morning.</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.25rem;opacity:.7">Evidence: Clear sky, 31°F ·
+                Open-Meteo</div>
+            </div>
+          </div>
+          <div class="ai-row" style="border-bottom:none;padding-bottom:0">
+            <div class="ai-row-content">
+              <div class="ai-row-label" style="color:var(--muted)">Similar Reports</div>
+              <div style="display:flex;flex-direction:column;gap:.35rem;margin-top:.3rem">
+                <div
+                  style="display:flex;justify-content:space-between;font-size:.77rem;padding:.4rem .6rem;background:rgba(255,255,255,.04);border-radius:6px;color:rgba(255,255,255,.65)">
+                  <span>REQ-20260201-A3F1 · Major pothole, curb lane</span>
+                  <span style="color:var(--green);font-weight:700;flex-shrink:0;margin-left:.5rem">55%</span>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;font-size:.77rem;padding:.4rem .6rem;background:rgba(255,255,255,.04);border-radius:6px;color:rgba(255,255,255,.65)">
+                  <span>REQ-20260214-BB02 · Road surface cracking</span>
+                  <span style="color:var(--muted);font-weight:700;flex-shrink:0;margin-left:.5rem">36%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── RESEARCH ── -->
+  <section class="research-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Research Suite</div>
+        <h2 class="section-h2">60+ fields for<br /><em>university researchers.</em></h2>
+        <p class="section-sub" style="margin-top:.6rem">A privacy-preserving analytics layer with PII redaction, address
+          anonymization, and location fuzzing — designed for external researchers studying municipal equity and
+          infrastructure.</p>
+      </div>
+      <div class="research-grid">
+        <div class="pack-card reveal">
+          <div class="pack-dot" style="background:#a855f7"></div>
+          <div class="pack-title">Social Equity Pack</div>
+          <div class="pack-sub">Census tract integration, Social Vulnerability Index, housing tenure, income quintile —
+            for sociologists.</div>
+        </div>
+        <div class="pack-card reveal">
+          <div class="pack-dot" style="background:#3b82f6"></div>
+          <div class="pack-title">Environmental Pack</div>
+          <div class="pack-sub">Real historical weather data, asset age, precipitation — for urban planners studying
+            freeze-thaw cycles.</div>
+        </div>
+        <div class="pack-card reveal">
+          <div class="pack-dot" style="background:#ec4899"></div>
+          <div class="pack-title">Sentiment &amp; Trust Pack</div>
+          <div class="pack-sub">NLP sentiment scores, repeat report detection, frustration indicators — for political
+            scientists.</div>
+        </div>
+        <div class="pack-card reveal">
+          <div class="pack-dot" style="background:#f59e0b"></div>
+          <div class="pack-title">Bureaucratic Friction Pack</div>
+          <div class="pack-sub">Triage time, reassignment count, business hours to resolve — for public administration
+            researchers.</div>
+        </div>
+        <div class="pack-card reveal">
+          <div class="pack-dot" style="background:#22d3a5"></div>
+          <div class="pack-title">AI/ML Research Pack</div>
+          <div class="pack-sub">AI vs manual priority diff, flagging accuracy, classification data — for data scientists
+            studying human-AI alignment.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── COST ── -->
+  <section class="cost-section" id="cost">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-h2">Pinpoint 311 is <em>free.</em><br />You only pay direct API costs.</h2>
+        <p class="section-sub" style="margin-top:.6rem">The software, all features, all updates — always free. The only
+          costs are the third-party APIs you actually use. Most small towns pay under $5/month.</p>
+      </div>
+
+      <!-- FREE callout -->
+      <div class="reveal"
+        style="margin-top:2rem;display:flex;align-items:center;gap:1.25rem;padding:1.25rem 1.5rem;background:var(--purple-dim);border:1px solid var(--purple-border);border-radius:14px;flex-wrap:wrap">
+        <div style="font-size:2rem;font-weight:800;color:var(--purple-light);line-height:1">$0</div>
+        <div>
+          <div style="font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:.15rem">Pinpoint 311 software —
+            forever free</div>
+          <div style="font-size:.8rem;color:var(--muted)">MIT licensed · unlimited users · all features · all updates ·
+            no tiers</div>
+        </div>
+        <div
+          style="margin-left:auto;font-size:.75rem;color:var(--purple-light);background:rgba(99,102,241,.15);border:1px solid var(--purple-border);padding:.35rem .8rem;border-radius:6px;white-space:nowrap">
+          No credit card ever</div>
+      </div>
+
+      <!-- Calculator -->
+      <div class="reveal calc-shell" style="margin-top:2rem">
+        <div class="calc-head">
+          <div>
+            <div
+              style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem">
+              Estimate your API costs</div>
+            <div style="font-size:.9rem;font-weight:600;color:var(--white)" id="calcPopLabel">~25,000 residents · ~500
+              requests/month</div>
+          </div>
+          <div style="font-size:2.2rem;font-weight:700;color:var(--white);line-height:1"><span
+              id="calcTotal">$11</span><span style="font-size:.9rem;font-weight:400;color:var(--muted)">/mo</span></div>
+        </div>
+
+        <!-- Slider + text input -->
+        <div style="margin:1.5rem 0 .5rem">
+          <div style="display:flex;align-items:center;gap:.85rem;margin-bottom:.75rem">
+            <input type="range" id="popSlider" min="0" max="100" value="30" style="width:100%;flex:1" />
+            <div style="position:relative;flex-shrink:0">
+              <input type="number" id="popInput" min="0" max="9999999" value="25000"
+                style="width:110px;padding:.45rem .5rem .45rem .7rem;font-size:.83rem;border-radius:8px;text-align:right;-moz-appearance:textfield;-webkit-appearance:none;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;outline:none"
+                placeholder="e.g. 25000" />
+              <span
+                style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.75rem;color:var(--muted);pointer-events:none">pop.</span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted)">
+            <span>1,000</span><span>10K</span><span>25K</span><span>50K</span><span>100K</span><span>250K+</span>
+          </div>
+        </div>
+
+        <!-- Cost breakdown rows -->
+        <div
+          style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:11px;overflow:hidden">
+
+          <!-- Pinpoint 311 row — always $0 -->
+          <div
+            style="display:flex;align-items:center;padding:.9rem 1.1rem;background:rgba(34,211,165,.05);border-bottom:1px solid var(--border)">
+            <div style="flex:1">
+              <div style="font-size:.85rem;font-weight:700;color:var(--white)">Pinpoint 311 software</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">All features, all users, forever</div>
+            </div>
+            <div style="font-size:1.1rem;font-weight:800;color:var(--green)">$0</div>
+          </div>
+
+          <div class="calc-row" id="rowMaps">
+            <div class="calc-row-left">
+              <div class="calc-row-name">Google Maps</div>
+              <div class="calc-row-note" id="notesMaps">Map loads, geocoding, autocomplete</div>
+            </div>
+            <div class="calc-row-val" id="valMaps">$0</div>
+          </div>
+          <div class="calc-row" id="rowAI">
+            <div class="calc-row-left">
+              <div class="calc-row-name">Vertex AI (Gemini)</div>
+              <div class="calc-row-note" id="notesAI">Photo analysis, triage, AI advisor</div>
+            </div>
+            <div class="calc-row-val" id="valAI">$5</div>
+          </div>
+          <div class="calc-row" id="rowTranslate">
+            <div class="calc-row-left">
+              <div class="calc-row-name">Google Translate</div>
+              <div class="calc-row-note" id="notesTranslate">UI + notification translation</div>
+            </div>
+            <div class="calc-row-val" id="valTranslate">$2</div>
+          </div>
+          <div class="calc-row" id="rowSMS">
+            <div class="calc-row-left">
+              <div class="calc-row-name">SMS (Twilio)</div>
+              <div class="calc-row-note" id="notesSMS">Status update texts to residents</div>
+            </div>
+            <div class="calc-row-val" id="valSMS">$4</div>
+          </div>
+          <div class="calc-row" style="border-bottom:none" id="rowEmail">
+            <div class="calc-row-left">
+              <div class="calc-row-name">Email (SMTP)</div>
+              <div class="calc-row-note" id="notesEmail">Confirmations, status updates</div>
+            </div>
+            <div class="calc-row-val" id="valEmail">$0</div>
+          </div>
+        </div>
+
+        <!-- Free tier note -->
+        <div id="freeTierNote"
+          style="margin-top:1rem;font-size:.78rem;color:var(--green);display:flex;align-items:center;gap:.4rem">
+          <span
+            style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;flex-shrink:0"></span>
+          <span id="freeTierText">Google Maps and Translate are within their free monthly quotas at this volume.</span>
+        </div>
+      </div>
+
+      <!-- Savings vs competitors -->
+      <div class="reveal"
+        style="margin-top:2rem;padding:1.5rem;background:rgba(34,211,165,.04);border:1px solid rgba(34,211,165,.14);border-radius:14px">
+        <div
+          style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:1.1rem">
+          You'd save this every year vs. commercial alternatives</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem">
+          <div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. SeeClickFix</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveSCF">$10,600</span><span
+                style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
+          </div>
+          <div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. PublicStuff / Accela</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveAccela">$17,600</span><span
+                style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
+          </div>
+          <div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. GovPilot 311</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveGovPilot">$14,600</span><span
+                style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── TECH ── -->
+  <section class="tech-section" id="tech">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Tech Stack</div>
+        <h2 class="section-h2">Production-grade.<br /><em>Runs on less than a Chrome tab.</em></h2>
+        <p class="section-sub" style="margin-top:.6rem">The entire stack uses ~160MB of RAM. Suitable for free-tier
+          cloud VMs or any existing municipal server running Docker.</p>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-card reveal">
+          <div class="tech-name">React 18</div>
+          <div class="tech-desc">Frontend + Vite + TypeScript</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">FastAPI</div>
+          <div class="tech-desc">Python 3.11 async API</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">PostgreSQL 15</div>
+          <div class="tech-desc">+ PostGIS for geospatial</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Vertex AI</div>
+          <div class="tech-desc">Gemini 3.1 Flash-Lite multimodal</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Redis</div>
+          <div class="tech-desc">Caching + Celery queue</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Auth0</div>
+          <div class="tech-desc">SSO + MFA + Passkeys</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Caddy</div>
+          <div class="tech-desc">Automatic HTTPS / TLS</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Tailwind + Framer</div>
+          <div class="tech-desc">Glassmorphism UI</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Alembic</div>
+          <div class="tech-desc">Version-controlled migrations</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Watchtower</div>
+          <div class="tech-desc">Auto security patches at 3am</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Google Cloud KMS</div>
+          <div class="tech-desc">AES-256 PII encryption</div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="tech-name">Open311 v2</div>
+          <div class="tech-desc">Standard GeoReport API</div>
+        </div>
+      </div>
+
+      <div class="resource-bar reveal" style="margin-top:2rem">
+        <div class="resource-head">
+          <div class="resource-title">Memory footprint — entire production stack</div>
+          <div class="resource-note">A single Gmail tab uses 200–400 MB</div>
+        </div>
+        <div class="resource-rows">
+          <div class="r-row">
+            <div class="r-label">Celery Worker</div>
+            <div class="r-bar">
+              <div class="r-fill" style="width:58%"></div>
+            </div>
+            <div class="r-mem">94 MB</div>
+          </div>
+          <div class="r-row">
+            <div class="r-label">FastAPI</div>
+            <div class="r-bar">
+              <div class="r-fill" style="width:14%"></div>
+            </div>
+            <div class="r-mem">23 MB</div>
+          </div>
+          <div class="r-row">
+            <div class="r-label">PostgreSQL</div>
+            <div class="r-bar">
+              <div class="r-fill" style="width:11%"></div>
+            </div>
+            <div class="r-mem">18 MB</div>
+          </div>
+          <div class="r-row">
+            <div class="r-label">Caddy</div>
+            <div class="r-bar">
+              <div class="r-fill" style="width:9%"></div>
+            </div>
+            <div class="r-mem">14 MB</div>
+          </div>
+          <div class="r-row">
+            <div class="r-label">Redis</div>
+            <div class="r-bar">
+              <div class="r-fill" style="width:3%"></div>
+            </div>
+            <div class="r-mem">4 MB</div>
+          </div>
+          <div class="r-row">
+            <div class="r-label">Nginx (frontend)</div>
+            <div class="r-bar">
+              <div class="r-fill" style="width:2%"></div>
+            </div>
+            <div class="r-mem">3 MB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── SECURITY ── -->
+  <section class="security-section" id="security">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Security &amp; Compliance</div>
+        <h2 class="section-h2">Enterprise security.<br /><em>Government-grade.</em></h2>
+      </div>
+      <div class="sec-grid">
+        <div class="sec-card reveal">
+          <div class="sec-head">
+            <div class="sec-icon">A0</div>
+            <div class="sec-title">Auth0 SSO</div>
+          </div>
+          <div class="sec-desc">Zero-password authentication with MFA, passkeys, biometrics, and social login. No
+            passwords stored anywhere in the system.</div>
+        </div>
+        <div class="sec-card reveal">
+          <div class="sec-head">
+            <div class="sec-icon">KM</div>
+            <div class="sec-title">Google Cloud KMS</div>
+          </div>
+          <div class="sec-desc">All resident PII (email, phone, name, address) encrypted with AES-256-GCM via HSM-backed
+            Google Cloud KMS.</div>
+        </div>
+        <div class="sec-card reveal">
+          <div class="sec-head">
+            <div class="sec-icon">AU</div>
+            <div class="sec-title">Immutable audit logs</div>
+          </div>
+          <div class="sec-desc">Every lifecycle event — submission, assignment, comment, status change — is logged for
+            OPRA/FOIA compliance and legal discovery.</div>
+        </div>
+        <div class="sec-card reveal">
+          <div class="sec-head">
+            <div class="sec-icon">SC</div>
+            <div class="sec-title">CI/CD security scanning</div>
+          </div>
+          <div class="sec-desc">CodeQL static analysis, OWASP ZAP dynamic testing, and Trivy container scanning on every
+            push. Dependabot for weekly dependency updates.</div>
+        </div>
+        <div class="sec-card reveal">
+          <div class="sec-head">
+            <div class="sec-icon">WC</div>
+            <div class="sec-title">WCAG 2.1 AA</div>
+          </div>
+          <div class="sec-desc">Full keyboard navigation, 4.5:1 contrast ratio, and aria-labels on all interactive
+            elements. Pa11y accessibility audits in CI.</div>
+        </div>
+        <div class="sec-card reveal">
+          <div class="sec-head">
+            <div class="sec-icon">DR</div>
+            <div class="sec-title">Data sovereignty</div>
+          </div>
+          <div class="sec-desc">Fully self-hosted on your infrastructure. No phone-home to Pinpoint 311 servers. MIT
+            license means you can fork and maintain indefinitely.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div-line" />
+
+  <!-- ── CTA ── -->
+  <section class="cta-section" id="cta">
+    <div class="cta-glow"></div>
+    <div class="container" style="position:relative;z-index:2">
+      <div class="reveal">
+        <div class="section-label" style="display:block;text-align:center">Get started</div>
+        <h2 class="cta-h2">Your community deserves<br /><em>better infrastructure.</em></h2>
+        <p class="cta-sub">Deploy in minutes on your existing server. No vendor, no lock-in, no license fee — ever.</p>
+        <div class="cta-actions">
+          <button class="btn-primary" onclick="window.location.href='get-started.html'">Get Started Free →</button>
+          <button class="btn-ghost"
+            onclick="window.open('https://github.com/Pinpoint-311/Pinpoint-311/discussions','_blank')">Ask a
+            question</button>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a class="footer-logo" href="pinpoint311.html">
+          <div class="nav-logo-mark" style="width:28px;height:28px;font-size:.85rem">P</div>
+          Pinpoint 311
+        </a>
+        <div class="footer-right">
+          <a class="footer-link" href="https://github.com/Pinpoint-311/Pinpoint-311" target="_blank">GitHub</a>
+          <a class="footer-link" href="get-started.html#setup-guide">Docs</a>
+          <a class="footer-link" href="https://github.com/Pinpoint-311/Pinpoint-311/blob/main/LICENSE"
+            target="_blank">License</a>
+          <a class="footer-link" href="#security">Security</a>
+          <span class="footer-badge">Fiscally sponsored by Hack Club · 501(c)(3)</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy">© 2024–2026 Pinpoint 311. MIT License. No vendor lock-in, ever.</div>
+  </footer>
+
+  <script>
+    // ── HAMBURGER ──
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      const btn = document.getElementById('hamburger');
+      nav.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+
+    // ── ROTATING WORD ──
+    const rotItems = ["potholes", "sidewalks", "street lights", "parks", "water lines", "schools", "crosswalks", "drainage"];
+    const rotTrack = document.getElementById('rotTrack');
+    const rotWrap = document.getElementById('rotWrap');
+    let rotIdx = 0;
+
+    function buildRot() {
+      [...rotItems, rotItems[0]].forEach(t => {
+        const el = document.createElement('div');
+        el.className = 'rot-item';
+        el.textContent = t;
+        rotTrack.appendChild(el);
+      });
+    }
+    buildRot();
+    window.addEventListener('load', () => {
+      const h = rotTrack.querySelector('.rot-item').getBoundingClientRect().height;
+      rotWrap.style.height = h + 'px';
+    });
+    function advanceRot() {
+      rotIdx++;
+      const h = rotTrack.querySelector('.rot-item').offsetHeight;
+      rotTrack.style.transition = 'transform .5s cubic-bezier(.4,0,.2,1)';
+      rotTrack.style.transform = `translateY(-${rotIdx * h}px)`;
+      if (rotIdx >= rotItems.length) {
+        setTimeout(() => {
+          rotTrack.style.transition = 'none';
+          rotTrack.style.transform = 'translateY(0)';
+          rotIdx = 0;
+        }, 520);
+      }
+    }
+    setInterval(advanceRot, 2400);
+
+    // ── COST CALCULATOR ──
+    (function () {
+      // [minSliderVal, popLabel, reqLabel, maps$, ai$, translate$, sms$, email$, maxPop]
+      const tiers = [
+        [0, "~1,000 residents", "~20 requests/month", 0, 0, 0, 0, 0, 2500],
+        [10, "~5,000 residents", "~100 requests/month", 0, 1, 0, 1, 0, 7500],
+        [20, "~10,000 residents", "~200 requests/month", 0, 2, 0, 2, 0, 17500],
+        [30, "~25,000 residents", "~500 requests/month", 0, 5, 2, 4, 0, 37500],
+        [45, "~50,000 residents", "~1,000 requests/month", 5, 10, 5, 8, 1, 75000],
+        [60, "~100,000 residents", "~2,000 requests/month", 20, 15, 10, 16, 2, 125000],
+        [80, "~150,000 residents", "~3,000 requests/month", 35, 22, 15, 24, 3, 200000],
+        [100, "~250,000+ residents", "~5,000 requests/month", 65, 38, 25, 40, 5, Infinity],
+      ];
+
+      // Map a raw population number → slider value 0–100
+      function popToSlider(pop) {
+        const thresholds = [1000, 5000, 10000, 25000, 50000, 100000, 150000, 250000];
+        const sliderVals = [0, 10, 20, 30, 45, 60, 80, 100];
+        for (let i = thresholds.length - 1; i >= 0; i--) {
+          if (pop >= thresholds[i]) return sliderVals[i];
+        }
+        return 0;
+      }
+
+      function getTierBySlider(val) {
+        let t = tiers[0];
+        for (let i = 0; i < tiers.length; i++) { if (val >= tiers[i][0]) t = tiers[i]; }
+        return t;
+      }
+
+      function fmt(n) { return n === 0 ? '$0' : '$' + n; }
+
+      function updateCalc(source) {
+        const slider = document.getElementById('popSlider');
+        const input = document.getElementById('popInput');
+
+        let sliderVal, popNum;
+
+        if (source === 'slider') {
+          sliderVal = parseInt(slider.value);
+          // pick representative pop number for display
+          const repPops = [1000, 5000, 10000, 25000, 50000, 100000, 150000, 250000];
+          const sliderBreaks = [0, 10, 20, 30, 45, 60, 80, 100];
+          let idx = 0;
+          for (let i = sliderBreaks.length - 1; i >= 0; i--) { if (sliderVal >= sliderBreaks[i]) { idx = i; break; } }
+          popNum = repPops[idx];
+          input.value = popNum.toLocaleString().replace(/,/g, '');
+        } else {
+          // source === 'input'
+          popNum = parseInt(input.value.replace(/[^0-9]/g, '')) || 0;
+          sliderVal = popToSlider(popNum);
+          slider.value = sliderVal;
+        }
+
+        const t = getTierBySlider(sliderVal);
+        const [_v, popLabel, reqLabel, maps, ai, translate, sms, email] = t;
+        const total = maps + ai + translate + sms + email;
+
+        document.getElementById('calcPopLabel').textContent = popLabel + ' · ' + reqLabel;
+        document.getElementById('calcTotal').textContent = '$' + total;
+
+        ['Maps', 'AI', 'Translate', 'SMS', 'Email'].forEach((k, i) => {
+          const vals = [maps, ai, translate, sms, email];
+          const el = document.getElementById('val' + k);
+          el.textContent = fmt(vals[i]);
+          el.className = 'calc-row-val' + (vals[i] === 0 ? ' free' : '');
+        });
+
+        const freeItems = [];
+        if (maps === 0) freeItems.push('Google Maps');
+        if (translate === 0) freeItems.push('Translate');
+        if (email === 0) freeItems.push('Email');
+        const freeWrap = document.getElementById('freeTierNote');
+        if (freeItems.length) {
+          freeWrap.style.display = 'flex';
+          document.getElementById('freeTierText').textContent = freeItems.join(', ') + (freeItems.length > 1 ? ' are' : ' is') + ' within free monthly quotas at this volume.';
+        } else { freeWrap.style.display = 'none'; }
+
+        const annualCost = total * 12;
+        document.getElementById('saveSCF').textContent = '$' + Math.round((total <= 11 ? 11000 : total <= 63 ? 15000 : 20000) - annualCost).toLocaleString();
+        document.getElementById('saveAccela').textContent = '$' + Math.round((total <= 11 ? 18000 : total <= 63 ? 22000 : 30000) - annualCost).toLocaleString();
+        document.getElementById('saveGovPilot').textContent = '$' + Math.round((total <= 11 ? 15000 : total <= 63 ? 18000 : 25000) - annualCost).toLocaleString();
+
+        const pct = (sliderVal / 100) * 100;
+        slider.style.background = `linear-gradient(to right, var(--purple) ${pct}%, rgba(255,255,255,.1) ${pct}%)`;
+      }
+
+      document.getElementById('popSlider').addEventListener('input', () => updateCalc('slider'));
+      document.getElementById('popInput').addEventListener('input', () => updateCalc('input'));
+      document.getElementById('popInput').addEventListener('blur', () => {
+        const v = parseInt(document.getElementById('popInput').value) || 0;
+        document.getElementById('popInput').value = v;
+      });
+      updateCalc('slider');
+    })();
+
+    // ── FEATURE TABS ──
+    document.getElementById('ftabs').addEventListener('click', e => {
+      const btn = e.target.closest('.ftab');
+      if (!btn) return;
+      document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.feature-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    });
+
+    // ── SCROLL REVEAL ──
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+
+</html>
