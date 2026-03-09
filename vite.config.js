@@ -9,6 +9,7 @@ export default defineConfig({
                 pinpoint311: resolve(__dirname, 'pinpoint311.html'),
                 getstarted: resolve(__dirname, 'get-started.html'),
                 about: resolve(__dirname, 'about.html'),
+                demolauncher: resolve(__dirname, 'demo-launcher.html'),
             },
         },
     },
