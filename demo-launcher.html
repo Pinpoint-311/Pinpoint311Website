@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Launch Live Demo — Pinpoint 311</title>
+    <title>Try Live Demo — Pinpoint 311</title>
     <meta name="description"
-        content="Try Pinpoint 311 live — no signup required. We'll spin up a private instance of the real system configured for your town." />
+        content="Try the Pinpoint 311 live demo — no signup required. Explore the full citizen portal, staff dashboard, and admin console." />
     <link rel="icon" href="/public/pinpoint311_icon.png" type="image/png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
@@ -22,7 +22,6 @@
             --text: #e2e8f0;
             --muted: #64748b;
             --success: #22c55e;
-            --warning: #f59e0b;
         }
 
         * {
@@ -32,799 +31,173 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-        }
-
-        /* Nav */
-        .demo-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2.5rem;
-            height: 60px;
-            background: rgba(21, 25, 41, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .demo-nav a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .demo-nav a:hover {
-            color: var(--text);
-        }
-
-        .demo-nav .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .demo-nav .logo img {
-            height: 28px;
-        }
-
-        /* Main */
-        .demo-container {
-            flex: 1;
-            display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            position: relative;
-            overflow: hidden;
         }
 
-        .demo-bg {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(124, 58, 237, 0.06) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .demo-inner {
-            position: relative;
-            z-index: 1;
+        .demo-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 560px;
             width: 100%;
-            max-width: 520px;
-        }
-
-        .demo-header {
             text-align: center;
-            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 80px rgba(99, 102, 241, 0.08);
         }
 
-        .demo-header .icon-wrap {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(124, 58, 237, 0.15));
-            display: grid;
-            place-items: center;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        .demo-header .icon-wrap svg {
-            width: 28px;
-            height: 28px;
-            color: var(--primary-bright);
-        }
-
-        .demo-header h1 {
+        .demo-card h1 {
             font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #e0e7ff, #a78bfa);
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-bright));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .demo-header p {
+        .demo-card p {
             color: var(--muted);
-            font-size: 0.95rem;
             line-height: 1.6;
-            margin-top: 0.5rem;
-        }
-
-        /* Features */
-        .demo-features {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
             margin-bottom: 2rem;
         }
 
-        .demo-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            padding: 0.9rem 1.1rem;
-            background: rgba(30, 27, 75, 0.4);
-            border-radius: 12px;
-            border: 1px solid rgba(99, 102, 241, 0.08);
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            text-align: left;
         }
 
-        .demo-feature svg {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            color: var(--primary);
-        }
-
-        .demo-feature strong {
-            color: var(--text);
-            font-size: 0.85rem;
-        }
-
-        .demo-feature span {
-            color: var(--muted);
-            font-size: 0.8rem;
-        }
-
-        /* Card */
-        .demo-card {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 2rem;
+        .feature {
+            background: rgba(99, 102, 241, 0.06);
             border: 1px solid var(--border);
-            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 1rem;
         }
 
-        .demo-card h2 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .demo-card h2 svg {
-            width: 20px;
-            height: 20px;
-            color: var(--warning);
-        }
-
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            margin-bottom: 1rem;
-        }
-
-        .field label {
-            color: var(--muted);
-            font-size: 0.8rem;
+        .feature-title {
             font-weight: 600;
-        }
-
-        .field input,
-        .field select {
-            background: var(--bg);
-            border: 1px solid #1e1b4b;
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
             color: var(--text);
-            font-size: 0.95rem;
-            font-family: inherit;
-            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .field input:focus,
-        .field select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        .feature-desc {
+            font-size: 0.75rem;
+            color: var(--muted);
+            line-height: 1.4;
         }
 
         .launch-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             width: 100%;
-            background: linear-gradient(135deg, #6366f1, #7c3aed);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 0.9rem 1.5rem;
-            font-size: 1rem;
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
             font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 16px;
             cursor: pointer;
-            font-family: inherit;
-            transition: opacity 0.2s;
-            margin-top: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3);
         }
 
         .launch-btn:hover {
-            opacity: 0.9;
-        }
-
-        .launch-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
         }
 
         .launch-btn svg {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
         }
 
-        .note {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--muted);
-            font-size: 0.75rem;
-            margin-top: 1.2rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(99, 102, 241, 0.08);
-        }
-
-        .note svg {
-            width: 14px;
-            height: 14px;
-            color: var(--success);
-            flex-shrink: 0;
-        }
-
-        /* Loading State */
-        .loading-state {
-            display: none;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .loading-state.active {
-            display: block;
-        }
-
-        .spinner-ring {
-            width: 56px;
-            height: 56px;
-            border: 3px solid #1e1b4b;
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 1.5rem;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .loading-state h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .loading-state p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .progress-steps {
+        .info-text {
             margin-top: 1.5rem;
-            text-align: left;
-            max-width: 340px;
-            margin-inline: auto;
-        }
-
-        .progress-step {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 0;
-            font-size: 0.85rem;
-            color: var(--muted);
-            transition: color 0.3s;
-        }
-
-        .progress-step.done {
-            color: var(--success);
-        }
-
-        .progress-step.active {
-            color: var(--primary-bright);
-        }
-
-        .progress-step .step-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #1e1b4b;
-            flex-shrink: 0;
-            transition: background 0.3s;
-        }
-
-        .progress-step.done .step-dot {
-            background: var(--success);
-        }
-
-        .progress-step.active .step-dot {
-            background: var(--primary);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* Ready State */
-        .ready-state {
-            display: none;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .ready-state.active {
-            display: block;
-        }
-
-        .ready-state .check-icon {
-            width: 56px;
-            height: 56px;
-            color: var(--success);
-            margin: 0 auto 1rem;
-        }
-
-        .ready-state h3 {
-            color: var(--success);
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .ready-state p {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .creds-box {
-            background: rgba(34, 197, 94, 0.06);
-            border: 1px solid rgba(34, 197, 94, 0.15);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
-            margin: 1rem 0;
-            text-align: left;
-        }
-
-        .creds-box .cred-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.25rem 0;
-            font-size: 0.85rem;
-        }
-
-        .creds-box .cred-label {
-            color: var(--muted);
-            font-weight: 600;
-        }
-
-        .creds-box .cred-value {
-            color: var(--text);
-            font-family: 'Courier New', monospace;
-        }
-
-        .go-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 0.9rem 2rem;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            text-decoration: none;
-        }
-
-        .go-btn:hover {
-            opacity: 0.9;
-        }
-
-        .expiry-note {
-            margin-top: 1rem;
             font-size: 0.8rem;
             color: var(--muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
         }
 
-        /* Error State */
-        .error-state {
-            display: none;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .error-state.active {
-            display: block;
-        }
-
-        .error-state h3 {
-            color: #ef4444;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .error-state p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .retry-btn {
-            background: rgba(99, 102, 241, 0.15);
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
             color: var(--primary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.6rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            margin-top: 1rem;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
         }
 
-        /* Hide/show */
-        .setup-form {
-            display: block;
-        }
-
-        .setup-form.hidden {
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            .demo-nav {
-                padding: 0 1rem;
-            }
-
-            .demo-inner {
-                max-width: 100%;
-            }
-
-            .demo-card {
-                padding: 1.5rem;
-            }
+        .back-link:hover {
+            color: var(--primary-bright);
         }
     </style>
 </head>
 
 <body>
-    <!-- Nav -->
-    <nav class="demo-nav">
-        <a href="/" class="logo">
-            <img src="/public/pinpoint311_logo_dark_transparent.png" alt="Pinpoint 311" />
-        </a>
-        <a href="/">← Back to Home</a>
-    </nav>
+    <div class="demo-card">
+        <h1>🎯 Try Pinpoint 311</h1>
+        <p>
+            Explore a fully-functional instance — submit requests, view the staff dashboard,
+            and browse the admin console. No signup required.
+        </p>
 
-    <!-- Main -->
-    <div class="demo-container">
-        <div class="demo-bg"></div>
-        <div class="demo-inner">
-
-            <!-- Header -->
-            <div class="demo-header">
-                <div class="icon-wrap">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                        <circle cx="12" cy="10" r="3" />
-                    </svg>
-                </div>
-                <h1>Try Pinpoint 311 Live</h1>
-                <p>We'll spin up a <strong>real, private instance</strong> of the full system configured for your town.
-                    No signup, no credit card — just the real product.</p>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <div class="feature-title">Citizen Portal</div>
+                <div class="feature-desc">Submit 311 requests with AI categorization</div>
             </div>
-
-            <!-- Features -->
-            <div class="demo-features">
-                <div class="demo-feature">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                    <div><strong>Full Live System</strong><br><span>Not a simulation — the real backend, database, and
-                            AI engine</span></div>
-                </div>
-                <div class="demo-feature">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    <div><strong>Private & Isolated</strong><br><span>Your own instance — no shared data, fully
-                            sandboxed</span></div>
-                </div>
-                <div class="demo-feature">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                    <div><strong>24 Hours to Explore</strong><br><span>Full access for a day — then it auto-cleans
-                            up</span></div>
-                </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Staff Dashboard</div>
+                <div class="feature-desc">View queue, map, and analytics</div>
             </div>
-
-            <!-- Card -->
-            <div class="demo-card">
-                <!-- Setup Form -->
-                <div id="setup-form" class="setup-form">
-                    <h2>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                        </svg>
-                        Launch Your Demo
-                    </h2>
-                    <div class="field">
-                        <label>Municipality Name</label>
-                        <input type="text" id="town-input" placeholder="e.g. Springfield" autofocus />
-                    </div>
-                    <div class="field">
-                        <label>State</label>
-                        <select id="state-select">
-                            <option value="">Select state...</option>
-                        </select>
-                    </div>
-                    <button class="launch-btn" id="launch-btn" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14" />
-                            <path d="m12 5 7 7-7 7" />
-                        </svg>
-                        Launch Demo
-                    </button>
-                    <div class="note">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                            <polyline points="22 4 12 14.01 9 11.01" />
-                        </svg>
-                        Takes ~60 seconds · Full system with AI · Admin credentials provided
-                    </div>
-                </div>
-
-                <!-- Loading State -->
-                <div id="loading-state" class="loading-state">
-                    <div class="spinner-ring"></div>
-                    <h3>Launching <span id="loading-town"></span></h3>
-                    <p>Spinning up your private Pinpoint 311 instance...</p>
-                    <div class="progress-steps">
-                        <div class="progress-step" id="step-1"><span class="step-dot"></span> Creating database...</div>
-                        <div class="progress-step" id="step-2"><span class="step-dot"></span> Starting AI engine...
-                        </div>
-                        <div class="progress-step" id="step-3"><span class="step-dot"></span> Building frontend...</div>
-                        <div class="progress-step" id="step-4"><span class="step-dot"></span> Configuring your town...
-                        </div>
-                        <div class="progress-step" id="step-5"><span class="step-dot"></span> Running health checks...
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ready State -->
-                <div id="ready-state" class="ready-state">
-                    <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                    <h3>Your Instance is Ready!</h3>
-                    <p>Log in with the credentials below to explore the full admin dashboard, or submit a request as a
-                        resident.</p>
-                    <div class="creds-box">
-                        <div class="cred-row"><span class="cred-label">Username:</span><span
-                                class="cred-value">admin</span></div>
-                        <div class="cred-row"><span class="cred-label">Password:</span><span
-                                class="cred-value">DemoAdmin311!</span></div>
-                    </div>
-                    <a id="go-link" class="go-btn" href="#" target="_blank">
-                        Open Your Instance →
-                    </a>
-                    <div class="expiry-note">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <polyline points="12 6 12 12 16 14" />
-                        </svg>
-                        Expires in 24 hours · Bookmark the link to return
-                    </div>
-                </div>
-
-                <!-- Error State -->
-                <div id="error-state" class="error-state">
-                    <h3>Something went wrong</h3>
-                    <p id="error-msg">We couldn't spin up your instance. This may be because all demo slots are in use.
-                    </p>
-                    <button class="retry-btn" id="retry-btn">Try Again</button>
-                </div>
+            <div class="feature">
+                <div class="feature-icon">⚙️</div>
+                <div class="feature-title">Admin Console</div>
+                <div class="feature-desc">Browse all settings (view-only)</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-title">Resets Daily</div>
+                <div class="feature-desc">Fresh data every 24 hours</div>
             </div>
         </div>
+
+        <a href="https://demo.pinpoint311.org" class="launch-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+            </svg>
+            Launch Live Demo
+        </a>
+
+        <p class="info-text">
+            The demo is pre-loaded with sample services and data for a fictional township.
+            Admin settings are view-only to prevent configuration changes.
+        </p>
+
+        <a href="/" class="back-link">← Back to Pinpoint 311</a>
     </div>
-
-    <script>
-        // ====== Config ======
-        // IMPORTANT: Change this to your demo orchestrator URL when deployed
-        const ORCHESTRATOR_URL = window.location.hostname === 'localhost'
-            ? 'http://localhost:3311'
-            : 'https://demo-api.pinpoint311.org';
-
-        const US_STATES = [
-            'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
-            'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
-            'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-            'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
-            'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
-        ];
-
-        // ====== DOM ======
-        const townInput = document.getElementById('town-input');
-        const stateSelect = document.getElementById('state-select');
-        const launchBtn = document.getElementById('launch-btn');
-        const setupForm = document.getElementById('setup-form');
-        const loadingState = document.getElementById('loading-state');
-        const readyState = document.getElementById('ready-state');
-        const errorState = document.getElementById('error-state');
-        const loadingTown = document.getElementById('loading-town');
-        const goLink = document.getElementById('go-link');
-        const retryBtn = document.getElementById('retry-btn');
-
-        // Populate states
-        US_STATES.forEach(s => {
-            const opt = document.createElement('option');
-            opt.value = s; opt.textContent = s;
-            stateSelect.appendChild(opt);
-        });
-
-        // Enable button when both fields filled
-        function checkForm() {
-            launchBtn.disabled = !townInput.value.trim() || !stateSelect.value;
-        }
-        townInput.addEventListener('input', checkForm);
-        stateSelect.addEventListener('change', checkForm);
-
-        // Enter key
-        townInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !launchBtn.disabled) launchDemo();
-        });
-
-        // ====== Launch Flow ======
-        launchBtn.addEventListener('click', launchDemo);
-        retryBtn.addEventListener('click', () => {
-            errorState.classList.remove('active');
-            setupForm.classList.remove('hidden');
-        });
-
-        async function launchDemo() {
-            const town = townInput.value.trim();
-            const state = stateSelect.value;
-            if (!town || !state) return;
-
-            const fullName = `${town}, ${state}`;
-
-            // Switch to loading
-            setupForm.classList.add('hidden');
-            loadingState.classList.add('active');
-            loadingTown.textContent = fullName;
-
-            // Animate progress steps
-            const steps = [1, 2, 3, 4, 5];
-            let currentStep = 0;
-            function advanceStep() {
-                if (currentStep > 0) {
-                    document.getElementById(`step-${currentStep}`).classList.remove('active');
-                    document.getElementById(`step-${currentStep}`).classList.add('done');
-                }
-                currentStep++;
-                if (currentStep <= 5) {
-                    document.getElementById(`step-${currentStep}`).classList.add('active');
-                }
-            }
-            advanceStep(); // step 1 active
-
-            try {
-                // Create instance
-                const createRes = await fetch(`${ORCHESTRATOR_URL}/api/demo/create`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ townName: fullName }),
-                });
-
-                if (!createRes.ok) {
-                    const err = await createRes.json().catch(() => ({}));
-                    throw new Error(err.error || `Server responded with ${createRes.status}`);
-                }
-
-                const { id } = await createRes.json();
-                advanceStep(); // step 2
-
-                // Poll for status
-                let attempts = 0;
-                const maxAttempts = 60; // 60 * 3s = 3 minutes max
-
-                const pollInterval = setInterval(async () => {
-                    attempts++;
-                    try {
-                        const statusRes = await fetch(`${ORCHESTRATOR_URL}/api/demo/${id}/status`);
-                        const data = await statusRes.json();
-
-                        // Advance progress steps based on status
-                        if (data.status === 'booting' && currentStep < 3) {
-                            advanceStep(); // step 3
-                        }
-
-                        if (data.status === 'ready') {
-                            clearInterval(pollInterval);
-                            // Finish all remaining steps
-                            while (currentStep < 5) advanceStep();
-                            advanceStep(); // mark step 5 done
-
-                            setTimeout(() => {
-                                loadingState.classList.remove('active');
-                                readyState.classList.add('active');
-                                goLink.href = data.url;
-                            }, 800);
-                        }
-
-                        if (data.status === 'failed') {
-                            clearInterval(pollInterval);
-                            throw new Error(data.error || 'Instance failed to start');
-                        }
-
-                        if (attempts >= maxAttempts) {
-                            clearInterval(pollInterval);
-                            throw new Error('Instance took too long to start. Please try again.');
-                        }
-
-                        // Advance steps periodically for visual feedback
-                        if (attempts % 8 === 0 && currentStep < 5) advanceStep();
-
-                    } catch (err) {
-                        clearInterval(pollInterval);
-                        showError(err.message);
-                    }
-                }, 3000);
-
-            } catch (err) {
-                showError(err.message);
-            }
-        }
-
-        function showError(msg) {
-            loadingState.classList.remove('active');
-            readyState.classList.remove('active');
-            errorState.classList.add('active');
-            document.getElementById('error-msg').textContent = msg;
-        }
-    </script>
 </body>
 
 </html>
