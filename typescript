@@ -1,0 +1,17 @@
+Script started on Mon Mar  9 12:28:00 2026
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+[?1034hbash-3.2$ 
+bash-3.2$ chmod +x /tmp/copy_demo_keys.sh && scp -o StrictHostKeyChecking=no -i "/Users/parthgupta/Downloads/ssh-key-2025-11-20 (4).key" /tmp/copy_demo_keys.sh ubuntu@132.226.32.116:/tmp/copy_de mo_keys.sh && ssh -o StrictHostKeyChecking=no -i "/Users/parthgupta/Downloads/ssh-key-2025-11-20 (4).key" ubuntu@132.226.32.116 'bash /tmp/copy_demo_keys.sh && rm -f /tmp/copy_demo_keys.sh'
+copy_demo_keys.sh                                                                                                                                                 0%    0     0.0KB/s   --:-- ETAcopy_demo_keys.sh                                                                                                                                               100% 1402    14.6KB/s   00:00    
+=== Exporting GOOGLE_MAPS_API_KEY from production ===
+OK: 39 chars
+UPDATE 1
+=== Verifying ===
+ GOOGLE_MAPS_API_KEY | t             |  39
+
+=== Done ===
+bash-3.2$ 
+bash-3.2$ 
