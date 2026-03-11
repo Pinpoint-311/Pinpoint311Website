@@ -1,59 +1,41 @@
 # Pinpoint 311
 
-> Pinpoint 311 is a free, open-source 311 municipal reporting platform for local governments to manage infrastructure requests from residents.
+> Free, open-source municipal reporting software for local governments.
 
-Pinpoint 311 is a 501(c)(3) nonprofit project fiscally sponsored by Hack Club. It provides cities and towns with a modern, AI-powered system to receive, triage, and resolve infrastructure complaints from residents — at zero cost.
+## What is Pinpoint 311?
 
-## Key Facts
-- **Type**: Free, open-source SaaS for local government
-- **License**: MIT License
-- **Cost**: $0 — completely free for municipalities
-- **Status**: 501(c)(3) nonprofit, fiscally sponsored by Hack Club (EIN: 81-2908499)
-- **Founder**: Parth Gupta, a student at the Lawrenceville School and resident of West Windsor, NJ
-- **Repository**: https://github.com/Pinpoint-311/Pinpoint-311
-- **Website**: https://pinpoint311.org
+Pinpoint 311 is a free, open-source (MIT license) 311 system that lets residents report infrastructure issues (potholes, streetlights, graffiti, etc.) and gives municipal staff AI-powered tools to triage and resolve them. It replaces expensive commercial platforms like SeeClickFix ($5-20K/year) and outdated email/phone intake systems.
 
-## What It Does
-Pinpoint 311 replaces expensive, proprietary 311 systems (like SeeClickFix, GovPilot, CivicPlus) with a free alternative that any municipality can self-host. Residents submit infrastructure reports (potholes, streetlight outages, graffiti, etc.) through a public portal or mobile interface. Staff process these reports through an admin console with AI-powered triage, automatic routing, and real-time analytics.
+## Key Features
 
-## Core Features
-- **Public Reporting Portal**: Residents submit requests with location, photos, and descriptions
-- **AI-Powered Triage**: Google Vertex AI (Gemini) auto-categorizes and prioritizes incoming requests
-- **Google Maps Integration**: Geographic visualization of all reports with boundary enforcement
-- **Multi-Language Support**: Google Cloud Translation for 100+ languages
-- **Staff Admin Console**: Full request lifecycle management, analytics dashboard, staff management
-- **Auth0 SSO**: Zero-password staff authentication with MFA and passkeys
-- **SMS Notifications**: Twilio-powered status updates to residents
-- **Email Confirmations**: Automated email notifications at each status change
-- **Self-Hosted**: Runs on any server with Docker. No vendor lock-in.
-- **Privacy-First**: All data stays on the municipality's own infrastructure
+- Resident portal: 60-second submissions, no account needed, 109 languages
+- Staff dashboard: AI triage via Gemini 3.1 Flash-Lite, priority scoring, internal notes
+- Admin console: white-label branding, GeoJSON map layers, service routing rules
+- AI capabilities: photo analysis, multilingual translation, conversational analytics, PII auto-redaction
+- Geospatial: boundary enforcement, asset selection, hotspot detection, proximity analysis
+- Notifications: email and SMS status updates
+- Research tools: 60+ field CSV/GeoJSON export with census integration
+- Open311 v2 API compliant
+- Runs on a $5/month server (~160MB memory footprint)
 
-## Technology Stack
-- **Backend**: Python (FastAPI), PostgreSQL, Alembic
-- **Frontend**: HTML, CSS, JavaScript (Vite build)
-- **Infrastructure**: Docker, Docker Compose, Caddy (auto-HTTPS)
-- **AI/ML**: Google Vertex AI (Gemini 2.0 Flash)
-- **Maps**: Google Maps Platform
-- **Auth**: Auth0
-- **SMS**: Twilio
-- **Deployment**: Single-command Docker deployment with prebuilt images
+## Links
 
-## Pages
-- [Home](https://pinpoint311.org/): Main marketing page with features, pricing comparison, and technical details
-- [Get Started](https://pinpoint311.org/get-started): Onboarding wizard and comprehensive setup guide
-- [About](https://pinpoint311.org/about): Mission, founder bio, nonprofit status, and values
+- Homepage: https://pinpoint311.org
+- GitHub: https://github.com/Pinpoint-311/Pinpoint-311
+- Live Demo: https://demo.pinpoint311.org
+- Get Started: https://pinpoint311.org/get-started.html
+- About: https://pinpoint311.org/about.html
 
-## Comparison to Alternatives
-| Feature | Pinpoint 311 | SeeClickFix | GovPilot |
-|---------|-------------|-------------|----------|
-| Annual Cost | $0 | $15,000-50,000 | $25,000-80,000 |
-| Open Source | Yes (MIT) | No | No |
-| AI Triage | Included | Add-on | No |
-| Self-Hosted | Yes | No | No |
-| Data Ownership | 100% yours | Vendor-held | Vendor-held |
-| Multi-Language | 100+ languages | Limited | Limited |
+## Technical Stack
+
+- Backend: Python, FastAPI, Celery, PostgreSQL/PostGIS
+- Frontend: React, TypeScript, Vite
+- AI: Google Gemini 3.1 Flash-Lite (vision + text)
+- Maps: Google Maps API
+- Deployment: Docker Compose, Caddy reverse proxy
 
 ## Contact
-- GitHub: https://github.com/Pinpoint-311/Pinpoint-311
-- Donations: https://hcb.hackclub.com/pinpoint-311
-- LinkedIn (Founder): https://www.linkedin.com/in/parth-gupta-57b122398/
+
+- GitHub Issues: https://github.com/Pinpoint-311/Pinpoint-311/issues
+- License: MIT (no vendor lock-in)
+- Fiscal sponsor: Hack Club (501(c)(3) nonprofit)

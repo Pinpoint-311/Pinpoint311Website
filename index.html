@@ -1838,6 +1838,27 @@
         font-size: .7rem;
       }
 
+      /* On mobile: Feature (1) → Pinpoint (2) → Email (3) → SeeClickFix (4) */
+      .compare-grid>.compare-col:nth-child(1),
+      .compare-row>.compare-cell:nth-child(1) {
+        order: 1;
+      }
+
+      .compare-grid>.compare-col.highlight,
+      .compare-row>.compare-cell.highlight {
+        order: 2;
+      }
+
+      .compare-grid>.compare-col:nth-child(2),
+      .compare-row>.compare-cell:nth-child(2) {
+        order: 3;
+      }
+
+      .compare-grid>.compare-col:nth-child(3),
+      .compare-row>.compare-cell:nth-child(3) {
+        order: 4;
+      }
+
       .tech-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr))
       }
@@ -2218,7 +2239,7 @@
 
   <!-- ── NAV ── -->
   <nav>
-    <a class="nav-logo" href="pinpoint311.html">
+    <a class="nav-logo" href="/">
       <img src="pinpoint311_logo_dark_transparent.png" alt="Pinpoint 311" style="height:28px;width:auto">
     </a>
     <ul class="nav-links" id="navLinks">
@@ -3301,9 +3322,8 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <a class="footer-logo" href="pinpoint311.html">
-          <img src="pinpoint311_icon.png" alt="Pinpoint 311" style="width:28px;height:28px;border-radius:6px">
-          Pinpoint 311
+        <a class="footer-logo" href="/">
+          <img src="pinpoint311_logo_dark_transparent.png" alt="Pinpoint 311" style="height:24px;width:auto">
         </a>
         <div class="footer-right">
           <a class="footer-link" href="https://github.com/Pinpoint-311/Pinpoint-311" target="_blank">GitHub</a>

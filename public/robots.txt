@@ -7,6 +7,9 @@ Allow: /
 # Sitemaps
 Sitemap: https://pinpoint311.org/sitemap.xml
 
+# AI / LLM info
+# See https://pinpoint311.org/llms.txt for AI-readable summary
+
 # AI Crawlers — explicitly allowed
 User-agent: GPTBot
 Allow: /
@@ -30,4 +33,10 @@ User-agent: Bytespider
 Allow: /
 
 User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
 Allow: /
