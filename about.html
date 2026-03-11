@@ -2,332 +2,419 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Pinpoint 311 — Mission, Founder & Nonprofit Status</title>
-    <meta name="description"
-        content="Pinpoint 311 is a 501(c)(3) nonprofit founded by Parth Gupta. Learn about our mission to make municipal reporting free and open-source for every community." />
-    <meta name="keywords"
-        content="Pinpoint 311 about, Parth Gupta, civic tech nonprofit, Hack Club, 501c3, open source government" />
-    <link rel="canonical" href="https://pinpoint311.org" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="About Pinpoint 311 — Mission, Founder & Nonprofit Status" />
-    <meta property="og:description"
-        content="A 501(c)(3) nonprofit making municipal reporting free. Meet the founder and learn about our mission." />
-    <meta property="og:url" content="https://pinpoint311.org" />
-    <meta property="og:site_name" content="Pinpoint 311" />
+<title>About Pinpoint 311 — Mission, Founder & Nonprofit Status</title>
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="About Pinpoint 311 — Mission & Nonprofit Status" />
-    <meta name="twitter:description"
-        content="501(c)(3) nonprofit making municipal infrastructure reporting free and open-source for every community." />
+<meta name="description"
+content="Pinpoint 311 is a 501(c)(3) nonprofit founded by Parth Gupta. Learn about our mission to make municipal reporting free and open-source for every community." />
 
-    <!-- AI / LLM Discovery -->
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
+<link rel="canonical" href="https://pinpoint311.org/about" />
 
-    <!-- Structured Data: Organization + Person -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Pinpoint 311",
-      "url": "https://pinpoint311.org",
-      "description": "Free, open-source 311 municipal reporting platform for local governments",
-      "foundingDate": "2024",
-      "nonprofit": true,
-      "parentOrganization": {
-        "@type": "Organization",
-        "name": "Hack Club",
-        "url": "https://hackclub.com",
-        "taxID": "81-2908499"
-      },
-      "founder": {
-        "@type": "Person",
-        "name": "Parth Gupta",
-        "jobTitle": "Founder & Lead Developer",
-        "url": "https://linkedin.com",
-        "sameAs": [
-          "https://linkedin.com",
-          "https://github.com"
-        ],
-        "affiliation": {
-          "@type": "EducationalOrganization",
-          "name": "The Lawrenceville School"
-        }
-      },
-      "sameAs": [
-        "https://github.com",
-        "https://hackclub.com"
-      ]
-    }
-    </script>
+<link
+href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Lora:ital,wght@0,600;1,400;1,600&display=swap"
+rel="stylesheet" />
 
-    <link
-        href="https://googleapis.com"
-        rel="stylesheet" />
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
+<style>
 
-        :root {
-            --navy: #151929;
-            --navy-2: #1c2240;
-            --navy-3: #232b4e;
-            --navy-card: #1e2544;
-            --purple: #6366f1;
-            --purple-dim: rgba(99, 102, 241, 0.18);
-            --purple-border: rgba(99, 102, 241, 0.28);
-            --purple-glow: rgba(99, 102, 241, 0.3);
-            --purple-light: #a5b4fc;
-            --green: #22d3a5;
-            --green-dim: rgba(34, 211, 165, 0.12);
-            --green-border: rgba(34, 211, 165, 0.28);
-            --white: #ffffff;
-            --muted: rgba(255, 255, 255, 0.5);
-            --muted2: rgba(255, 255, 255, 0.3);
-            --border: rgba(255, 255, 255, 0.07);
-            --border2: rgba(255, 255, 255, 0.12);
-        }
+*{box-sizing:border-box;margin:0;padding:0}
 
-        html {
-            scroll-behavior: smooth
-        }
+:root{
+--navy:#151929;
+--navy-2:#1c2240;
+--navy-3:#232b4e;
+--navy-card:#1e2544;
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--navy);
-            color: var(--white);
-            overflow-x: hidden;
-            line-height: 1.6
-        }
+--purple:#6366f1;
+--purple-dim:rgba(99,102,241,.18);
+--purple-border:rgba(99,102,241,.28);
+--purple-light:#a5b4fc;
 
-        ::-webkit-scrollbar {
-            width: 6px
-        }
+--green:#22d3a5;
 
-        ::-webkit-scrollbar-track {
-            background: var(--navy)
-        }
+--white:#fff;
+--muted:rgba(255,255,255,.55);
+--border:rgba(255,255,255,.08);
+--border2:rgba(255,255,255,.14);
+}
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--navy-3);
-            border-radius: 3px
-        }
+body{
+font-family:'DM Sans',sans-serif;
+background:var(--navy);
+color:var(--white);
+line-height:1.6;
+}
 
-        a {
-            color: var(--purple-light);
-            text-decoration: none;
-            transition: color .2s
-        }
+.container{
+max-width:1100px;
+margin:auto;
+padding:0 1.75rem;
+}
 
-        a:hover {
-            color: var(--white)
-        }
+nav{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 2rem;
+background:rgba(21,25,41,.9);
+border-bottom:1px solid var(--border);
+z-index:200;
+}
 
-        /* NAV */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2.5rem;
-            height: 60px;
-            background: rgba(21, 25, 41, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border)
-        }
+.nav-logo img{height:28px}
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: .6rem;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--white);
-            text-decoration: none
-        }
+.nav-links{
+display:flex;
+gap:1.6rem;
+list-style:none;
+}
 
-        .nav-logo-mark {
-            width: 32px;
-            height: 32px;
-            border-radius: 9px;
-            background: linear-gradient(135deg, #818cf8, #4f52c8);
-            display: grid;
-            place-items: center;
-            font-size: .95rem;
-            font-weight: 700;
-            color: white
-        }
+.nav-links a{
+font-size:.86rem;
+color:var(--muted);
+text-decoration:none;
+}
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.75rem;
-            list-style: none
-        }
+.nav-links a:hover{color:var(--white)}
 
-        .nav-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: .855rem;
-            font-weight: 500;
-            transition: color .2s
-        }
+.nav-btn{
+background:var(--purple);
+border:none;
+padding:.5rem 1.1rem;
+border-radius:8px;
+font-weight:600;
+color:white;
+cursor:pointer;
+}
 
-        .nav-links a:hover {
-            color: var(--white)
-        }
+.about-hero{
+padding:140px 0 4rem;
+text-align:center;
+}
 
-        .nav-btn {
-            background: var(--purple);
-            color: var(--white);
-            border: none;
-            padding: .5rem 1.15rem;
-            border-radius: 8px;
-            font-size: .855rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            transition: opacity .2s, transform .15s
-        }
+.section-label{
+display:inline-block;
+font-size:.72rem;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:var(--purple-light);
+background:var(--purple-dim);
+border:1px solid var(--purple-border);
+padding:.35rem 1rem;
+border-radius:100px;
+margin-bottom:1.4rem;
+}
 
-        .nav-btn:hover {
-            opacity: .88;
-            transform: translateY(-1px)
-        }
+.about-hero h1{
+font-size:clamp(2rem,5vw,3.4rem);
+font-weight:300;
+line-height:1.1;
+}
 
-        /* HERO & CONTENT */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 1.75rem
-        }
+.about-hero em{
+font-family:'Lora',serif;
+font-style:italic;
+font-weight:600;
+background:linear-gradient(130deg,#a5b4fc,#6366f1);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
-        .about-hero {
-            padding: 140px 0 4rem;
-            text-align: center;
-            position: relative
-        }
+.about-hero p{
+margin-top:.8rem;
+max-width:520px;
+margin-left:auto;
+margin-right:auto;
+color:var(--muted);
+}
 
-        .glow {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            pointer-events: none;
-            z-index: 0
-        }
+.div-line{
+border:none;
+border-top:1px solid var(--border);
+}
 
-        .glow-1 {
-            width: 700px;
-            height: 500px;
-            background: radial-gradient(ellipse, rgba(99, 102, 241, .18) 0%, transparent 70%);
-            top: -80px;
-            left: 50%;
-            transform: translateX(-50%)
-        }
+.mission-section{padding:5rem 0}
 
-        .section-label {
-            display: inline-block;
-            font-size: .72rem;
-            font-weight: 700;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: var(--purple-light);
-            background: var(--purple-dim);
-            border: 1px solid var(--purple-border);
-            padding: .35rem 1rem;
-            border-radius: 100px;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1
-        }
+.sh-label{
+font-size:.72rem;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:var(--purple-light);
+}
 
-        /* FOUNDER STYLING */
-        .founder-section {
-            text-align: center;
-            padding: 4rem 0;
-        }
+.sh-title{
+font-size:clamp(1.5rem,3vw,2.2rem);
+font-weight:300;
+margin-top:.4rem;
+}
 
-        .founder-avatar {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 1.5rem;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid var(--purple-border);
-            background: var(--navy-2);
-            box-shadow: 0 0 20px var(--purple-glow);
-        }
+.sh-title em{
+font-family:'Lora',serif;
+font-style:italic;
+font-weight:600;
+background:linear-gradient(130deg,#a5b4fc,#6366f1);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
-        .founder-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+.mission-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:2rem;
+margin-top:2.5rem;
+}
 
-        .founder-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
+.mission-card{
+background:var(--navy-card);
+border:1px solid var(--border2);
+border-radius:16px;
+padding:1.7rem;
+}
 
-        .founder-title {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-    </style>
+.mission-card h3{
+margin-top:.5rem;
+font-size:1rem;
+}
+
+.mission-card p{
+font-size:.85rem;
+color:var(--muted);
+}
+
+.founder-section{padding:5rem 0}
+
+.founder-card{
+display:flex;
+gap:2rem;
+background:var(--navy-card);
+border:1px solid var(--border2);
+border-radius:20px;
+padding:2.5rem;
+margin-top:2rem;
+}
+
+.founder-avatar{
+width:140px;
+height:140px;
+border-radius:16px;
+overflow:hidden;
+flex-shrink:0;
+background:linear-gradient(135deg,#818cf8,#4f52c8);
+}
+
+.founder-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.founder-info h3{
+font-size:1.3rem;
+}
+
+.founder-role{
+font-size:.82rem;
+color:var(--purple-light);
+margin-bottom:.9rem;
+font-weight:600;
+}
+
+.founder-info p{
+font-size:.88rem;
+color:var(--muted);
+margin-bottom:.8rem;
+}
+
+.founder-links{
+margin-top:1rem;
+display:flex;
+gap:.6rem;
+}
+
+.founder-link{
+border:1px solid var(--border2);
+padding:.45rem .9rem;
+border-radius:8px;
+font-size:.8rem;
+text-decoration:none;
+color:var(--muted);
+}
+
+.founder-link:hover{
+background:var(--purple-dim);
+color:white;
+}
+
+footer{
+border-top:1px solid var(--border);
+padding:2rem 0;
+margin-top:3rem;
+}
+
+.footer-inner{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.footer-link{
+font-size:.8rem;
+color:var(--muted);
+margin-left:1rem;
+text-decoration:none;
+}
+
+.footer-copy{
+text-align:center;
+font-size:.72rem;
+color:rgba(255,255,255,.35);
+margin-top:1rem;
+}
+
+</style>
 </head>
 
 <body>
-    <nav>
-        <a href="/" class="nav-logo">
-            <div class="nav-logo-mark">P</div>
-            Pinpoint 311
-        </a>
-        <ul class="nav-links">
-            <li><a href="/about">About</a></li>
-            <li><a href="https://github.com">Open Source</a></li>
-            <li><button class="nav-btn">Get Started</button></li>
-        </ul>
-    </nav>
 
-    <main class="container">
-        <section class="about-hero">
-            <div class="glow glow-1"></div>
-            <span class="section-label">Our Mission</span>
-            <h1>Democratizing Municipal Infrastructure</h1>
-            <p style="color: var(--muted); max-width: 700px; margin: 1.5rem auto;">
-                Pinpoint 311 is a nonprofit initiative dedicated to providing every community with 
-                modern, free, and open-source reporting tools to improve local governance.
-            </p>
-        </section>
+<nav>
+<a class="nav-logo" href="/">
+<img src="pinpoint311_logo_dark_transparent.png">
+</a>
 
-        <section class="founder-section">
-            <div class="founder-avatar">
-                <img src="/parth.png" alt="Parth Gupta">
-            </div>
-            <h2 class="founder-name">Parth Gupta</h2>
-            <p class="founder-title">Founder & Lead Developer</p>
-            
-            <div style="max-width: 600px; margin: 0 auto; text-align: left;">
-                <p>Pinpoint 311 is a [501(c)(3) nonprofit](https://hackclub.com/fiscal-sponsorship/) fiscally sponsored by the [Hack Club Foundation](https://hackclub.com/). This status allows us to receive tax-deductible donations and focus entirely on our mission of public service.</p>
-            </div>
-        </section>
-    </main>
+<ul class="nav-links">
+<li><a href="/#features">Features</a></li>
+<li><a href="/#compare">Compare</a></li>
+<li><a href="/#cost">Pricing</a></li>
+<li><a href="/about" style="color:white">About</a></li>
+<li><a href="https://github.com/Pinpoint-311/Pinpoint-311">GitHub</a></li>
+</ul>
+
+<button class="nav-btn" onclick="window.location.href='/get-started'">Get Started</button>
+</nav>
+
+<section class="about-hero">
+<div class="container">
+
+<div class="section-label">About Pinpoint 311</div>
+
+<h1>
+Built for communities.<br>
+<em>Not for profit.</em>
+</h1>
+
+<p>
+Pinpoint 311 is a free, open-source municipal reporting platform created so
+every community — regardless of budget — can access modern infrastructure tools.
+</p>
+
+</div>
+</section>
+
+<hr class="div-line">
+
+<section class="mission-section">
+<div class="container">
+
+<div class="sh-label">Our Mission</div>
+<div class="sh-title">Give every municipality <em>world-class</em> tools.</div>
+
+<div class="mission-grid">
+
+<div class="mission-card">
+<h3>Free forever</h3>
+<p>No SaaS pricing. No tiers. The platform is MIT licensed and always will be.</p>
+</div>
+
+<div class="mission-card">
+<h3>Open source</h3>
+<p>Every line of code is public. Fork it, audit it, modify it.</p>
+</div>
+
+<div class="mission-card">
+<h3>AI-assisted</h3>
+<p>Gemini-powered triage and analysis — but always human-approved.</p>
+</div>
+
+<div class="mission-card">
+<h3>Equity focused</h3>
+<p>Built-in research datasets allow municipalities to study infrastructure equity.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<hr class="div-line">
+
+<section class="founder-section">
+<div class="container">
+
+<div class="sh-label">Founder</div>
+<div class="sh-title">Meet the person behind <em>Pinpoint 311</em></div>
+
+<div class="founder-card">
+
+<div class="founder-avatar">
+<img src="/parth.png" alt="Parth Gupta">
+</div>
+
+<div class="founder-info">
+
+<h3>Parth Gupta</h3>
+<div class="founder-role">Founder & Lead Developer</div>
+
+<p>
+A West Windsor, NJ resident for 14 years and student at the Lawrenceville School,
+Parth built Pinpoint 311 after seeing how infrastructure issues in his community
+went unreported or got lost between voicemails and spreadsheets.
+</p>
+
+<p>
+He wanted to prove that modern civic infrastructure tools don't need to cost
+six figures.
+</p>
+
+<div class="founder-links">
+<a class="founder-link"
+href="https://www.linkedin.com/in/parth-gupta-57b122398/"
+target="_blank">LinkedIn</a>
+
+<a class="founder-link"
+href="https://github.com/Pinpoint-311/Pinpoint-311"
+target="_blank">GitHub</a>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+
+<div class="footer-inner">
+<img src="pinpoint311_logo_dark_transparent.png" style="height:24px">
+
+<div>
+<a class="footer-link" href="https://github.com/Pinpoint-311/Pinpoint-311">GitHub</a>
+<a class="footer-link" href="/get-started">Docs</a>
+<a class="footer-link" href="/#security">Security</a>
+</div>
+</div>
+
+<div class="footer-copy">
+© 2024–2026 Pinpoint 311 · MIT License
+</div>
+
+</div>
+</footer>
+
 </body>
-
 </html>
