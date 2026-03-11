@@ -1838,27 +1838,6 @@
         font-size: .7rem;
       }
 
-      /* On mobile: Feature (1) → Pinpoint (2) → Email (3) → SeeClickFix (4) */
-      .compare-grid>.compare-col:nth-child(1),
-      .compare-row>.compare-cell:nth-child(1) {
-        order: 1;
-      }
-
-      .compare-grid>.compare-col.highlight,
-      .compare-row>.compare-cell.highlight {
-        order: 2;
-      }
-
-      .compare-grid>.compare-col:nth-child(2),
-      .compare-row>.compare-cell:nth-child(2) {
-        order: 3;
-      }
-
-      .compare-grid>.compare-col:nth-child(3),
-      .compare-row>.compare-cell:nth-child(3) {
-        order: 4;
-      }
-
       .tech-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr))
       }
@@ -2403,9 +2382,12 @@
       <div class="compare-swipe-hint">Swipe to compare →</div>
       <div class="compare-scroll-wrap">
         <div class="compare-grid reveal">
-          <!-- Headers -->
+          <!-- Headers: Feature | Pinpoint | Email | SeeClickFix -->
           <div class="compare-col">
             <div class="compare-head" style="color:var(--muted)">Feature</div>
+          </div>
+          <div class="compare-col highlight">
+            <div class="compare-head">Pinpoint 311 <span class="compare-tag">Free</span></div>
           </div>
           <div class="compare-col">
             <div class="compare-head" style="color:var(--muted)">Email & Phone</div>
@@ -2413,84 +2395,82 @@
           <div class="compare-col">
             <div class="compare-head" style="color:var(--muted)">SeeClickFix / Commercial</div>
           </div>
-          <div class="compare-col highlight">
-            <div class="compare-head">Pinpoint 311 <span class="compare-tag">Free</span></div>
-          </div>
 
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Pricing</div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Free &amp; open source</div>
             <div class="compare-cell compare-col"><span class="check">✓</span> Free (staff time)</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> $5–20K/year</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Free &amp; open source</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Request tracking
             </div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Full dashboard + AI</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Spreadsheets / none</div>
             <div class="compare-cell compare-col"><span class="check">✓</span> Full dashboard</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Full dashboard + AI</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Resident updates
             </div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Email + SMS, auto</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Manual callbacks</div>
             <div class="compare-cell compare-col"><span class="check">✓</span> Email notifications</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Email + SMS, auto</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Data ownership
             </div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Self-hosted, you own it</div>
             <div class="compare-cell compare-col"><span class="warn">~</span> Scattered files</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Vendor-hosted</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Self-hosted, you own it</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">AI triage</div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Gemini 3.1 Flash-Lite</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Basic rules only</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Gemini 3.1 Flash-Lite</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Photo analysis
             </div>
-            <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
-            <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
             <div class="compare-cell compare-col highlight"><span class="check">✓</span> Vision AI built-in</div>
+            <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
+            <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Languages</div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> 109 languages</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Staff-dependent</div>
             <div class="compare-cell compare-col"><span class="warn">~</span> ~10 languages</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> 109 languages</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">After-hours access
             </div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> 24/7 online</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Office hours only</div>
             <div class="compare-cell compare-col"><span class="check">✓</span> 24/7 online</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> 24/7 online</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Geofencing</div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> GeoJSON boundaries</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
             <div class="compare-cell compare-col"><span class="warn">~</span> Limited</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> GeoJSON boundaries</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Audit trail</div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Immutable + timestamped</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
             <div class="compare-cell compare-col"><span class="warn">~</span> Basic logging</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Immutable + timestamped</div>
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Research export
             </div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> 60+ fields, free</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Not possible</div>
             <div class="compare-cell compare-col"><span class="warn">~</span> Extra cost</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> 60+ fields, free</div>
           </div>
         </div>
-      </div><!-- /compare-scroll-wrap -->
+      </div>
+    </div><!-- /compare-scroll-wrap -->
     </div>
   </section>
 
