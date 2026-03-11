@@ -1,203 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Try Live Demo — Pinpoint 311</title>
-    <meta name="description"
-        content="Try the Pinpoint 311 live demo — no signup required. Explore the full citizen portal, staff dashboard, and admin console." />
-    <link rel="icon" href="/public/pinpoint311_icon.png" type="image/png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="/style.css" />
-    <style>
-        :root {
-            --bg: #0a0a1a;
-            --card: rgba(15, 15, 46, 0.8);
-            --border: rgba(99, 102, 241, 0.15);
-            --primary: #818cf8;
-            --primary-bright: #a78bfa;
-            --accent: #6366f1;
-            --text: #e2e8f0;
-            --muted: #64748b;
-            --success: #22c55e;
-        }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Try Live Demo — Pinpoint 311</title>
+<meta name="description" content="Try the Pinpoint 311 live demo — no signup required. Explore the full citizen portal, staff dashboard, and admin console."/>
+<link rel="icon" href="/public/pinpoint311_icon.png" type="image/png"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Lora:ital,wght@1,400;1,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:       #151929;
+  --navy-card:  #1e2544;
+  --navy-3:     #232b4e;
+  --purple:     #6366f1;
+  --purple-dim: rgba(99,102,241,0.15);
+  --purple-border: rgba(99,102,241,0.28);
+  --purple-glow: rgba(99,102,241,0.35);
+  --purple-light:#a5b4fc;
+  --green:      #22d3a5;
+  --green-dim:  rgba(34,211,165,0.1);
+  --green-border:rgba(34,211,165,0.25);
+  --white:      #ffffff;
+  --muted:      rgba(255,255,255,0.45);
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.11);
+}
+html,body{height:100%}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1.5rem 1rem;
+  position:relative;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* Background glows */
+.bg-glow{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
+.bg-glow-1{
+  width:700px;height:500px;
+  background:radial-gradient(ellipse,rgba(99,102,241,.16) 0%,transparent 70%);
+  top:-180px;left:50%;transform:translateX(-50%);
+}
+.bg-glow-2{
+  width:350px;height:350px;
+  background:radial-gradient(circle,rgba(34,211,165,.08) 0%,transparent 70%);
+  bottom:-60px;right:5%;
+}
+.bg-glow-3{
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(99,102,241,.1) 0%,transparent 70%);
+  bottom:10%;left:2%;
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
+/* Subtle grid texture */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+}
 
-        .demo-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 3rem;
-            max-width: 560px;
-            width: 100%;
-            text-align: center;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 80px rgba(99, 102, 241, 0.08);
-        }
+.card{
+  position:relative;z-index:1;
+  width:100%;max-width:520px;
+  background:var(--navy-card);
+  border:1px solid var(--border2);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 32px 80px rgba(0,0,0,.45);
+  animation:cardIn .55s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-        .demo-card h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-bright));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+/* Card top accent bar */
+.card-accent{
+  height:3px;
+  background:linear-gradient(90deg,#6366f1 0%,#818cf8 50%,#22d3a5 100%);
+}
 
-        .demo-card p {
-            color: var(--muted);
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
+.card-body{padding:2.25rem 2.25rem 2rem}
 
-        .features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
+/* Nav row */
+.card-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:2rem;
+}
+.logo{
+  display:flex;align-items:center;gap:.55rem;
+  text-decoration:none;
+}
+.logo-mark{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,#818cf8,#4f52c8);
+  display:grid;place-items:center;
+  font-size:.88rem;font-weight:700;color:white;
+  flex-shrink:0;
+}
+.logo-name{font-size:.92rem;font-weight:700;color:var(--white)}
+.back-link{
+  font-size:.775rem;color:var(--muted);
+  text-decoration:none;
+  display:flex;align-items:center;gap:.3rem;
+  transition:color .2s;
+}
+.back-link:hover{color:var(--white)}
 
-        .feature {
-            background: rgba(99, 102, 241, 0.06);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1rem;
-        }
+/* Header */
+.card-header{margin-bottom:1.75rem}
+.pill{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--green);
+  background:var(--green-dim);
+  border:1px solid var(--green-border);
+  border-radius:20px;padding:.28rem .75rem;
+  margin-bottom:.9rem;
+}
+.pill-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+  animation:pulse 2s ease infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(.8)}
+}
+.card-header h1{
+  font-size:1.85rem;font-weight:300;
+  letter-spacing:-.03em;line-height:1.15;
+  margin-bottom:.55rem;
+}
+.card-header h1 em{
+  font-family:'Lora',serif;font-style:italic;font-weight:600;
+  background:linear-gradient(130deg,#a5b4fc,#6366f1);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.card-header p{
+  font-size:.875rem;color:var(--muted);line-height:1.65;
+}
 
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
+/* Feature grid */
+.features{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:.6rem;margin-bottom:1.75rem;
+}
+.feature{
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:.95rem 1rem;
+  transition:border-color .2s,background .2s;
+}
+.feature:hover{
+  border-color:var(--purple-border);
+  background:var(--purple-dim);
+}
+.feature-label{
+  font-size:.67rem;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--purple-light);
+  margin-bottom:.28rem;
+}
+.feature-title{
+  font-size:.855rem;font-weight:600;color:var(--white);
+  margin-bottom:.18rem;
+}
+.feature-desc{
+  font-size:.75rem;color:var(--muted);line-height:1.45;
+}
 
-        .feature-title {
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
-            color: var(--text);
-        }
+/* Divider */
+.divider{
+  height:1px;
+  background:linear-gradient(to right,transparent,var(--border2),transparent);
+  margin-bottom:1.5rem;
+}
 
-        .feature-desc {
-            font-size: 0.75rem;
-            color: var(--muted);
-            line-height: 1.4;
-        }
+/* CTA */
+.launch-btn{
+  display:flex;align-items:center;justify-content:center;gap:.65rem;
+  width:100%;
+  padding:.95rem 1.5rem;
+  background:var(--purple);
+  color:var(--white);border:none;border-radius:11px;
+  font-size:.975rem;font-weight:700;font-family:inherit;
+  cursor:pointer;text-decoration:none;
+  box-shadow:0 0 28px var(--purple-glow);
+  transition:transform .18s,box-shadow .18s,opacity .18s;
+}
+.launch-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 40px var(--purple-glow);
+  opacity:.93;
+}
+.launch-btn svg{width:18px;height:18px;flex-shrink:0}
 
-        .launch-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            width: 100%;
-            padding: 1rem 2rem;
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: white;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3);
-        }
+/* Footer note */
+.card-footer{
+  padding:1rem 2.25rem 1.5rem;
+  border-top:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:.65rem;
+}
+.footer-icon{
+  width:28px;height:28px;border-radius:7px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  display:grid;place-items:center;flex-shrink:0;margin-top:.05rem;
+  font-size:.72rem;
+}
+.footer-text{font-size:.75rem;color:var(--muted);line-height:1.55}
+.footer-text strong{color:rgba(255,255,255,.55);font-weight:600}
 
-        .launch-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
-        }
-
-        .launch-btn svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        .info-text {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover {
-            color: var(--primary-bright);
-        }
-    </style>
+/* ── MOBILE ── */
+@media(max-width:480px){
+  body{align-items:flex-start;padding:1rem .75rem 2rem}
+  .card{border-radius:16px}
+  .card-body{padding:1.5rem 1.35rem 1.4rem}
+  .card-nav{margin-bottom:1.5rem}
+  .card-header h1{font-size:1.55rem}
+  .card-header{margin-bottom:1.4rem}
+  .features{grid-template-columns:1fr;gap:.5rem;margin-bottom:1.4rem}
+  .feature{padding:.8rem .9rem}
+  .card-footer{padding:.9rem 1.35rem 1.25rem}
+  .launch-btn{font-size:.92rem;padding:.88rem 1.25rem}
+}
+</style>
 </head>
-
 <body>
-    <div class="demo-card">
-        <h1>🎯 Try Pinpoint 311</h1>
-        <p>
-            Explore a fully-functional instance — submit requests, view the staff dashboard,
-            and browse the admin console. No signup required.
-        </p>
 
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">📝</div>
-                <div class="feature-title">Citizen Portal</div>
-                <div class="feature-desc">Submit 311 requests with AI categorization</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <div class="feature-title">Staff Dashboard</div>
-                <div class="feature-desc">View queue, map, and analytics</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">⚙️</div>
-                <div class="feature-title">Admin Console</div>
-                <div class="feature-desc">Browse all settings (view-only)</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔄</div>
-                <div class="feature-title">Resets Daily</div>
-                <div class="feature-desc">Fresh data every 24 hours</div>
-            </div>
-        </div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+<div class="bg-glow bg-glow-3"></div>
 
-        <a href="https://demo.pinpoint311.org" class="launch-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-            </svg>
-            Launch Live Demo
-        </a>
+<div class="card">
+  <div class="card-accent"></div>
+  <div class="card-body">
 
-        <p class="info-text">
-            The demo is pre-loaded with sample services and data for a fictional township.
-            Admin settings are view-only to prevent configuration changes.
-        </p>
-
-        <a href="/" class="back-link">← Back to Pinpoint 311</a>
+    <!-- Nav -->
+    <div class="card-nav">
+      <a class="logo" href="/">
+        <img src="https://www.pinpoint311.org/pinpoint311_logo_dark_transparent.png" alt="Pinpoint 311" style="height:28px;width:auto;display:block;"/>
+      </a>
+      <a class="back-link" href="/">← Back to site</a>
     </div>
-</body>
 
+    <!-- Header -->
+    <div class="card-header">
+      <div class="pill"><div class="pill-dot"></div>Live demo</div>
+      <h1>See Pinpoint 311<br/><em>in action.</em></h1>
+      <p>A fully functional instance pre-seeded with sample requests. Submit your own and watch it move through the real pipeline. No signup, no account.</p>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature">
+        <div class="feature-label">Resident</div>
+        <div class="feature-title">Citizen Portal</div>
+        <div class="feature-desc">Submit requests with AI categorization and live status tracking</div>
+      </div>
+      <div class="feature">
+        <div class="feature-label">Staff</div>
+        <div class="feature-title">Staff Dashboard</div>
+        <div class="feature-desc">Request queue, geospatial map, and workload analytics</div>
+      </div>
+      <div class="feature">
+        <div class="feature-label">Admin</div>
+        <div class="feature-title">Admin Console</div>
+        <div class="feature-desc">Full settings and config panel — view-only in demo</div>
+      </div>
+      <div class="feature">
+        <div class="feature-label">Data</div>
+        <div class="feature-title">Resets Daily</div>
+        <div class="feature-desc">Anything you submit is wiped every 24 hours</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CTA -->
+    <a class="launch-btn" href="https://demo.pinpoint311.org">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/>
+      </svg>
+      Launch Live Demo
+    </a>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="card-footer">
+    <div class="footer-icon">ℹ</div>
+    <div class="footer-text">
+      <strong>Pre-seeded with sample requests.</strong> Submit your own and watch it move through the full pipeline — AI triage, priority scoring, staff queue, and status updates. Admin settings are view-only. Data resets every 24 hours.
+    </div>
+  </div>
+</div>
+
+</body>
 </html>
