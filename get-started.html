@@ -39,7 +39,7 @@
     },
     "step": [
       {"@type": "HowToStep", "name": "Install Prerequisites", "text": "Install Docker, Docker Compose, and Git on your server or VM. Minimum: 1 vCPU, 1 GB RAM."},
-      {"@type": "HowToStep", "name": "Download the Release", "text": "Download the latest release from https://github.com/Pinpoint-311/Pinpoint-311/releases and extract it."},
+      {"@type": "HowToStep", "name": "Clone the Repository", "text": "Run: git clone https://github.com/Pinpoint-311/Pinpoint-311.git && cd Pinpoint-311"},
       {"@type": "HowToStep", "name": "Configure Environment", "text": "Copy .env.example to .env and set DB_PASSWORD and SECRET_KEY."},
       {"@type": "HowToStep", "name": "Start the System", "text": "Run: docker compose up --build -d"}
     ]
@@ -1615,15 +1615,14 @@
         <div class="ss-num">2</div>
         <div>
           <div class="ss-title">Get the Code</div>
-          <div class="ss-subtitle">Download the latest release to your server</div>
+          <div class="ss-subtitle">Clone the repository to your server</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <p>Download the latest release from <a href="https://github.com/Pinpoint-311/Pinpoint-311/releases" target="_blank" style="color:var(--purple-light)">GitHub Releases</a> and extract it on your server:</p>
-        <div class="cb">wget https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/v1.0.0.tar.gz
-tar -xzf v1.0.0.tar.gz
-cd Pinpoint-311-1.0.0</div>
+        <p>Open a terminal on your server:</p>
+        <div class="cb">git clone https://github.com/Pinpoint-311/Pinpoint-311.git
+cd Pinpoint-311</div>
         <p>That's it — the entire codebase is on your server.</p>
       </div>
     </div>
