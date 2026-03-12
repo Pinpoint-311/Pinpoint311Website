@@ -36,10 +36,11 @@ const SYSTEM_PROMPT = `You are the **Pinpoint 311 Setup Assistant** — a friend
 - Go to https://github.com/Pinpoint-311/Pinpoint-311/releases
 - Download the latest release archive (.tar.gz or .zip)
 \`\`\`bash
-# Option A: Download release (recommended for production)
-curl -L https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/vX.X.X.tar.gz -o pinpoint.tar.gz
+# Option A: Auto-download latest release (recommended for production)
+VERSION=$(curl -s https://api.github.com/repos/Pinpoint-311/Pinpoint-311/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+curl -L "https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/${VERSION}.tar.gz" -o pinpoint.tar.gz
 tar -xzf pinpoint.tar.gz
-cd Pinpoint-311-X.X.X
+cd Pinpoint-311-${VERSION#v}
 
 # Option B: Git clone (for development or auto-updates)
 git clone https://github.com/Pinpoint-311/Pinpoint-311.git

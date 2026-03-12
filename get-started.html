@@ -1621,10 +1621,11 @@
       </div>
       <div class="ss-body">
         <p>Go to the <a href="https://github.com/Pinpoint-311/Pinpoint-311/releases" target="_blank" style="color:#818cf8">Pinpoint 311 Releases page</a> and download the latest release:</p>
-        <div class="cb"># Download the latest release (replace vX.X.X with the version number)
-curl -L https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/vX.X.X.tar.gz -o pinpoint.tar.gz
+        <div class="cb"># Auto-download the latest release
+VERSION=$(curl -s https://api.github.com/repos/Pinpoint-311/Pinpoint-311/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+curl -L "https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/${VERSION}.tar.gz" -o pinpoint.tar.gz
 tar -xzf pinpoint.tar.gz
-cd Pinpoint-311-X.X.X</div>
+cd Pinpoint-311-${VERSION#v}</div>
         <p>Or use <strong>git clone</strong> if you prefer to always have the latest code:</p>
         <div class="cb">git clone https://github.com/Pinpoint-311/Pinpoint-311.git
 cd Pinpoint-311</div>
