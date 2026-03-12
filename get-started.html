@@ -1766,7 +1766,8 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
       <div class="ss-body">
         <p>Run this command <strong>on the server</strong> to generate a one-time admin login link:</p>
-        <div class="cb">curl -X POST http://localhost/api/auth/bootstrap</div>
+        <div class="cb">curl -X POST http://localhost:8000/api/auth/bootstrap</div>
+        <p style="color:#a5b4fc; font-size:0.9em">💡 Use port <code>8000</code> (backend directly) — port 80 goes through Caddy which redirects to HTTPS.</p>
         <p>You'll get a JSON response like this:</p>
         <div class="cb">{
   "message": "Bootstrap token generated",
