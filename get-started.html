@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Get Started — Deploy Pinpoint 311 Free | Setup Guide</title>
   <meta name="description"
-    content="Deploy Pinpoint 311 in minutes. Free onboarding wizard and step-by-step setup guide for municipalities. Docker-based deployment with prebuilt images — no build required." />
+    content="Deploy Pinpoint 311 in minutes. Free onboarding wizard and step-by-step setup guide for municipalities. Docker-based deployment from source — download, build, and run." />
   <meta name="keywords"
     content="Pinpoint 311 setup, deploy 311 system, municipal software installation, Docker deployment, government tech setup" />
   <link rel="canonical" href="https://pinpoint311.org/get-started" />
@@ -39,9 +39,9 @@
     },
     "step": [
       {"@type": "HowToStep", "name": "Install Prerequisites", "text": "Install Docker, Docker Compose, and Git on your server or VM. Minimum: 1 vCPU, 1 GB RAM."},
-      {"@type": "HowToStep", "name": "Clone the Repository", "text": "Run: git clone https://github.com/Pinpoint-311/Pinpoint-311.git && cd Pinpoint-311"},
+      {"@type": "HowToStep", "name": "Download the Release", "text": "Download the latest release from https://github.com/Pinpoint-311/Pinpoint-311/releases and extract it."},
       {"@type": "HowToStep", "name": "Configure Environment", "text": "Copy .env.example to .env and set DB_PASSWORD and SECRET_KEY."},
-      {"@type": "HowToStep", "name": "Start the System", "text": "Run: docker compose -f docker-compose.yml -f docker-compose.prod.yml pull && docker compose up -d"}
+      {"@type": "HowToStep", "name": "Start the System", "text": "Run: docker compose up --build -d"}
     ]
   }
   </script>
@@ -1615,14 +1615,15 @@
         <div class="ss-num">2</div>
         <div>
           <div class="ss-title">Get the Code</div>
-          <div class="ss-subtitle">Clone the repository to your server</div>
+          <div class="ss-subtitle">Download the latest release to your server</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <p>Open a terminal on your server:</p>
-        <div class="cb">git clone https://github.com/Pinpoint-311/Pinpoint-311.git
-          cd Pinpoint-311</div>
+        <p>Download the latest release from <a href="https://github.com/Pinpoint-311/Pinpoint-311/releases" target="_blank" style="color:var(--purple-light)">GitHub Releases</a> and extract it on your server:</p>
+        <div class="cb">wget https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/v1.0.0.tar.gz
+tar -xzf v1.0.0.tar.gz
+cd Pinpoint-311-1.0.0</div>
         <p>That's it — the entire codebase is on your server.</p>
       </div>
     </div>
@@ -1677,17 +1678,12 @@
         <div class="ss-num">4</div>
         <div>
           <div class="ss-title">Start the System</div>
-          <div class="ss-subtitle">Pull images and launch all services</div>
+          <div class="ss-subtitle">Build and launch all services</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <h4>Production (recommended)</h4>
-        <div class="cb">docker compose -f docker-compose.yml \
-          -f docker-compose.prod.yml pull
-          docker compose -f docker-compose.yml \
-          -f docker-compose.prod.yml up -d</div>
-        <h4>Development (builds locally)</h4>
+        <h4>Build &amp; Start (recommended)</h4>
         <div class="cb">docker compose up --build -d</div>
         <h4>Verify</h4>
         <div class="cb">docker compose ps</div>
@@ -2182,10 +2178,8 @@
         <h4>Database backups</h4>
         <div class="cb">docker compose exec db pg_dump -U township township_db > backup_$(date +%Y%m%d).sql</div>
         <h4>Manual updates</h4>
-        <div class="cb">docker compose -f docker-compose.yml \
-          -f docker-compose.prod.yml pull
-          docker compose -f docker-compose.yml \
-          -f docker-compose.prod.yml up -d</div>
+        <div class="cb">git pull origin main
+docker compose up --build -d</div>
         <h4>Database migrations</h4>
         <div class="cb">docker compose exec backend alembic upgrade head</div>
         <h4>View logs</h4>
