@@ -2479,6 +2479,380 @@ docker compose up --build -d</div>
 
     // Hamburger (nav doesn't have links here, just in case)
   </script>
+
+  <!-- ASK AI CHAT WIDGET -->
+  <style>
+    .ai-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 300;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1 0%, #22d3a5 100%);
+      border: none;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 24px rgba(99, 102, 241, 0.4), 0 0 0 0 rgba(99,102,241,0);
+      transition: transform .2s, box-shadow .3s;
+      animation: ai-fab-pulse 3s ease-in-out infinite;
+    }
+    .ai-fab:hover { transform: scale(1.1); box-shadow: 0 6px 32px rgba(99,102,241,0.5) }
+    .ai-fab svg { width: 26px; height: 26px; color: white; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+    @keyframes ai-fab-pulse {
+      0%, 100% { box-shadow: 0 4px 24px rgba(99,102,241,0.4), 0 0 0 0 rgba(99,102,241,0.3) }
+      50% { box-shadow: 0 4px 24px rgba(99,102,241,0.4), 0 0 0 8px rgba(99,102,241,0) }
+    }
+
+    .ai-panel {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 1.5rem;
+      z-index: 301;
+      width: 380px;
+      max-height: 540px;
+      background: rgba(21, 25, 41, 0.97);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(99,102,241,0.1);
+      animation: ai-slide-up .25s ease-out;
+    }
+    .ai-panel.open { display: flex }
+    @keyframes ai-slide-up {
+      from { opacity: 0; transform: translateY(16px) }
+      to { opacity: 1; transform: translateY(0) }
+    }
+
+    .ai-panel-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ai-panel-header h3 {
+      font-size: .92rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+    }
+    .ai-panel-header h3 span { background: linear-gradient(135deg, #a5b4fc, #22d3a5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text }
+    .ai-close-btn {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      border-radius: 8px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: .85rem;
+      transition: background .2s;
+    }
+    .ai-close-btn:hover { background: rgba(255,255,255,0.14) }
+
+    .ai-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      min-height: 200px;
+      max-height: 340px;
+    }
+    .ai-messages::-webkit-scrollbar { width: 4px }
+    .ai-messages::-webkit-scrollbar-track { background: transparent }
+    .ai-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px }
+
+    .ai-msg {
+      max-width: 90%;
+      padding: .65rem .9rem;
+      border-radius: 14px;
+      font-size: .82rem;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+    .ai-msg.user {
+      background: rgba(99,102,241,0.2);
+      border: 1px solid rgba(99,102,241,0.25);
+      color: #c7d2fe;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-msg.assistant {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .ai-msg.assistant code {
+      background: rgba(0,0,0,0.35);
+      padding: .15rem .35rem;
+      border-radius: 4px;
+      font-size: .78rem;
+      color: #a5b4fc;
+    }
+    .ai-msg.assistant pre {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: .6rem .8rem;
+      margin: .5rem 0;
+      overflow-x: auto;
+      font-size: .75rem;
+      line-height: 1.5;
+      color: #a5b4fc;
+    }
+    .ai-msg.assistant pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+    .ai-msg.assistant strong { color: var(--white); font-weight: 600 }
+    .ai-msg.assistant ul, .ai-msg.assistant ol { padding-left: 1rem; margin: .3rem 0 }
+    .ai-msg.assistant li { margin-bottom: .2rem }
+
+    .ai-typing {
+      display: flex;
+      gap: .25rem;
+      align-self: flex-start;
+      padding: .65rem .9rem;
+    }
+    .ai-typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      animation: ai-blink 1.2s ease-in-out infinite;
+    }
+    .ai-typing span:nth-child(2) { animation-delay: .2s }
+    .ai-typing span:nth-child(3) { animation-delay: .4s }
+    @keyframes ai-blink {
+      0%, 100% { opacity: .3 }
+      50% { opacity: 1 }
+    }
+
+    .ai-suggestions {
+      padding: .5rem 1.25rem .25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+    }
+    .ai-suggestion-btn {
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 100px;
+      padding: .35rem .75rem;
+      font-size: .72rem;
+      color: var(--purple-light);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .ai-suggestion-btn:hover {
+      background: rgba(99,102,241,0.18);
+      border-color: rgba(99,102,241,0.35);
+    }
+
+    .ai-input-wrap {
+      padding: .75rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: .5rem;
+    }
+    .ai-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: .6rem .85rem;
+      color: var(--white);
+      font-size: .82rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .ai-input:focus { border-color: rgba(99,102,241,0.35) }
+    .ai-input::placeholder { color: rgba(255,255,255,0.25) }
+    .ai-send-btn {
+      background: var(--purple);
+      border: none;
+      border-radius: 10px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: white;
+      font-size: .85rem;
+      transition: opacity .2s;
+      flex-shrink: 0;
+    }
+    .ai-send-btn:hover { opacity: .85 }
+    .ai-send-btn:disabled { opacity: .35; cursor: not-allowed }
+
+    @media(max-width:450px) {
+      .ai-panel { right: .75rem; left: .75rem; width: auto; bottom: 5rem; max-height: 70vh }
+      .ai-fab { bottom: 1rem; right: 1rem; width: 50px; height: 50px }
+    }
+  </style>
+
+  <!-- FAB Button -->
+  <button class="ai-fab" id="aiFab" onclick="toggleAiPanel()" aria-label="Ask AI Setup Assistant">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="3"/></svg>
+  </button>
+
+  <!-- Chat Panel -->
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-panel-header">
+      <h3>✦ <span>Setup Assistant</span></h3>
+      <button class="ai-close-btn" onclick="toggleAiPanel()">✕</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+      <div class="ai-msg assistant">👋 Hi! I'm the Pinpoint 311 setup assistant. I can help you with deployment, configuration, Docker, Auth0, Google Cloud, and anything else in the setup guide. What can I help with?</div>
+    </div>
+    <div class="ai-suggestions" id="aiSuggestions">
+      <button class="ai-suggestion-btn" onclick="askSuggestion(this)">What are the prerequisites?</button>
+      <button class="ai-suggestion-btn" onclick="askSuggestion(this)">How do I configure Docker?</button>
+      <button class="ai-suggestion-btn" onclick="askSuggestion(this)">How do I set up Auth0?</button>
+      <button class="ai-suggestion-btn" onclick="askSuggestion(this)">What's the minimum setup?</button>
+    </div>
+    <div class="ai-input-wrap">
+      <input class="ai-input" id="aiInput" placeholder="Ask about setup…" onkeydown="if(event.key==='Enter')sendAiMessage()" />
+      <button class="ai-send-btn" id="aiSendBtn" onclick="sendAiMessage()">→</button>
+    </div>
+  </div>
+
+  <script>
+    // ---- Ask AI Chat Widget ----
+    const aiChatHistory = [];
+    let aiLoading = false;
+
+    function toggleAiPanel() {
+      const panel = document.getElementById('aiPanel');
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) {
+        setTimeout(() => document.getElementById('aiInput').focus(), 100);
+      }
+    }
+
+    function askSuggestion(btn) {
+      document.getElementById('aiInput').value = btn.textContent;
+      sendAiMessage();
+      // Hide suggestions after first use
+      document.getElementById('aiSuggestions').style.display = 'none';
+    }
+
+    function renderMarkdown(text) {
+      // Simple markdown → HTML for chat
+      let html = text
+        // Code blocks
+        .replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+        // Inline code
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        // Bold
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        // Italic
+        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+        // Headers (## or ###)
+        .replace(/^### (.+)$/gm, '<strong style="display:block;margin:.5rem 0 .2rem">$1</strong>')
+        .replace(/^## (.+)$/gm, '<strong style="display:block;margin:.6rem 0 .2rem;font-size:.9rem">$1</strong>')
+        // Unordered lists
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        // Ordered lists
+        .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+        // Paragraphs (double newline)
+        .replace(/\n\n/g, '<br/><br/>')
+        // Single newlines within text
+        .replace(/\n/g, '<br/>');
+
+      // Wrap consecutive <li> in <ul>
+      html = html.replace(/((<li>.*?<\/li>\s*<br\/>?)+)/g, '<ul>$1</ul>');
+      // Clean up stray <br/> inside <ul>
+      html = html.replace(/<ul>([\s\S]*?)<\/ul>/g, (m, inner) => '<ul>' + inner.replace(/<br\/?>/g, '') + '</ul>');
+
+      return html;
+    }
+
+    function addAiMessage(role, content) {
+      const messagesEl = document.getElementById('aiMessages');
+      const div = document.createElement('div');
+      div.className = `ai-msg ${role}`;
+      if (role === 'assistant') {
+        div.innerHTML = renderMarkdown(content);
+      } else {
+        div.textContent = content;
+      }
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function showTyping() {
+      const messagesEl = document.getElementById('aiMessages');
+      const div = document.createElement('div');
+      div.className = 'ai-typing';
+      div.id = 'aiTyping';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function hideTyping() {
+      const el = document.getElementById('aiTyping');
+      if (el) el.remove();
+    }
+
+    async function sendAiMessage() {
+      const input = document.getElementById('aiInput');
+      const msg = input.value.trim();
+      if (!msg || aiLoading) return;
+
+      input.value = '';
+      addAiMessage('user', msg);
+      aiChatHistory.push({ role: 'user', content: msg });
+
+      aiLoading = true;
+      document.getElementById('aiSendBtn').disabled = true;
+      showTyping();
+
+      try {
+        const res = await fetch('/api/ask-setup-ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg, history: aiChatHistory.slice(0, -1) })
+        });
+
+        hideTyping();
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          addAiMessage('assistant', `⚠️ ${err.error || 'Something went wrong. Please try again.'}`);
+        } else {
+          const data = await res.json();
+          addAiMessage('assistant', data.response);
+          aiChatHistory.push({ role: 'assistant', content: data.response });
+        }
+      } catch (e) {
+        hideTyping();
+        addAiMessage('assistant', '⚠️ Network error. Please check your connection and try again.');
+      } finally {
+        aiLoading = false;
+        document.getElementById('aiSendBtn').disabled = false;
+        document.getElementById('aiInput').focus();
+      }
+    }
+  </script>
 </body>
 
 </html>
