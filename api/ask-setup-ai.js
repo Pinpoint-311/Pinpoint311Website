@@ -218,7 +218,13 @@ export default async function handler(req, res) {
         if (!geminiRes.ok) {
             const errText = await geminiRes.text();
             console.error('Gemini API error:', geminiRes.status, errText);
-            return res.status(502).json({ error: 'AI service temporarily unavailable' });
+            // Surface actual error for debugging
+            let detail = 'AI service temporarily unavailable';
+            try {
+                const errJson = JSON.parse(errText);
+                detail = errJson.error?.message || detail;
+            } catch (_) {}
+            return res.status(502).json({ error: detail });
         }
 
         const data = await geminiRes.json();
