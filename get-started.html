@@ -39,7 +39,7 @@
     },
     "step": [
       {"@type": "HowToStep", "name": "Install Prerequisites", "text": "Install Docker, Docker Compose, and Git on your server or VM. Minimum: 1 vCPU, 1 GB RAM."},
-      {"@type": "HowToStep", "name": "Clone the Repository", "text": "Run: git clone https://github.com/Pinpoint-311/Pinpoint-311.git && cd Pinpoint-311"},
+      {"@type": "HowToStep", "name": "Download the Latest Release", "text": "Go to github.com/Pinpoint-311/Pinpoint-311/releases, download the latest release archive, and extract it on your server."},
       {"@type": "HowToStep", "name": "Configure Environment", "text": "Copy .env.example to .env and set DB_PASSWORD and SECRET_KEY."},
       {"@type": "HowToStep", "name": "Start the System", "text": "Run: docker compose up --build -d"}
     ]
@@ -1614,16 +1614,21 @@
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">2</div>
         <div>
-          <div class="ss-title">Get the Code</div>
-          <div class="ss-subtitle">Clone the repository to your server</div>
+          <div class="ss-title">Download the Latest Release</div>
+          <div class="ss-subtitle">Get the stable release package from GitHub</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <p>Open a terminal on your server:</p>
+        <p>Go to the <a href="https://github.com/Pinpoint-311/Pinpoint-311/releases" target="_blank" style="color:#818cf8">Pinpoint 311 Releases page</a> and download the latest release:</p>
+        <div class="cb"># Download the latest release (replace vX.X.X with the version number)
+curl -L https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/vX.X.X.tar.gz -o pinpoint.tar.gz
+tar -xzf pinpoint.tar.gz
+cd Pinpoint-311-X.X.X</div>
+        <p>Or use <strong>git clone</strong> if you prefer to always have the latest code:</p>
         <div class="cb">git clone https://github.com/Pinpoint-311/Pinpoint-311.git
 cd Pinpoint-311</div>
-        <p>That's it — the entire codebase is on your server.</p>
+        <p style="color:#a5b4fc; font-size:0.9em">💡 Using release packages is recommended for production — they are tested and stable.</p>
       </div>
     </div>
 

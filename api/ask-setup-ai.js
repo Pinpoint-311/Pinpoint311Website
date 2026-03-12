@@ -32,11 +32,20 @@ const SYSTEM_PROMPT = `You are the **Pinpoint 311 Setup Assistant** — a friend
 - Git installed
 - Recommended: Google Cloud account, Auth0 free account
 
-### Step 2: Get the Code
+### Step 2: Download the Latest Release
+- Go to https://github.com/Pinpoint-311/Pinpoint-311/releases
+- Download the latest release archive (.tar.gz or .zip)
 \`\`\`bash
+# Option A: Download release (recommended for production)
+curl -L https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/vX.X.X.tar.gz -o pinpoint.tar.gz
+tar -xzf pinpoint.tar.gz
+cd Pinpoint-311-X.X.X
+
+# Option B: Git clone (for development or auto-updates)
 git clone https://github.com/Pinpoint-311/Pinpoint-311.git
 cd Pinpoint-311
 \`\`\`
+- Release packages are tested and stable — recommended for production
 
 ### Step 3: Configure .env
 - Copy .env.example to .env
