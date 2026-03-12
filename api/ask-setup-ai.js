@@ -55,11 +55,14 @@ docker compose up --build -d
 - Runs on port 80 by default
 - Access at http://your-server-ip
 
-### Step 5: Bootstrap Access
-- Navigate to http://your-server-ip
-- Default login: admin / admin123
-- IMMEDIATELY change the admin password in Admin Console → Users
-- This local auth is standalone — Auth0 SSO is optional
+### Step 5: Bootstrap Access (First Login)
+- On the server, run: curl -X POST http://localhost/api/auth/bootstrap
+- This returns a JSON response with a one-time "login_url" like /api/auth/bootstrap/abc123...
+- Open that URL in your browser: http://your-server-ip/api/auth/bootstrap/abc123...
+- This logs you into the Admin Console as admin
+- Bootstrap tokens are one-time use and expire in 1 hour
+- Bootstrap ONLY works before Auth0 is configured — once Auth0 is set up, bootstrap is permanently disabled
+- If bootstrap returns empty or an error, check that containers are healthy: docker compose ps
 
 ### Step 6: Auth0 SSO (Optional but Recommended)
 - Create free Auth0 tenant at auth0.com

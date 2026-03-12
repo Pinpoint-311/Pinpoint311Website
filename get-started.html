@@ -1765,12 +1765,24 @@ cd Pinpoint-311-${VERSION#v}</div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
+        <p>Run this command <strong>on the server</strong> to generate a one-time admin login link:</p>
         <div class="cb">curl -X POST http://localhost/api/auth/bootstrap</div>
-        <p>Click the returned <strong>magic link</strong> — it logs you into the Admin Console with full privileges.
-        </p>
+        <p>You'll get a JSON response like this:</p>
+        <div class="cb">{
+  "message": "Bootstrap token generated",
+  "token": "abc123...",
+  "login_url": "/api/auth/bootstrap/abc123..."
+}</div>
+        <p>Open the <code>login_url</code> in your browser by combining it with your server's address:</p>
+        <div class="cb">http://your-server-ip/api/auth/bootstrap/abc123...</div>
+        <p>This logs you into the Admin Console with full admin privileges.</p>
         <div class="ss-note warn">
           <div class="ss-note-icon">⚠️</div>
-          <div>Bootstrap access is temporary and auto-disabled once Auth0 is configured.</div>
+          <div>Bootstrap tokens are <strong>one-time use</strong> and expire in 1 hour. Once you configure Auth0 (Step 6), bootstrap is permanently disabled and all logins go through SSO.</div>
+        </div>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">💡</div>
+          <div>If the command returns an error, make sure the containers are fully running: <code>docker compose ps</code> — all services should show "healthy".</div>
         </div>
       </div>
     </div>
