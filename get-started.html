@@ -1555,39 +1555,70 @@
 
 
 
-    <div class="setup-step open" id="ss-1">
+    <div class="setup-step active" id="ss-1">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">1</div>
         <div>
-          <div class="ss-title">Prerequisites</div>
-          <div class="ss-subtitle">What you need before starting</div>
+          <div class="ss-title">Set Up Your Server</div>
+          <div class="ss-subtitle">Get a server, SSH in, and install Docker</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <h4>Required</h4>
+        <h4>1a. Get a Server</h4>
+        <p>You need a Linux server (Ubuntu recommended). Use any cloud provider — Oracle Cloud (free tier), AWS, Google Cloud, DigitalOcean, or an on-premise machine.</p>
         <table class="ss-table">
           <tr>
-            <th>Requirement</th>
-            <th>How to get it</th>
+            <th>Minimum Specs</th>
+            <th>Details</th>
           </tr>
           <tr>
-            <td><strong>Server or VM</strong></td>
-            <td>Any cloud provider or on-premise. Min: 1 vCPU, 1 GB RAM.</td>
+            <td><strong>CPU</strong></td>
+            <td>1 vCPU (2+ recommended for production)</td>
           </tr>
           <tr>
-            <td><strong>Docker & Compose</strong></td>
-            <td><a href="https://docs.docker.com/get-docker/" target="_blank">Install Docker →</a></td>
+            <td><strong>RAM</strong></td>
+            <td>1 GB minimum (2+ GB recommended)</td>
           </tr>
           <tr>
-            <td><strong>Git</strong></td>
-            <td>Pre-installed on most servers. If not: <code>sudo apt install git</code></td>
+            <td><strong>Disk</strong></td>
+            <td>20 GB+</td>
+          </tr>
+          <tr>
+            <td><strong>OS</strong></td>
+            <td>Ubuntu 22.04 or 24.04 LTS recommended</td>
           </tr>
         </table>
-        <h4>Recommended</h4>
+
+        <h4>1b. SSH Into Your Server</h4>
+        <p>From your local machine, connect to the server using SSH:</p>
+        <div class="cb"># Replace with your server's IP address and key file
+ssh -i your-key.pem ubuntu@your-server-ip
+
+# Or if using password auth:
+ssh ubuntu@your-server-ip</div>
+        <p style="color:#a5b4fc; font-size:0.9em">💡 All remaining steps are run <strong>on the server</strong>, not your local machine.</p>
+
+        <h4>1c. Install Docker & Docker Compose</h4>
+        <p>Run these commands on your server to install Docker:</p>
+        <div class="cb"># Install Docker (Ubuntu)
+sudo apt update
+sudo apt install -y docker.io docker-compose-v2
+
+# Allow your user to run Docker without sudo
+sudo usermod -aG docker $USER
+
+# Log out and back in for group changes to take effect
+exit</div>
+        <p>SSH back in, then verify Docker is working:</p>
+        <div class="cb">ssh -i your-key.pem ubuntu@your-server-ip
+docker --version
+docker compose version</div>
+
+        <h4>Recommended (Optional)</h4>
         <table class="ss-table">
           <tr>
-            <th>Requirement</th>
+            <th>Service</th>
             <th>Why</th>
           </tr>
           <tr>
@@ -1620,16 +1651,13 @@
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <p>Go to the <a href="https://github.com/Pinpoint-311/Pinpoint-311/releases" target="_blank" style="color:#818cf8">Pinpoint 311 Releases page</a> and download the latest release:</p>
+        <p>On your server, download and extract the latest release:</p>
         <div class="cb"># Auto-download the latest release
 VERSION=$(curl -s https://api.github.com/repos/Pinpoint-311/Pinpoint-311/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
 curl -L "https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/${VERSION}.tar.gz" -o pinpoint.tar.gz
 tar -xzf pinpoint.tar.gz
 cd Pinpoint-311-${VERSION#v}</div>
-        <p>Or use <strong>git clone</strong> if you prefer to always have the latest code:</p>
-        <div class="cb">git clone https://github.com/Pinpoint-311/Pinpoint-311.git
-cd Pinpoint-311</div>
-        <p style="color:#a5b4fc; font-size:0.9em">💡 Using release packages is recommended for production — they are tested and stable.</p>
+        <p style="color:#a5b4fc; font-size:0.9em">💡 Or download directly from the <a href="https://github.com/Pinpoint-311/Pinpoint-311/releases" target="_blank" style="color:#818cf8">Releases page</a> — click the latest version and download "Source code (tar.gz)".</p>
       </div>
     </div>
 
