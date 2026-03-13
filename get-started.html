@@ -1160,9 +1160,8 @@
       <div class="setup-time">⏱ 15–30 min basic · 45–60 min full production</div>
     </div>
 
-    <div class="setup-toc">
-      <h3>Setup Steps</h3>
-      <div class="toc-grid">
+          <div class="setup-toc">
+        <div class="toc-title">Setup Guide</div>
         <a class="toc-item" href="#ss-1">
           <div class="toc-num">1</div>Prerequisites
         </a>
@@ -1188,31 +1187,31 @@
           <div class="toc-num">8</div>Google Cloud (AI)
         </a>
         <a class="toc-item" href="#ss-9">
-          <div class="toc-num">9</div>Email (SMTP)
+          <div class="toc-num">9</div>Secret Manager
         </a>
         <a class="toc-item" href="#ss-10">
-          <div class="toc-num">10</div>SMS (Optional)
+          <div class="toc-num">10</div>Email (SMTP)
         </a>
         <a class="toc-item" href="#ss-11">
-          <div class="toc-num">11</div>Boundaries
+          <div class="toc-num">11</div>SMS (Optional)
         </a>
         <a class="toc-item" href="#ss-12">
-          <div class="toc-num">12</div>Services
+          <div class="toc-num">12</div>Boundaries
         </a>
         <a class="toc-item" href="#ss-13">
-          <div class="toc-num">13</div>Branding
+          <div class="toc-num">13</div>Services
         </a>
         <a class="toc-item" href="#ss-14">
-          <div class="toc-num">14</div>Legal Docs
+          <div class="toc-num">14</div>Branding
         </a>
         <a class="toc-item" href="#ss-15">
-          <div class="toc-num">15</div>Custom Domain
+          <div class="toc-num">15</div>Legal Docs
         </a>
         <a class="toc-item" href="#ss-16">
-          <div class="toc-num">16</div>Auto-Updates
+          <div class="toc-num">16</div>Custom Domain
         </a>
         <a class="toc-item" href="#ss-17">
-          <div class="toc-num">17</div>Secret Manager
+          <div class="toc-num">17</div>Auto-Updates
         </a>
         <a class="toc-item" href="#ss-18">
           <div class="toc-num">18</div>Add Staff
@@ -1224,7 +1223,6 @@
           <div class="toc-num">20</div>Maintenance
         </a>
       </div>
-    </div>
     <style>
       .setup-guide {
         max-width: 760px;
@@ -1938,6 +1936,30 @@ cd Pinpoint-311-${VERSION#v}</div>
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">9</div>
         <div>
+          <div class="ss-title">Secret Manager (Optional)</div>
+          <div class="ss-subtitle">Enterprise secret storage via GCP</div>
+        </div>
+        <div class="ss-chevron">▾</div>
+      </div>
+      <div class="ss-body">
+        <ul>
+          <li>Ensure GCP service account has <strong>Secret Manager Admin</strong> role</li>
+          <li>In Admin Console → <strong>Setup & Integration → Google Cloud</strong>, click <strong>Migrate to Secret Manager</strong></li>
+          <li>Secrets are migrated one-by-one and verified — migration is explicit, not automatic</li>
+        </ul>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div>Two bootstrap keys (<code>GCP_SERVICE_ACCOUNT_JSON</code>, <code>GOOGLE_CLOUD_PROJECT</code>) stay in
+            the
+            local DB — they're needed to access Secret Manager itself.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-step" id="ss-10">
+      <div class="ss-header" onclick="toggleSetupStep(this)">
+        <div class="ss-num">10</div>
+        <div>
           <div class="ss-title">Email Notifications</div>
           <div class="ss-subtitle">SMTP for confirmation & status emails</div>
         </div>
@@ -1975,9 +1997,9 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-10">
+    <div class="setup-step" id="ss-11">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">10</div>
+        <div class="ss-num">11</div>
         <div>
           <div class="ss-title">SMS (Optional)</div>
           <div class="ss-subtitle">Twilio text alerts</div>
@@ -1995,9 +2017,9 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-11">
+    <div class="setup-step" id="ss-12">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">11</div>
+        <div class="ss-num">12</div>
         <div>
           <div class="ss-title">Municipality Boundaries</div>
           <div class="ss-subtitle">GeoJSON service area</div>
@@ -2016,9 +2038,9 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-12">
+    <div class="setup-step" id="ss-13">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">12</div>
+        <div class="ss-num">13</div>
         <div>
           <div class="ss-title">Services & Departments</div>
           <div class="ss-subtitle">Categories, routing, custom questions</div>
@@ -2052,9 +2074,9 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-13">
+    <div class="setup-step" id="ss-14">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">13</div>
+        <div class="ss-num">14</div>
         <div>
           <div class="ss-title">Branding</div>
           <div class="ss-subtitle">Logo, colors, fonts</div>
@@ -2073,9 +2095,9 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-14">
+    <div class="setup-step" id="ss-15">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">14</div>
+        <div class="ss-num">15</div>
         <div>
           <div class="ss-title">Legal Documents</div>
           <div class="ss-subtitle">Privacy, Terms, Accessibility</div>
@@ -2093,9 +2115,9 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-15">
+    <div class="setup-step" id="ss-16">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">15</div>
+        <div class="ss-num">16</div>
         <div>
           <div class="ss-title">Custom Domain</div>
           <div class="ss-subtitle">Auto HTTPS via Let's Encrypt</div>
@@ -2124,9 +2146,9 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-16">
+    <div class="setup-step" id="ss-17">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">16</div>
+        <div class="ss-num">17</div>
         <div>
           <div class="ss-title">Automatic Updates (Optional)</div>
           <div class="ss-subtitle">Watchtower patches at 3 AM daily</div>
@@ -2149,29 +2171,6 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-17">
-      <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">17</div>
-        <div>
-          <div class="ss-title">Secret Manager (Optional)</div>
-          <div class="ss-subtitle">Enterprise secret storage via GCP</div>
-        </div>
-        <div class="ss-chevron">▾</div>
-      </div>
-      <div class="ss-body">
-        <ul>
-          <li>Ensure GCP service account has <strong>Secret Manager Admin</strong> role</li>
-          <li>In Admin Console → <strong>Setup & Integration → Google Cloud</strong>, click <strong>Migrate to Secret Manager</strong></li>
-          <li>Secrets are migrated one-by-one and verified — migration is explicit, not automatic</li>
-        </ul>
-        <div class="ss-note warn">
-          <div class="ss-note-icon">⚠️</div>
-          <div>Two bootstrap keys (<code>GCP_SERVICE_ACCOUNT_JSON</code>, <code>GOOGLE_CLOUD_PROJECT</code>) stay in
-            the
-            local DB — they're needed to access Secret Manager itself.</div>
-        </div>
-      </div>
-    </div>
 
     <div class="setup-step" id="ss-18">
       <div class="ss-header" onclick="toggleSetupStep(this)">
