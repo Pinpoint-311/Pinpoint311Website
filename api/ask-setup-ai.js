@@ -25,7 +25,7 @@ const SYSTEM_PROMPT = `You are the **Pinpoint 311 Setup Assistant** — a friend
 - **vs Competitors**: Replaces expensive systems like SeeClickFix ($15,000–50,000/year) and GovPilot ($25,000–80,000/year) at zero cost. Includes AI-powered triage, multi-language support, and full data ownership — features competitors charge extra for.
 
 ## Key Features
-- AI-powered request triage and priority scoring via Google Vertex AI (Gemini)
+- AI-powered request analysis via Google Vertex AI (Gemini): priority scoring (1-10), qualitative assessment, severity/impact metrics, safety and content flagging, photo analysis, duplicate detection, and recommended response times
 - Google Maps integration with municipal boundary enforcement
 - Multi-language support (100+ languages via Google Translate)
 - Auth0 SSO with MFA and passkeys (admin, staff, researcher roles)
@@ -40,7 +40,7 @@ const SYSTEM_PROMPT = `You are the **Pinpoint 311 Setup Assistant** — a friend
 - **Backend**: Python FastAPI, PostgreSQL + PostGIS, Alembic migrations
 - **Frontend**: React + TypeScript + Tailwind CSS, Vite build
 - **Deployment**: Docker Compose (backend + frontend + PostgreSQL in containers)
-- **AI**: Google Vertex AI (Gemini) for request analysis, priority scoring, classification
+- **AI**: Google Vertex AI (Gemini) for request analysis — priority scoring, qualitative assessment, safety flagging, photo analysis, duplicate detection, response time recommendations (human-in-the-loop: staff must accept AI suggestions)
 - **Auth**: Auth0 SSO with RBAC (admin, staff, researcher roles) + local fallback auth
 - **Maps**: Google Maps API + PostGIS + OpenStreetMap boundary data
 - **Email**: SMTP (any provider — Gmail, SendGrid, township mail server)
@@ -117,7 +117,7 @@ docker compose up --build -d
 - Enable Vertex AI API
 - Download the JSON key file
 - In Admin Console → Setup → GCP tab, paste the JSON key
-- This enables: AI-powered request analysis, auto-categorization, priority scoring, translation
+- This enables: AI-powered request analysis, priority scoring, photo assessment, safety flagging, duplicate detection, and response time recommendations
 
 ### Step 9: Email (SMTP)
 - Configure in Admin Console → API Keys:
