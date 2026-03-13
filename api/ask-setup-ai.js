@@ -91,16 +91,13 @@ docker compose up --build -d
 - IMPORTANT: Caddy auto-redirects HTTP to HTTPS. On IP-only installs (no domain), the browser may show ERR_SSL_PROTOCOL_ERROR — this is normal until a domain is configured
 - For curl commands on the server, use port 8000 directly to bypass Caddy: curl http://localhost:8000/api/health
 
-### Step 5: Bootstrap Access (First Login)
-- On the server, run: curl -X POST http://localhost:8000/api/auth/bootstrap
-- IMPORTANT: use port 8000 (backend directly) — port 80 goes through Caddy which redirects to HTTPS and breaks curl
-- This returns JSON with a one-time "login_url" like /api/auth/bootstrap/abc123...
-- Open that URL in your browser: http://your-server-ip:8000/api/auth/bootstrap/abc123...
-- This logs you into the Admin Console as admin
-- Bootstrap tokens are one-time use and expire in 1 hour
-- Bootstrap ONLY works before Auth0 is configured
-- If bootstrap returns empty, containers may not be healthy — check: docker compose ps
-- If browser shows SSL error, use port 8000 in the URL instead of port 80
+### Step 5: First Login (Bootstrap Access)
+- RECOMMENDED: Open http://your-server-ip/login in a browser — you'll see a "Welcome to Pinpoint 311" card with an "Enter Admin Console" button
+- Click the button to auto-login as admin — no terminal commands needed
+- If browser shows SSL error, use port 8000: http://your-server-ip:8000/login
+- ALTERNATIVE (terminal): curl -X POST http://localhost:8000/api/auth/bootstrap — copy the login_url and open in browser
+- Bootstrap ONLY works before Auth0 is configured — once Auth0 is set up, the button disappears
+- If login page doesn't load, containers may still be starting — check: docker compose ps
 
 ### Step 6: Auth0 SSO (Optional but Recommended)
 - Create free Auth0 tenant at auth0.com
