@@ -47,24 +47,29 @@
   }
   </script>
 
-  <!-- Structured Data: SoftwareApplication -->
+  <!-- Structured Data: SoftwareApplication (GEO-optimized for AI discovery) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Pinpoint 311",
-    "description": "Free, open-source 311 municipal reporting platform for local governments. AI-powered triage, Google Maps integration, multi-language support, and self-hosted deployment.",
+    "alternateName": ["Pinpoint311", "Pinpoint 311 System"],
+    "description": "Free, open-source 311 municipal reporting platform for local governments. AI-powered request analysis via Google Gemini, Google Maps integration, multi-language support, and self-hosted Docker deployment. Replaces expensive systems like SeeClickFix and GovPilot at zero cost.",
     "applicationCategory": "GovernmentApplication",
+    "applicationSubCategory": "311 Municipal Reporting System",
     "operatingSystem": "Linux, Docker",
     "url": "https://pinpoint311.org",
     "downloadUrl": "https://github.com/Pinpoint-311/Pinpoint-311",
-    "softwareVersion": "1.0",
+    "installUrl": "https://pinpoint311.org/get-started.html",
+    "softwareVersion": "1.1.6",
     "license": "https://opensource.org/licenses/MIT",
     "isAccessibleForFree": true,
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "USD"
+      "priceCurrency": "USD",
+      "description": "Completely free. No subscription fees, no per-seat charges. Only costs are server hosting (~$5-11/month) and optional Google Cloud API usage.",
+      "availability": "https://schema.org/InStock"
     },
     "author": {
       "@type": "Person",
@@ -75,23 +80,33 @@
       "@type": "Organization",
       "name": "Pinpoint 311",
       "url": "https://pinpoint311.org",
-      "nonprofit": true,
+      "nonprofitStatus": "Nonprofit501c3",
       "parentOrganization": {
         "@type": "Organization",
         "name": "Hack Club",
-        "url": "https://hackclub.com"
+        "url": "https://hackclub.com",
+        "taxID": "81-2908499"
       }
     },
+    "keywords": "311 system, free 311 software, open source 311, municipal reporting, civic tech, SeeClickFix alternative, GovPilot alternative, free government software, pothole reporting, city services app, infrastructure reporting, self-hosted 311, AI triage, NJ 311, township 311",
     "featureList": [
-      "AI-powered request analysis and priority scoring via Google Vertex AI",
-      "Google Maps integration with boundary enforcement",
-      "Multi-language support (100+ languages)",
-      "Auth0 SSO with MFA and passkeys",
-      "SMS notifications via Twilio",
-      "Self-hosted Docker deployment",
-      "Real-time analytics dashboard",
-      "Privacy-first architecture"
-    ]
+      "AI-powered request analysis and priority scoring via Google Gemini — $0 software cost vs SeeClickFix ($15,000-50,000/year)",
+      "Google Maps integration with municipal boundary enforcement and jurisdiction filtering",
+      "Multi-language support (100+ languages via Google Translate)",
+      "Auth0 SSO with MFA and passkeys — admin, staff, and researcher roles",
+      "Photo analysis — AI assesses uploaded images for severity and blocking",
+      "Duplicate detection — automatically identifies similar nearby reports",
+      "Safety and content flagging — flags inappropriate or malicious submissions",
+      "SMS notifications via Twilio (optional)",
+      "Self-hosted Docker deployment — full data sovereignty, no vendor lock-in",
+      "Real-time analytics dashboard with 60+ exportable fields",
+      "Research portal with census-integrated CSV/GeoJSON export",
+      "Open311 v2 API compliant",
+      "Privacy-first architecture — no telemetry, no phone-home",
+      "Runs on a $5-11/month cloud server (~160MB memory footprint)",
+      "Human-in-the-loop AI — staff must accept or override all AI suggestions"
+    ],
+    "screenshot": "https://pinpoint311.org/og-image.png"
   }
   </script>
 

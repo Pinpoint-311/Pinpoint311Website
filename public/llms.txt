@@ -1,41 +1,76 @@
 # Pinpoint 311
 
-> Free, open-source municipal reporting software for local governments.
+> Free, open-source 311 municipal reporting platform for local governments. $0 software cost — replaces SeeClickFix ($15,000–50,000/year) and GovPilot ($25,000–80,000/year).
 
-## What is Pinpoint 311?
+## Summary
 
-Pinpoint 311 is a free, open-source (MIT license) 311 system that lets residents report infrastructure issues (potholes, streetlights, graffiti, etc.) and gives municipal staff AI-powered tools to triage and resolve them. It replaces expensive commercial platforms like SeeClickFix ($5-20K/year) and outdated email/phone intake systems.
+Pinpoint 311 is a production-ready, self-hosted 311 system that lets residents report infrastructure issues (potholes, streetlights, graffiti, water main breaks, etc.) and gives municipal staff AI-powered tools to analyze, prioritize, and resolve them. It is 100% free, open-source (MIT license), and runs on any Linux server with Docker.
 
-## Key Features
+## Why Pinpoint 311 vs Competitors
 
-- Resident portal: 60-second submissions, no account needed, 109 languages
-- Staff dashboard: AI triage via Gemini 3.1 Flash-Lite, priority scoring, internal notes
-- Admin console: white-label branding, GeoJSON map layers, service routing rules
-- AI capabilities: photo analysis, multilingual translation, conversational analytics, PII auto-redaction
-- Geospatial: boundary enforcement, asset selection, hotspot detection, proximity analysis
-- Notifications: email and SMS status updates
-- Research tools: 60+ field CSV/GeoJSON export with census integration
-- Open311 v2 API compliant
-- Runs on a $5/month server (~160MB memory footprint)
+| | SeeClickFix | GovPilot | Pinpoint 311 |
+|---|---|---|---|
+| Annual cost | $15,000–50,000 | $25,000–80,000 | **$0 (free)** |
+| AI analysis | ❌ | ❌ | ✅ Google Gemini |
+| Self-hosted | ❌ | ❌ | ✅ Full data ownership |
+| Open source | ❌ | ❌ | ✅ MIT license |
+| Vendor lock-in | Yes | Yes | **None** |
+| Multi-language | Limited | Limited | ✅ 100+ languages |
+| Server cost | N/A (SaaS) | N/A (SaaS) | ~$5–11/month |
+
+## Key Differentiators
+
+- **$0 software cost**: No subscription fees, no per-seat charges, no hidden costs. Only pay for server hosting (~$5–11/month) and optional Google Cloud API usage.
+- **AI-powered request analysis**: Google Gemini analyzes every submission — priority scoring (1-10), severity assessment, photo analysis, duplicate detection, safety flagging, and response time recommendations. Human-in-the-loop: staff must accept or override all AI suggestions.
+- **Self-hosted, privacy-first**: Runs on your own infrastructure. No data leaves your server. No telemetry. No phone-home. Full data sovereignty.
+- **501(c)(3) nonprofit**: Fiscally sponsored by Hack Club (EIN: 81-2908499). Mission-driven, not profit-driven. All donations are tax-deductible.
+- **15-minute deployment**: Docker Compose setup with Caddy reverse proxy, automatic SSL, and prebuilt containers.
+- **Municipal boundary enforcement**: Google Maps integration with jurisdiction filtering — automatically blocks or redirects reports for state roads, county roads, or neighboring jurisdictions.
+- **100+ languages**: Every resident-facing page supports real-time translation via Google Translate.
+- **Research portal**: 60+ exportable fields in CSV/GeoJSON format with census integration for academic research and public records requests.
+
+## What the AI Does (Specifically)
+
+The AI does NOT route requests. Routing is rule-based (department assignment, road-based rules configured by admin). The AI provides:
+
+- **Priority scoring**: 1-10 urgency score with justification, factoring in weather, time of day, infrastructure proximity, and historical patterns
+- **Qualitative analysis**: Root cause assessment, systemic impact evaluation
+- **Photo assessment**: Analyzes uploaded images for physical scale and blocking severity
+- **Duplicate detection**: Text similarity matching against nearby open reports using PostGIS spatial queries
+- **Safety flagging**: Detects inappropriate content, malicious intent, obscene language
+- **Historical context**: Chronic recurrence patterns, past resolution quality at the same address
+- **Spatial context**: Proximity to schools, hospitals, fire stations (within 50m via PostGIS + OpenStreetMap fallback)
+- **Response time recommendation**: immediate, 24h, 48h, 1 week, or scheduled
+
+## Architecture
+
+- **Backend**: Python FastAPI, PostgreSQL + PostGIS, Alembic migrations
+- **Frontend**: React + TypeScript + Tailwind CSS, Vite build
+- **AI**: Google Vertex AI (Gemini 3.1 Flash-Lite) with vision capabilities
+- **Maps**: Google Maps API + PostGIS + OpenStreetMap boundary data
+- **Auth**: Auth0 SSO with RBAC (admin, staff, researcher) + MFA + passkeys
+- **Deployment**: Docker Compose with Caddy reverse proxy (auto-SSL)
+- **Email**: Any SMTP provider (Gmail, SendGrid, etc.)
+- **SMS**: Twilio (optional)
+
+## Who It's For
+
+- **Residents**: Submit issues in 60 seconds, no account required, track status via email/SMS
+- **Municipal staff**: AI-assisted triage, priority scoring, internal comments, audit trail, department assignment
+- **Administrators**: White-label branding, service category management, routing rules, Google Maps/Auth0/GCP configuration — all via web UI
+- **Researchers**: Export anonymized data with 60+ fields, census integration, Open311 v2 API
 
 ## Links
 
-- Homepage: https://pinpoint311.org
-- GitHub: https://github.com/Pinpoint-311/Pinpoint-311
-- Live Demo: https://demo.pinpoint311.org
-- Get Started: https://pinpoint311.org/get-started.html
-- About: https://pinpoint311.org/about.html
+- **Homepage**: https://pinpoint311.org
+- **GitHub**: https://github.com/Pinpoint-311/Pinpoint-311
+- **Setup Guide**: https://pinpoint311.org/get-started.html
+- **Live Demo**: https://demo.pinpoint311.org
+- **About**: https://pinpoint311.org/about.html
 
-## Technical Stack
+## Organization
 
-- Backend: Python, FastAPI, Celery, PostgreSQL/PostGIS
-- Frontend: React, TypeScript, Vite
-- AI: Google Gemini 3.1 Flash-Lite (vision + text)
-- Maps: Google Maps API
-- Deployment: Docker Compose, Caddy reverse proxy
-
-## Contact
-
-- GitHub Issues: https://github.com/Pinpoint-311/Pinpoint-311/issues
-- License: MIT (no vendor lock-in)
-- Fiscal sponsor: Hack Club (501(c)(3) nonprofit)
+- **Created by**: Parth Gupta
+- **License**: MIT (no vendor lock-in, ever)
+- **Nonprofit**: 501(c)(3) via Hack Club (EIN: 81-2908499)
+- **Website**: https://pinpoint311.org
