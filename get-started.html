@@ -1780,8 +1780,7 @@ cd Pinpoint-311-${VERSION#v}</div>
         <h4>Verify</h4>
         <div class="cb">docker compose ps</div>
         <p>You should see <strong>backend</strong>, <strong>frontend</strong>, <strong>db</strong>,
-          <strong>redis</strong>, <strong>caddy</strong>, <strong>celery_worker</strong>, and
-          <strong>celery_beat</strong> — all <code>Up</code>.
+          <strong>redis</strong>, <strong>caddy</strong>, and <strong>worker</strong> — all <code>Up</code> or <code>healthy</code>.
         </p>
         <h4>Access points</h4>
         <table class="ss-table">
@@ -2162,8 +2161,8 @@ cd Pinpoint-311-${VERSION#v}</div>
       <div class="ss-body">
         <ul>
           <li>Ensure GCP service account has <strong>Secret Manager Admin</strong> role</li>
-          <li>In Admin Console, click <strong>Enable Secret Manager</strong></li>
-          <li>All secrets auto-migrate</li>
+          <li>In Admin Console → <strong>Setup & Integration → Google Cloud</strong>, click <strong>Migrate to Secret Manager</strong></li>
+          <li>Secrets are migrated one-by-one and verified — migration is explicit, not automatic</li>
         </ul>
         <div class="ss-note warn">
           <div class="ss-note-icon">⚠️</div>
@@ -2283,9 +2282,18 @@ cd Pinpoint-311-${VERSION#v}</div>
         <h4>Database backups</h4>
         <div class="cb">docker compose exec db pg_dump -U township township_db > backup_$(date +%Y%m%d).sql</div>
         <h4>Manual updates</h4>
-        <div class="cb">git pull origin main
+        <div class="cb"># Download the new release
+VERSION=v1.1.6  # Replace with latest version
+curl -L "https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/${VERSION}.tar.gz" | tar -xz
+
+# Copy your .env into the new version
+cp .env Pinpoint-311-${VERSION#v}/
+cd Pinpoint-311-${VERSION#v}
+
+# Rebuild and restart
 docker compose up --build -d</div>
         <h4>Database migrations</h4>
+        <p>Migrations run automatically on startup. To run manually:</p>
         <div class="cb">docker compose exec backend alembic upgrade head</div>
         <h4>View logs</h4>
         <div class="cb">docker compose logs -f backend</div>
