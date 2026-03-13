@@ -2730,6 +2730,10 @@ docker compose up --build -d</div>
       font-family: inherit;
       outline: none;
       transition: border-color .2s;
+      resize: none;
+      max-height: 120px;
+      overflow-y: auto;
+      line-height: 1.4;
     }
     .ai-input:focus { border-color: rgba(99,102,241,0.35) }
     .ai-input::placeholder { color: rgba(255,255,255,0.25) }
@@ -2777,7 +2781,7 @@ docker compose up --build -d</div>
       <button class="ai-suggestion-btn" onclick="askSuggestion(this)">What's the minimum setup?</button>
     </div>
     <div class="ai-input-wrap">
-      <input class="ai-input" id="aiInput" placeholder="Ask about setup…" onkeydown="if(event.key==='Enter')sendAiMessage()" />
+      <textarea class="ai-input" id="aiInput" placeholder="Ask about setup…" maxlength="2000" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAiMessage()}"></textarea>
       <button class="ai-send-btn" id="aiSendBtn" onclick="sendAiMessage()">→</button>
     </div>
   </div>
@@ -2869,6 +2873,10 @@ docker compose up --build -d</div>
       input.value = '';
       addAiMessage('user', msg);
       aiChatHistory.push({ role: 'user', content: msg });
+
+      // Hide suggestion hints after first message
+      const suggestions = document.getElementById('aiSuggestions');
+      if (suggestions) suggestions.style.display = 'none';
 
       aiLoading = true;
       document.getElementById('aiSendBtn').disabled = true;
