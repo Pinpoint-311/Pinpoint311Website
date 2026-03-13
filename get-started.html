@@ -1616,6 +1616,64 @@ exit</div>
 docker compose version</div>
         <p style="color:#a5b4fc; font-size:0.9em">💡 If Docker is already installed, skip this step entirely.</p>
 
+        <h4>1d. Open Firewall Ports</h4>
+        <p>Your cloud provider's firewall (security groups / network rules) must allow inbound traffic on these ports:</p>
+        <table class="ss-table">
+          <tr>
+            <th>Port</th>
+            <th>Protocol</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td><strong>22</strong></td>
+            <td>TCP</td>
+            <td>SSH access (already open if you can connect)</td>
+          </tr>
+          <tr>
+            <td><strong>80</strong></td>
+            <td>TCP</td>
+            <td>HTTP — web traffic &amp; Let's Encrypt certificate validation</td>
+          </tr>
+          <tr>
+            <td><strong>443</strong></td>
+            <td>TCP</td>
+            <td>HTTPS — secure web traffic (auto-enabled with a domain)</td>
+          </tr>
+        </table>
+        <p><strong>Where to configure this depends on your cloud provider:</strong></p>
+        <table class="ss-table">
+          <tr>
+            <th>Provider</th>
+            <th>Where to Open Ports</th>
+          </tr>
+          <tr>
+            <td><strong>Oracle Cloud</strong></td>
+            <td>Networking → Virtual Cloud Networks → Security Lists → Add Ingress Rules</td>
+          </tr>
+          <tr>
+            <td><strong>AWS</strong></td>
+            <td>EC2 → Security Groups → Edit Inbound Rules</td>
+          </tr>
+          <tr>
+            <td><strong>Google Cloud</strong></td>
+            <td>VPC Network → Firewall → Create Firewall Rule</td>
+          </tr>
+          <tr>
+            <td><strong>DigitalOcean</strong></td>
+            <td>Networking → Firewalls → Create Firewall</td>
+          </tr>
+        </table>
+        <p>If your server also has a local firewall (e.g. <code>ufw</code> on Ubuntu), open the ports there too:</p>
+        <div class="cb">sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw enable</div>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div>If port 80 or 443 is blocked, your site won't load and SSL certificates won't auto-provision. This is the most common setup issue — make sure both ports are open <strong>before</strong> running <code>docker compose up</code>.</div>
+        </div>
+
+
         <h4>Recommended (Optional)</h4>
         <table class="ss-table">
           <tr>
