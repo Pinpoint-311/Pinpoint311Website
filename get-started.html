@@ -2579,11 +2579,28 @@ docker compose up --build -d</div>
       document.getElementById('wizardWrap').style.minHeight = 'auto';
       document.getElementById('setup-guide').style.display = 'block';
       document.getElementById('guideTracker').style.display = 'block';
+      // Persist access so it survives refresh/navigation
+      try { localStorage.setItem('pp311_setup_unlocked', '1'); } catch(e) {}
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(updateTracker, 500);
     }
 
     // Hamburger (nav doesn't have links here, just in case)
+
+    // Restore setup guide access from localStorage on page load
+    (function() {
+      try {
+        if (localStorage.getItem('pp311_setup_unlocked') === '1') {
+          document.getElementById('progressBar').style.display = 'none';
+          document.getElementById('wizardCard').style.display = 'none';
+          document.getElementById('successWrap').style.display = 'block';
+          document.getElementById('wizardWrap').style.minHeight = 'auto';
+          document.getElementById('setup-guide').style.display = 'block';
+          document.getElementById('guideTracker').style.display = 'block';
+          setTimeout(function() { if (typeof updateTracker === 'function') updateTracker(); }, 300);
+        }
+      } catch(e) {}
+    })();
   </script>
 
   <!-- ASK AI CHAT WIDGET -->
