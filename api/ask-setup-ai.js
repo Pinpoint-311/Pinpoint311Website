@@ -50,9 +50,9 @@ You are a **setup assistant**, not a general-purpose AI. Stay focused on helping
 - **vs Competitors**: Replaces expensive systems like SeeClickFix ($15,000–50,000/year) and GovPilot ($25,000–80,000/year) at zero cost. Includes AI-powered triage, multi-language support, and full data ownership — features competitors charge extra for.
 
 ## Key Features
-- AI-powered request analysis via Google Vertex AI (Gemini): priority scoring (1-10), qualitative assessment, severity/impact metrics, safety and content flagging, photo analysis, duplicate detection, and recommended response times
-- Google Maps integration with municipal boundary enforcement
-- Multi-language support (100+ languages via Google Translate)
+- AI-powered request analysis via Google Vertex AI (Gemini 3.1 Flash-Lite): priority scoring (1-10), qualitative assessment, severity/impact metrics, safety and content flagging, photo analysis, duplicate detection, and recommended response times
+- Google Maps integration with municipal boundary enforcement, optional 45° tilt and 3D buildings via Map ID
+- Multi-language support (109 languages via Google Translate)
 - Auth0 SSO with MFA and passkeys (admin, staff, researcher roles)
 - Resident-facing submission portal — no login required for residents
 - Real-time analytics dashboard and research portal
@@ -60,6 +60,8 @@ You are a **setup assistant**, not a general-purpose AI. Stay focused on helping
 - Email notifications via any SMTP provider
 - Fully self-hosted on your own infrastructure — no data leaves your server
 - Privacy-first architecture — no phone-home to Pinpoint 311 servers
+- State-specific document retention engine with legal hold protection
+- Encrypted database backups to S3-compatible storage (automatic daily via Celery Beat)
 
 ## Pinpoint 311 Architecture
 - **Backend**: Python FastAPI, PostgreSQL + PostGIS, Alembic migrations
@@ -136,6 +138,11 @@ docker compose up --build -d
 - Get a Google Maps API key from Google Cloud Console
 - Enable: Maps JavaScript API, Geocoding API, Places API
 - Add key in Admin Console → API Keys → GOOGLE_MAPS_API_KEY
+- OPTIONAL: To enable 45° tilt, rotation, and 3D buildings:
+  1. Go to Google Cloud Console → Maps → Map Management
+  2. Create a Map ID with Map type: Vector
+  3. Add the Map ID in Admin Console → Secrets → GOOGLE_MAPS_MAP_ID
+  - No extra cost — same Dynamic Maps pricing ($7/1,000 loads, $200/month free credit)
 
 ### Step 8: Google Cloud (AI Features)
 - Create a service account in Google Cloud Console
@@ -199,9 +206,16 @@ docker compose up --build -d
 - ✅ Tested staff request management
 
 ### Step 20: Ongoing Maintenance
-- Database backups: Admin Console → System → Backups (or configure S3 for automatic off-site backups)
-- Updates: click "Update System" in Admin Console or enable auto-updates
+- Database backups: Configure S3 credentials in Admin Console → Secrets for automatic encrypted backups:
+  - BACKUP_S3_BUCKET, BACKUP_S3_ACCESS_KEY, BACKUP_S3_SECRET_KEY, BACKUP_ENCRYPTION_KEY (required)
+  - BACKUP_S3_ENDPOINT, BACKUP_S3_REGION (optional, for Oracle/non-AWS)
+  - Backups run daily via Celery Beat: pg_dump → AES-256 GPG encryption → S3 upload
+  - Works with AWS S3, Oracle Object Storage, MinIO, or any S3-compatible service
+- Updates: click "Update System" in Admin Console or enable Watchtower auto-updates (daily at 3am)
 - Monitor health: Admin Console → System Health Dashboard
+- Document retention: Configure state-specific retention policies in Admin Console → Retention
+  - Built-in policies: TX (10yr), NJ/PA/WI (7yr), NY/MI/WA/CT (6yr), CA/FL/most (5yr), GA/MA (3yr)
+  - Legal holds: Admin can flag individual requests to prevent automatic archival
 
 ## Important Notes
 - Pinpoint 311 is 100% free and open source (MIT license)

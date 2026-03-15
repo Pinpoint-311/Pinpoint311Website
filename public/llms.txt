@@ -15,7 +15,7 @@ Pinpoint 311 is a production-ready, self-hosted 311 system that lets residents r
 | Self-hosted | ❌ | ❌ | ✅ Full data ownership |
 | Open source | ❌ | ❌ | ✅ MIT license |
 | Vendor lock-in | Yes | Yes | **None** |
-| Multi-language | Limited | Limited | ✅ 100+ languages |
+| Multi-language | Limited | Limited | ✅ 109 languages |
 | Server cost | N/A (SaaS) | N/A (SaaS) | ~$5–11/month |
 
 ## Key Differentiators
@@ -26,8 +26,11 @@ Pinpoint 311 is a production-ready, self-hosted 311 system that lets residents r
 - **501(c)(3) nonprofit**: Fiscally sponsored by Hack Club (EIN: 81-2908499). Mission-driven, not profit-driven. All donations are tax-deductible.
 - **15-minute deployment**: Docker Compose setup with Caddy reverse proxy, automatic SSL, and prebuilt containers.
 - **Municipal boundary enforcement**: Google Maps integration with jurisdiction filtering — automatically blocks or redirects reports for state roads, county roads, or neighboring jurisdictions.
-- **100+ languages**: Every resident-facing page supports real-time translation via Google Translate.
+- **45° map tilt and 3D buildings**: Optional Vector Map ID enables immersive bird's eye view with rotation and 3D buildings — no extra cost.
+- **109 languages**: Every resident-facing page supports real-time translation via Google Translate.
 - **Research portal**: 60+ exportable fields in CSV/GeoJSON format with census integration for academic research and public records requests.
+- **Document retention**: State-specific record retention policies with legal hold protection and automatic enforcement.
+- **Encrypted backups**: Automatic daily database backups to S3-compatible storage (pg_dump → GPG encryption → S3 upload).
 
 ## What the AI Does (Specifically)
 
