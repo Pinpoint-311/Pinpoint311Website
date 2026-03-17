@@ -2,6 +2,10 @@
    Pinpoint 311 — Main JavaScript
    ============================================ */
 
+// --- Vercel Web Analytics ---
+import { inject } from '@vercel/analytics';
+inject();
+
 // --- Scroll-based nav style ---
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
