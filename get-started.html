@@ -1435,15 +1435,19 @@
         align-items: center;
         gap: .85rem;
         padding: 1.25rem 1.5rem;
-        margin: 2.5rem 0 1.25rem;
         background: linear-gradient(135deg, rgba(99,102,241,.08) 0%, rgba(34,211,165,.04) 100%);
         border: 1px solid var(--purple-border);
         border-radius: 14px;
         position: relative;
-        overflow: hidden
+        overflow: hidden;
+        cursor: pointer;
+        user-select: none;
+        transition: background .2s
       }
 
-      .phase-divider:first-of-type { margin-top: 0 }
+      .phase-divider:hover {
+        background: linear-gradient(135deg, rgba(99,102,241,.12) 0%, rgba(34,211,165,.06) 100%)
+      }
 
       .phase-divider::before {
         content: '';
@@ -1494,6 +1498,35 @@
         border: 1px solid var(--purple-border);
         border-radius: 100px;
         padding: .3rem .75rem
+      }
+
+      .phase-divider-chevron {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-size: .85rem;
+        transition: transform .3s;
+        margin-left: .25rem
+      }
+
+      .phase-accordion.open .phase-divider-chevron {
+        transform: rotate(180deg)
+      }
+
+      /* Phase accordion body */
+      .phase-accordion {
+        margin-bottom: 1.5rem
+      }
+
+      .phase-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .5s ease;
+        padding: 0
+      }
+
+      .phase-accordion.open .phase-body {
+        max-height: 12000px;
+        padding: .5rem 0 0
       }
 
       @media(max-width:640px) {
@@ -1725,16 +1758,19 @@
 
 
     <!-- PHASE 1: GET RUNNING -->
-    <div class="phase-divider" id="phase-1">
-      <div class="phase-divider-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+    <div class="phase-accordion open" id="phase-1">
+      <div class="phase-divider" onclick="togglePhaseAccordion(this)">
+        <div class="phase-divider-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+        </div>
+        <div class="phase-divider-text">
+          <div class="phase-divider-title">Get Running</div>
+          <div class="phase-divider-sub">Server, code, config, start & login</div>
+        </div>
+        <div class="phase-divider-badge">Steps 1–5</div>
+        <div class="phase-divider-chevron">▾</div>
       </div>
-      <div class="phase-divider-text">
-        <div class="phase-divider-title">Get Running</div>
-        <div class="phase-divider-sub">Server, code, config, start & login</div>
-      </div>
-      <div class="phase-divider-badge">Steps 1–5</div>
-    </div>
+      <div class="phase-body">
 
     <div class="setup-step active" id="ss-1">
       <div class="ss-header" onclick="toggleSetupStep(this)">
@@ -2026,17 +2062,23 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <!-- PHASE 2: CONNECT SERVICES -->
-    <div class="phase-divider" id="phase-2">
-      <div class="phase-divider-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/><path d="M12 22a2 2 0 0 0 2-2v-1h-4v1a2 2 0 0 0 2 2z"/></svg>
-      </div>
-      <div class="phase-divider-text">
-        <div class="phase-divider-title">Connect Services</div>
-        <div class="phase-divider-sub">Optional — Auth0, Maps, AI, email & SMS</div>
-      </div>
-      <div class="phase-divider-badge">Steps 6–11</div>
     </div>
+    </div><!-- end phase-1 -->
+
+    <!-- PHASE 2: CONNECT SERVICES -->
+    <div class="phase-accordion" id="phase-2">
+      <div class="phase-divider" onclick="togglePhaseAccordion(this)">
+        <div class="phase-divider-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/><path d="M12 22a2 2 0 0 0 2-2v-1h-4v1a2 2 0 0 0 2 2z"/></svg>
+        </div>
+        <div class="phase-divider-text">
+          <div class="phase-divider-title">Connect Services</div>
+          <div class="phase-divider-sub">Optional — Auth0, Maps, AI, email & SMS</div>
+        </div>
+        <div class="phase-divider-badge">Steps 6–11</div>
+        <div class="phase-divider-chevron">▾</div>
+      </div>
+      <div class="phase-body">
 
     <div class="setup-step" id="ss-6">
       <div class="ss-header" onclick="toggleSetupStep(this)">
@@ -2212,17 +2254,23 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <!-- PHASE 3: MAKE IT YOURS -->
-    <div class="phase-divider" id="phase-3">
-      <div class="phase-divider-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 18 8-8"/><path d="m22 2-8 8"/><path d="m2 2 4 4"/><path d="m22 22-4-4"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>
-      </div>
-      <div class="phase-divider-text">
-        <div class="phase-divider-title">Make It Yours</div>
-        <div class="phase-divider-sub">Boundaries, services, branding & legal</div>
-      </div>
-      <div class="phase-divider-badge">Steps 12–15</div>
     </div>
+    </div><!-- end phase-2 -->
+
+    <!-- PHASE 3: MAKE IT YOURS -->
+    <div class="phase-accordion" id="phase-3">
+      <div class="phase-divider" onclick="togglePhaseAccordion(this)">
+        <div class="phase-divider-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 18 8-8"/><path d="m22 2-8 8"/><path d="m2 2 4 4"/><path d="m22 22-4-4"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>
+        </div>
+        <div class="phase-divider-text">
+          <div class="phase-divider-title">Make It Yours</div>
+          <div class="phase-divider-sub">Boundaries, services, branding & legal</div>
+        </div>
+        <div class="phase-divider-badge">Steps 12–15</div>
+        <div class="phase-divider-chevron">▾</div>
+      </div>
+      <div class="phase-body">
 
     <div class="setup-step" id="ss-12">
       <div class="ss-header" onclick="toggleSetupStep(this)">
@@ -2322,17 +2370,23 @@ cd Pinpoint-311-${VERSION#v}</div>
       </div>
     </div>
 
-    <!-- PHASE 4: GO LIVE -->
-    <div class="phase-divider" id="phase-4">
-      <div class="phase-divider-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
-      </div>
-      <div class="phase-divider-text">
-        <div class="phase-divider-title">Go Live</div>
-        <div class="phase-divider-sub">Domain, updates, staff & launch checklist</div>
-      </div>
-      <div class="phase-divider-badge">Steps 16–20</div>
     </div>
+    </div><!-- end phase-3 -->
+
+    <!-- PHASE 4: GO LIVE -->
+    <div class="phase-accordion" id="phase-4">
+      <div class="phase-divider" onclick="togglePhaseAccordion(this)">
+        <div class="phase-divider-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+        </div>
+        <div class="phase-divider-text">
+          <div class="phase-divider-title">Go Live</div>
+          <div class="phase-divider-sub">Domain, updates, staff & launch checklist</div>
+        </div>
+        <div class="phase-divider-badge">Steps 16–20</div>
+        <div class="phase-divider-chevron">▾</div>
+      </div>
+      <div class="phase-body">
 
     <div class="setup-step" id="ss-16">
       <div class="ss-header" onclick="toggleSetupStep(this)">
@@ -2544,6 +2598,11 @@ docker compose up --build -d</div>
         </table>
       </div>
     </div>
+      </div>
+    </div>
+
+    </div>
+    </div><!-- end phase-4 -->
 
     <div style="text-align:center;padding:2rem 0 1rem;margin-top:1rem">
       <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.25rem">Need help? We're here for you.</p>
@@ -2563,6 +2622,7 @@ docker compose up --build -d</div>
   <script>
     function toggleSetupStep(h) { h.closest('.setup-step').classList.toggle('open') }
     function toggleTocPhase(h) { h.closest('.toc-phase').classList.toggle('open') }
+    function togglePhaseAccordion(h) { h.closest('.phase-accordion').classList.toggle('open') }
 
     // Scroll-based progress tracker
     const TOTAL_STEPS = 20;
