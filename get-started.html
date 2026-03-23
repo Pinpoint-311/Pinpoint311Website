@@ -1665,8 +1665,26 @@
         color: #a5b4fc;
         overflow-x: auto;
         white-space: pre;
-        line-height: 1.5
+        line-height: 1.5;
+        position: relative;
       }
+      .cb-copy {
+        position: absolute; top: 6px; right: 6px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 6px;
+        color: rgba(255,255,255,.5);
+        cursor: pointer;
+        padding: 4px 6px;
+        font-size: .7rem;
+        font-family: 'DM Sans', sans-serif;
+        display: flex; align-items: center; gap: 4px;
+        transition: all .2s;
+        z-index: 2;
+      }
+      .cb-copy:hover { background: rgba(99,102,241,.25); color: #c7d2fe; border-color: rgba(99,102,241,.4); }
+      .cb-copy.copied { background: rgba(34,197,94,.2); color: #86efac; border-color: rgba(34,197,94,.3); }
+      .cb-copy svg { width: 13px; height: 13px; }
 
       .ss-table {
         width: 100%;
@@ -2623,6 +2641,28 @@ docker compose up --build -d</div>
     function toggleSetupStep(h) { h.closest('.setup-step').classList.toggle('open') }
     function toggleTocPhase(h) { h.closest('.toc-phase').classList.toggle('open') }
     function togglePhaseAccordion(h) { h.closest('.phase-accordion').classList.toggle('open') }
+
+    // Inject copy buttons on all .cb code blocks
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.cb').forEach(function(block) {
+        var btn = document.createElement('button');
+        btn.className = 'cb-copy';
+        btn.setAttribute('aria-label', 'Copy to clipboard');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span>';
+        btn.onclick = function() {
+          var text = block.textContent.replace(/^Copy(ed!)?/, '').trim();
+          navigator.clipboard.writeText(text).then(function() {
+            btn.classList.add('copied');
+            btn.querySelector('span').textContent = 'Copied!';
+            setTimeout(function() {
+              btn.classList.remove('copied');
+              btn.querySelector('span').textContent = 'Copy';
+            }, 2000);
+          });
+        };
+        block.appendChild(btn);
+      });
+    });
 
     // Scroll-based progress tracker
     const TOTAL_STEPS = 20;
