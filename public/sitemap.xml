@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pinpoint311.org/</loc>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pinpoint311.org/about</loc>
-    <lastmod>2026-03-17</lastmod>
+    <loc>https://pinpoint311.org/about.html</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pinpoint311.org/get-started</loc>
-    <lastmod>2026-03-17</lastmod>
+    <loc>https://pinpoint311.org/get-started.html</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://pinpoint311.org/demo-launcher</loc>
-    <lastmod>2026-03-17</lastmod>
+    <loc>https://pinpoint311.org/demo-launcher.html</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
