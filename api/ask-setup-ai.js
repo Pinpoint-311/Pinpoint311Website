@@ -73,9 +73,9 @@ You are a **setup assistant**, not a general-purpose AI. Stay focused on helping
 - **Email**: SMTP (any provider — Gmail, SendGrid, township mail server)
 - **SMS**: Twilio (optional)
 
-## Setup Guide Summary (20 Steps)
+## Setup Guide Summary (16 Steps)
 
-### Step 1: Set Up Your Server
+### Step 1: Prerequisites (Server Setup)
 - Get a Linux server (Ubuntu recommended) — any cloud provider or on-premise
 - Min specs: 1 vCPU, 1 GB RAM (2+ GB recommended), 20 GB disk
 - SSH into the server: ssh -i your-key.pem ubuntu@your-server-ip
@@ -95,7 +95,7 @@ You are a **setup assistant**, not a general-purpose AI. Stay focused on helping
 - Also open ports on the server's local firewall if active: sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp
 - If ports 80/443 are blocked, the site won't load and SSL certs won't provision — this is the #1 setup issue
 - All remaining steps are run ON the server, not the local machine
-- Recommended: Google Cloud account, Auth0 free account
+- Recommended accounts to have ready: Google Cloud, Auth0 (free tier), SMTP provider
 
 ### Step 2: Download the Latest Release
 - On the server, download from https://github.com/Pinpoint-311/Pinpoint-311/releases
@@ -127,91 +127,115 @@ docker compose up --build -d
 - If login page doesn't load, containers may still be starting — check: docker compose ps
 
 ### Step 6: Auth0 SSO (Optional but Recommended)
-- Create free Auth0 tenant at auth0.com
-- Create a Machine-to-Machine application with Management API access
-- In Pinpoint Admin Console → Setup → Auth0 tab:
-  - Enter Auth0 domain, Management Client ID, and Management Client Secret
-  - Pinpoint auto-creates the SPA application and configures callbacks
-- enable_sso=true in .env to require SSO login
+- Create free Auth0 tenant at auth0.com (free tier supports up to 7,000 active users)
+- Create a Regular Web Application under Applications → Create Application
+- Copy your Domain, Client ID, and Client Secret from the Settings tab
+- Set Allowed Callback URL to: https://your-domain/api/auth/callback
+- Set Allowed Logout URL to: https://your-domain/staff
+- Set Allowed Web Origins to: https://your-domain
+- IMPORTANT: Callback URL must EXACTLY match your domain with /api/auth/callback appended — a single typo causes silent login failures
+- In Pinpoint Admin Console → Setup & Integration → Auth0, enter your Domain, Client ID, and Client Secret
+- Enable MFA: Go to Security → Multi-factor Auth in Auth0 Dashboard for staff login protection
+- Optional: Under Authentication → Social, add Google and Microsoft connections for work account login
+- Once Auth0 is configured, bootstrap access is automatically disabled
 
-### Step 7: Google Maps
+### Step 7: Google Cloud (AI, KMS & Secrets)
+- Create or select a GCP project; note the Project ID (not project name)
+- Billing must be enabled even if you stay within the free tier — most municipality usage falls within Google's free quotas
+- Enable APIs: Cloud KMS, Cloud Translation, Vertex AI, Secret Manager
+- Create KMS Key Ring and Key:
+  - Go to Security → Key Management
+  - Create Key Ring (e.g., pinpoint311) in your preferred location (e.g., us-central1)
+  - Create Key (e.g., pii-encryption) with purpose: Symmetric encrypt/decrypt
+  - Optionally set automatic rotation (e.g., every 90 days)
+- Create Service Account with roles:
+  - Cloud KMS CryptoKey Encrypter/Decrypter
+  - Cloud Translation API User
+  - Vertex AI User
+  - Secret Manager Admin
+- Download the JSON key file
+- In Admin Console → Setup → GCP tab:
+  - Enter Project ID, KMS Location, Key Ring, Key ID
+  - Upload or paste the Service Account JSON key
+  - Click Save GCP Settings
+- Optional: Click "Migrate to Secret Manager" to vault all API credentials into GCP
+- After KMS key rotation, use the "Re-encrypt All PII Data" button in the GCP settings card to migrate historical data to the new key version
+- This enables: AI-powered request analysis, priority scoring, photo assessment, safety flagging, duplicate detection, response time recommendations, KMS encryption for PII, and multi-language support
+
+### Step 8: Google Maps
 - Get a Google Maps API key from Google Cloud Console
 - Enable: Maps JavaScript API, Geocoding API, Places API
-- Add key in Admin Console → API Keys → GOOGLE_MAPS_API_KEY
+- Add key in Admin Console → Setup & Integration → Google Maps
+- If Secret Manager is configured (Step 7), the key is automatically vaulted into GCP
 - OPTIONAL: To enable 45° tilt, rotation, and 3D buildings:
   1. Go to Google Cloud Console → Maps → Map Management
   2. Create a Map ID with Map type: Vector
   3. Add the Map ID in Admin Console → Secrets → GOOGLE_MAPS_MAP_ID
   - No extra cost — same Dynamic Maps pricing ($7/1,000 loads, $200/month free credit)
 
-### Step 8: Google Cloud (AI Features)
-- Create a service account in Google Cloud Console
-- Enable Vertex AI API
-- Download the JSON key file
-- In Admin Console → Setup → GCP tab, paste the JSON key
-- This enables: AI-powered request analysis, priority scoring, photo assessment, safety flagging, duplicate detection, and response time recommendations
+### Step 9: Add Staff Users
+- In Admin Console → Staff Management, create accounts for staff
+- Assign departments and roles (admin, staff, researcher)
+- Staff PII (names, emails) is encrypted with Google KMS if Step 7 is configured
+- Staff log in via Auth0 SSO — no passwords needed
 
-### Step 9: Email (SMTP)
-- Configure in Admin Console → API Keys:
+### Step 10: Email (SMTP)
+- Configure in Admin Console → Setup & Integration → Email (SMTP):
   - SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, SMTP_FROM_EMAIL
-- Gmail: use smtp.gmail.com:587 with an App Password
-- SendGrid: use smtp.sendgrid.net:587
+- Gmail: use smtp.gmail.com:587. IMPORTANT: You must enable 2FA on your Google account first, then generate an App Password under Security → App Passwords. Use the app password as your SMTP password
+- SendGrid: use smtp.sendgrid.net:587, username is literally the word "apikey", password is your SendGrid API key
+- Organization relay: use your org's existing SMTP server
+- All notification emails automatically include your municipality's branding (logo, colors, name)
 
-### Step 10: SMS via Twilio (Optional)
-- Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER in API Keys
+### Step 11: SMS Notifications via Twilio (Optional)
+- Option A — Twilio (recommended): Create account at twilio.com, note your Account SID and Auth Token from Console Dashboard
+  - Go to Phone Numbers → Manage → Buy a number with SMS capability
+  - In Admin Console → SMS Notifications, select "Twilio" and enter your credentials
+- Option B — Custom HTTP API: If you have an existing SMS gateway, select "Custom HTTP API" and provide your endpoint URL. Pinpoint sends POST with { "to": "+1...", "message": "..." }
+- SMS is fully optional — email notifications cover all the same status updates
 
-### Step 11: Township Boundaries
+### Step 12: Township Boundaries
 - In Admin Console → Map Setup, search for your municipality
 - Select the correct boundary from OpenStreetMap/Census data
 - This defines the coverage area for the resident portal map
 
-### Step 12: Service Categories
+### Step 13: Services & Departments
 - In Admin Console → Services, create categories like:
   - Pothole, Streetlight, Graffiti, Abandoned Vehicle, etc.
 - Each category can have a department assignment for auto-routing
+- Road-Based routing splits jurisdiction per street — configured without code
 
-### Step 13: Branding
-- Upload your municipality logo in Admin Console → Settings
-- Set township name, contact info, colors
-
-### Step 14: Legal Documents
-- Set Terms of Service and Privacy Policy in Admin Console → Settings
+### Step 14: Branding & Legal
+- Upload your municipality logo in Admin Console → Branding
+- Set township name, contact info, colors, font
+- Set Terms of Service, Privacy Policy, and Accessibility statement in Branding → Legal Documents
 - Residents must acknowledge before submitting requests
 
 ### Step 15: Custom Domain
 - Point your domain (e.g., 311.yourtown.gov) to the server IP
-- In Admin Console → Domain, enter the domain
+- Set DOMAIN=311.yourtown.gov in .env
+- Restart Caddy: docker compose restart caddy
 - SSL/HTTPS is auto-configured via Let's Encrypt
 
-### Step 16: Auto-Updates
-- Enable in Admin Console → System → Auto-Update
-- The system pulls from GitHub and rebuilds automatically
-
-### Step 17: Secret Manager (Production)
-- Optional: migrate secrets to Google Cloud Secret Manager
-- More secure than database storage for production deployments
-
-### Step 18: Add Staff Users
-- In Admin Console → Users, create accounts for staff
-- Assign departments and roles (admin, staff)
-
-### Step 19: Go-Live Checklist
-- ✅ Changed default admin password
-- ✅ Set up at least one service category
-- ✅ Configured township boundary on the map
-- ✅ Set up email notifications
-- ✅ Uploaded branding/logo
-- ✅ Set Terms of Service
-- ✅ Tested resident submission flow
-- ✅ Tested staff request management
-
-### Step 20: Ongoing Maintenance
+### Step 16: Go-Live Checklist & Maintenance
+- Pre-launch checklist:
+  - ✅ Changed default admin password
+  - ✅ Auth0 configured, bootstrap disabled
+  - ✅ Google Maps key working
+  - ✅ Set up at least one service category
+  - ✅ Configured township boundary on the map
+  - ✅ Set up email notifications
+  - ✅ Uploaded branding/logo
+  - ✅ Set Terms of Service
+  - ✅ Custom domain with HTTPS
+  - ✅ Full lifecycle test: submit → staff → resolve → email
+- Automatic updates: docker compose up -d watchtower (optional, patches at 3am daily)
 - Database backups: Configure S3 credentials in Admin Console → Secrets for automatic encrypted backups:
   - BACKUP_S3_BUCKET, BACKUP_S3_ACCESS_KEY, BACKUP_S3_SECRET_KEY, BACKUP_ENCRYPTION_KEY (required)
   - BACKUP_S3_ENDPOINT, BACKUP_S3_REGION (optional, for Oracle/non-AWS)
   - Backups run daily via Celery Beat: pg_dump → AES-256 GPG encryption → S3 upload
   - Works with AWS S3, Oracle Object Storage, MinIO, or any S3-compatible service
-- Updates: click "Update System" in Admin Console or enable Watchtower auto-updates (daily at 3am)
+- Manual updates: download new release, copy .env, rebuild with docker compose up --build -d
 - Monitor health: Admin Console → System Health Dashboard
 - Document retention: Configure state-specific retention policies in Admin Console → Retention
   - Built-in policies: TX (10yr), NJ/PA/WI (7yr), NY/MI/WA/CT (6yr), CA/FL/most (5yr), GA/MA (3yr)

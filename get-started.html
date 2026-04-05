@@ -903,7 +903,7 @@
               <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
                 <input type="range" id="popRange" min="0" max="7" value="2" style="flex:1" />
                 <input type="number" id="popNumberInput" min="0" max="9999999" value="10000"
-                  style="width:100px;padding:.42rem .55rem;font-size:.82rem;border-radius:8px;text-align:right;background:rgba(255,255,255,.05);border:1px solid var(--border2);color:var(--white);font-family:inherit;outline:none;-moz-appearance:textfield"
+                  style="width:100px;padding:.42rem .55rem;font-size:.82rem;border-radius:8px;text-align:right;background:rgba(255,255,255,.05);border:1px solid var(--border2);color:var(--white);font-family:inherit;outline:none;appearance:textfield;-moz-appearance:textfield"
                   placeholder="10000" />
               </div>
               <div class="pop-labels">
@@ -1192,15 +1192,15 @@
             </div>
             <div class="toc-phase-text">
               <div class="toc-phase-title">Connect Services</div>
-              <div class="toc-phase-sub">Optional — Auth0, Maps, AI, email &amp; SMS</div>
+              <div class="toc-phase-sub">Auth0, AI, Maps, staff, email &amp; SMS</div>
             </div>
             <div class="toc-phase-chevron">▾</div>
           </div>
           <div class="toc-phase-steps">
             <a class="toc-item" href="#ss-6"><div class="toc-num">6</div>Auth0 SSO</a>
-            <a class="toc-item" href="#ss-7"><div class="toc-num">7</div>Google Maps</a>
-            <a class="toc-item" href="#ss-8"><div class="toc-num">8</div>Google Cloud (AI)</a>
-            <a class="toc-item" href="#ss-9"><div class="toc-num">9</div>Secret Manager</a>
+            <a class="toc-item" href="#ss-7"><div class="toc-num">7</div>Google Cloud (AI, KMS, Secrets)</a>
+            <a class="toc-item" href="#ss-8"><div class="toc-num">8</div>Google Maps</a>
+            <a class="toc-item" href="#ss-9"><div class="toc-num">9</div>Add Staff Users</a>
             <a class="toc-item" href="#ss-10"><div class="toc-num">10</div>Email (SMTP)</a>
             <a class="toc-item" href="#ss-11"><div class="toc-num">11</div>SMS (Optional)</a>
           </div>
@@ -1220,9 +1220,8 @@
           </div>
           <div class="toc-phase-steps">
             <a class="toc-item" href="#ss-12"><div class="toc-num">12</div>Boundaries</a>
-            <a class="toc-item" href="#ss-13"><div class="toc-num">13</div>Services</a>
-            <a class="toc-item" href="#ss-14"><div class="toc-num">14</div>Branding</a>
-            <a class="toc-item" href="#ss-15"><div class="toc-num">15</div>Legal Docs</a>
+            <a class="toc-item" href="#ss-13"><div class="toc-num">13</div>Services &amp; Departments</a>
+            <a class="toc-item" href="#ss-14"><div class="toc-num">14</div>Branding &amp; Legal</a>
           </div>
         </div>
 
@@ -1234,16 +1233,13 @@
             </div>
             <div class="toc-phase-text">
               <div class="toc-phase-title">Go Live</div>
-              <div class="toc-phase-sub">Domain, updates, staff &amp; launch checklist</div>
+              <div class="toc-phase-sub">Domain, checklist &amp; maintenance</div>
             </div>
             <div class="toc-phase-chevron">▾</div>
           </div>
           <div class="toc-phase-steps">
-            <a class="toc-item" href="#ss-16"><div class="toc-num">16</div>Custom Domain</a>
-            <a class="toc-item" href="#ss-17"><div class="toc-num">17</div>Auto-Updates</a>
-            <a class="toc-item" href="#ss-18"><div class="toc-num">18</div>Add Staff</a>
-            <a class="toc-item" href="#ss-19"><div class="toc-num">19</div>Go-Live Checklist</a>
-            <a class="toc-item" href="#ss-20"><div class="toc-num">20</div>Maintenance</a>
+            <a class="toc-item" href="#ss-15"><div class="toc-num">15</div>Custom Domain</a>
+            <a class="toc-item" href="#ss-16"><div class="toc-num">16</div>Go-Live &amp; Maintenance</a>
           </div>
         </div>
 
@@ -2103,188 +2099,340 @@ nano .env</div>
         </div>
         <div class="phase-divider-text">
           <div class="phase-divider-title">Connect Services</div>
-          <div class="phase-divider-sub">Optional — Auth0, Maps, AI, email & SMS</div>
+          <div class="phase-divider-sub">Auth0, AI, Maps, staff, email & SMS</div>
         </div>
         <div class="phase-divider-badge">Steps 6–11</div>
         <div class="phase-divider-chevron">▾</div>
       </div>
       <div class="phase-body">
 
+    <!-- Step 6: Auth0 SSO -->
     <div class="setup-step" id="ss-6">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">6</div>
         <div>
           <div class="ss-title">Configure Auth0 (SSO)</div>
-          <div class="ss-subtitle">Zero-password staff authentication</div>
+          <div class="ss-subtitle">Zero-password staff authentication with MFA</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <h4>1. Create an Auth0 application</h4>
+        <h4>1. Create an Auth0 account</h4>
+        <p>Go to <a href="https://auth0.com" target="_blank">auth0.com</a> and create a free account (or use your organization's existing tenant). The free tier supports up to 7,000 active users.</p>
+
+        <h4>2. Create an application</h4>
         <ul>
-          <li>Log into <a href="https://manage.auth0.com/" target="_blank">Auth0 Dashboard</a></li>
-          <li><strong>Applications → Create Application → Regular Web Application</strong></li>
+          <li>In the Auth0 Dashboard, go to <strong>Applications → Create Application</strong></li>
+          <li>Choose <strong>Regular Web Application</strong></li>
+          <li>In the app's <strong>Settings</strong> tab, copy the <strong>Domain</strong>, <strong>Client ID</strong>, and <strong>Client Secret</strong></li>
         </ul>
-        <h4>2. Configure callback URLs</h4>
+
+        <h4>3. Configure callback URLs</h4>
         <table class="ss-table">
           <tr>
             <th>Setting</th>
             <th>Value</th>
           </tr>
           <tr>
-            <td>Callback URLs</td>
+            <td>Allowed Callback URLs</td>
             <td><code>https://311.yourtown.gov/api/auth/callback</code></td>
           </tr>
           <tr>
-            <td>Logout URLs</td>
+            <td>Allowed Logout URLs</td>
             <td><code>https://311.yourtown.gov/staff</code></td>
           </tr>
           <tr>
-            <td>Web Origins</td>
+            <td>Allowed Web Origins</td>
             <td><code>https://311.yourtown.gov</code></td>
           </tr>
         </table>
         <div class="ss-note warn">
           <div class="ss-note-icon">⚠️</div>
-          <div><strong>Common Issue:</strong> Make sure your callback URL exactly matches your domain with the <code>/api/auth/callback</code> path appended. If there is a typo here, staff logins will fail routing back.</div>
+          <div><strong>Common Issue:</strong> The callback URL must <em>exactly</em> match your domain with <code>/api/auth/callback</code> appended. A single typo here will cause staff logins to fail silently.</div>
         </div>
-        <h4>3. Enter in Admin Console</h4>
-        <p>Go to <strong>Setup & Integration</strong>, enter your Auth0 <strong>Domain</strong>, <strong>Client
-            ID</strong>, and <strong>Client Secret</strong>.</p>
+
+        <h4>4. Enable MFA (recommended)</h4>
+        <p>In the Auth0 Dashboard, go to <strong>Security → Multi-factor Auth</strong> and enable MFA. Staff will be prompted to set up a second factor on their first login.</p>
+
+        <h4>5. Social login (optional)</h4>
+        <p>Under <strong>Authentication → Social</strong>, add Google and Microsoft connections so staff can log in with their existing work accounts.</p>
+
+        <h4>6. Enter credentials in Admin Console</h4>
+        <p>Go to <strong>Setup & Integration → Auth0</strong>, enter your Auth0 <strong>Domain</strong>, <strong>Client ID</strong>, and <strong>Client Secret</strong>, and save.</p>
         <div class="ss-note success">
           <div class="ss-note-icon">🔒</div>
-          <div>Bootstrap access is now auto-disabled. All logins use Auth0 SSO with optional MFA and passkeys.</div>
+          <div>Once Auth0 is configured, bootstrap access is automatically disabled. All staff logins use Auth0 SSO with passkey support.</div>
         </div>
       </div>
     </div>
 
+    <!-- Step 7: Google Cloud (AI, KMS, Secrets) -->
     <div class="setup-step" id="ss-7">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">7</div>
         <div>
-          <div class="ss-title">Configure Google Maps</div>
-          <div class="ss-subtitle">Location picker, maps, autocomplete</div>
+          <div class="ss-title">Google Cloud (AI, KMS & Secrets)</div>
+          <div class="ss-subtitle">Vertex AI, Translation, KMS encryption & Secret Manager</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
+        <h4>1. Create or select a GCP project</h4>
+        <p>Go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> and create a new project or select an existing one. Note your <strong>Project ID</strong> (not the project name).</p>
+        <div class="ss-note">
+          <div class="ss-note-icon">💡</div>
+          <div>Billing must be enabled on your GCP project even if you stay within the free tier. Most API usage for a single municipality will fall within Google's generous free quotas.</div>
+        </div>
+
+        <h4>2. Enable APIs</h4>
+        <p>Go to <strong>APIs & Services → Library</strong> and enable all four:</p>
+        <table class="ss-table">
+          <tr>
+            <th>API</th>
+            <th>What it powers</th>
+          </tr>
+          <tr>
+            <td><strong>Cloud KMS API</strong></td>
+            <td>PII encryption at rest (HSM-backed, FIPS 140-2)</td>
+          </tr>
+          <tr>
+            <td><strong>Cloud Translation API</strong></td>
+            <td>Multi-language support (109 languages)</td>
+          </tr>
+          <tr>
+            <td><strong>Vertex AI API</strong></td>
+            <td>AI request analysis, priority scoring, photo assessment, duplicate detection</td>
+          </tr>
+          <tr>
+            <td><strong>Secret Manager API</strong></td>
+            <td>Enterprise secrets vault for production credentials</td>
+          </tr>
+        </table>
+
+        <h4>3. Create KMS Key Ring & Key</h4>
+        <p>Navigate to <strong>Security → Key Management</strong>:</p>
         <ul>
-          <li><a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console →
-              Credentials → Create API Key</a></li>
-          <li>Restrict to: <strong>Maps JavaScript</strong>, <strong>Places</strong>, <strong>Geocoding</strong> APIs
-          </li>
-          <li>Restrict referrers to your domain</li>
+          <li><strong>Create Key Ring</strong> — name it (e.g., <code>pinpoint311</code>) and select a location (e.g., <code>us-central1</code>)</li>
+          <li><strong>Create Key</strong> inside the ring (e.g., <code>pii-encryption</code>), purpose: <strong>Symmetric encrypt/decrypt</strong></li>
+          <li><em>Optional:</em> Set automatic rotation (e.g., every 90 days). After rotation, use the <strong>Re-encrypt All PII Data</strong> button in Admin Console to migrate historical data</li>
         </ul>
-        <p>Enter the key in Admin Console → <strong>Setup & Integration → Google Maps</strong>.</p>
+
+        <h4>4. Create a Service Account</h4>
+        <p>Go to <strong>IAM & Admin → Service Accounts → Create</strong>. Grant it these roles:</p>
+        <table class="ss-table">
+          <tr>
+            <th>Role</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td><code>Cloud KMS CryptoKey Encrypter/Decrypter</code></td>
+            <td>Encrypt/decrypt PII data</td>
+          </tr>
+          <tr>
+            <td><code>Cloud Translation API User</code></td>
+            <td>Translate submissions</td>
+          </tr>
+          <tr>
+            <td><code>Vertex AI User</code></td>
+            <td>AI-powered analysis</td>
+          </tr>
+          <tr>
+            <td><code>Secret Manager Admin</code></td>
+            <td>Manage secrets vault</td>
+          </tr>
+        </table>
+
+        <h4>5. Download the JSON key</h4>
+        <p>On the Service Account page, go to <strong>Keys → Add Key → Create new key → JSON</strong>. Download and keep this file secure — it's your master credential.</p>
+
+        <h4>6. Enter in Admin Console</h4>
+        <p>Go to <strong>Setup & Integration → Google Cloud</strong>:</p>
+        <ul>
+          <li>Enter your <strong>Project ID</strong>, <strong>KMS Location</strong>, <strong>Key Ring</strong>, and <strong>Key ID</strong></li>
+          <li>Upload or paste your <strong>Service Account JSON</strong> key</li>
+          <li>Click <strong>Save GCP Settings</strong></li>
+        </ul>
+
+        <h4>7. Migrate Secrets (optional)</h4>
+        <p>Click <strong>Migrate to Secret Manager</strong> to vault all API credentials (Maps key, SMTP password, Twilio token, etc.) into GCP.</p>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div>Two bootstrap keys (<code>GCP_SERVICE_ACCOUNT_JSON</code> and <code>GOOGLE_CLOUD_PROJECT</code>) always stay in the local DB — they're the master keys needed to access Secret Manager itself.</div>
+        </div>
       </div>
     </div>
 
+    <!-- Step 8: Google Maps -->
     <div class="setup-step" id="ss-8">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">8</div>
         <div>
-          <div class="ss-title">Google Cloud (AI Features)</div>
-          <div class="ss-subtitle">Vertex AI, Translation, Secret Manager</div>
+          <div class="ss-title">Configure Google Maps</div>
+          <div class="ss-subtitle">Location picker, boundary maps, address autocomplete</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <h4>Enable APIs</h4>
-        <p>In Google Cloud Console, enable <strong>Vertex AI API</strong> and <strong>Cloud Translation API</strong>.
-        </p>
-        <h4>Create a service account</h4>
+        <h4>1. Create an API key</h4>
         <ul>
-          <li><strong>IAM → Service Accounts → Create</strong></li>
-          <li>Roles: <strong>Vertex AI User</strong>, <strong>Cloud Translation API User</strong></li>
-          <li>Create key → <strong>JSON</strong> → download</li>
+          <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console → Credentials</a></li>
+          <li>Click <strong>Create Credentials → API key</strong></li>
         </ul>
-        <p>Upload in Admin Console → <strong>Setup & Integration → Google Cloud</strong>. The key is encrypted with
-          AES-128-CBC.</p>
+
+        <h4>2. Restrict the key</h4>
+        <table class="ss-table">
+          <tr>
+            <th>Restriction</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>API restrictions</td>
+            <td><strong>Maps JavaScript</strong>, <strong>Places</strong>, <strong>Geocoding</strong></td>
+          </tr>
+          <tr>
+            <td>Website restrictions</td>
+            <td><code>https://311.yourtown.gov/*</code></td>
+          </tr>
+        </table>
+
+        <h4>3. Enter in Admin Console</h4>
+        <p>Go to <strong>Setup & Integration → Google Maps</strong> and paste your API key. If you activated Secret Manager in Step 7, this key is automatically vaulted into GCP.</p>
+
+        <h4>4. Enable 3D buildings (optional)</h4>
+        <p>For 45° tilt, rotation, and 3D buildings on the map:</p>
+        <ul>
+          <li>Go to <strong>Google Cloud Console → Maps → Map Management</strong></li>
+          <li>Create a <strong>Map ID</strong> with map type: <strong>Vector</strong></li>
+          <li>Enter the Map ID in Admin Console → <strong>Google Maps → Map ID</strong></li>
+        </ul>
+        <div class="ss-note">
+          <div class="ss-note-icon">💡</div>
+          <div>No extra cost — same Dynamic Maps pricing ($7 per 1,000 loads, $200/month free credit from Google). Most municipalities never exceed the free tier.</div>
+        </div>
       </div>
     </div>
 
+    <!-- Step 9: Add Staff Users (after KMS is active) -->
     <div class="setup-step" id="ss-9">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">9</div>
         <div>
-          <div class="ss-title">Secret Manager (Optional)</div>
-          <div class="ss-subtitle">Enterprise secret storage via GCP</div>
+          <div class="ss-title">Add Staff Users</div>
+          <div class="ss-subtitle">Invite team members and assign roles</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <ul>
-          <li>Ensure GCP service account has <strong>Secret Manager Admin</strong> role</li>
-          <li>In Admin Console → <strong>Setup & Integration → Google Cloud</strong>, click <strong>Migrate to Secret Manager</strong></li>
-          <li>Secrets are migrated one-by-one and verified — migration is explicit, not automatic</li>
-        </ul>
-        <div class="ss-note warn">
-          <div class="ss-note-icon">⚠️</div>
-          <div>Two bootstrap keys (<code>GCP_SERVICE_ACCOUNT_JSON</code>, <code>GOOGLE_CLOUD_PROJECT</code>) stay in
-            the
-            local DB — they're needed to access Secret Manager itself.</div>
+        <p>In the Admin Console, go to <strong>Staff Management</strong> and add your team:</p>
+        <table class="ss-table">
+          <tr>
+            <th>Role</th>
+            <th>Access Level</th>
+            <th>Best For</th>
+          </tr>
+          <tr>
+            <td><strong>Admin</strong></td>
+            <td>Full Admin Console + all operations</td>
+            <td>IT staff, department heads</td>
+          </tr>
+          <tr>
+            <td><strong>Staff</strong></td>
+            <td>View, manage, and resolve requests</td>
+            <td>Field workers, dispatchers</td>
+          </tr>
+          <tr>
+            <td><strong>Researcher</strong></td>
+            <td>Privacy-preserved analytics only</td>
+            <td>Analysts, council members</td>
+          </tr>
+        </table>
+        <p>Staff log in via Auth0 SSO — no passwords stored in the system.</p>
+        <div class="ss-note success">
+          <div class="ss-note-icon">🔐</div>
+          <div>Staff PII (names, emails, phone numbers) is now encrypted with Google KMS since Step 7 was configured. All personal data is protected at rest.</div>
         </div>
       </div>
     </div>
 
+    <!-- Step 10: Email -->
     <div class="setup-step" id="ss-10">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">10</div>
         <div>
           <div class="ss-title">Email Notifications</div>
-          <div class="ss-subtitle">SMTP for confirmation & status emails</div>
+          <div class="ss-subtitle">SMTP for submission confirmations & status updates</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <p>In Admin Console → <strong>Setup & Integration</strong>:</p>
+        <h4>Choose your SMTP provider</h4>
         <table class="ss-table">
           <tr>
-            <th>Field</th>
-            <th>Example</th>
+            <th>Provider</th>
+            <th>Host</th>
+            <th>Port</th>
+            <th>Username</th>
           </tr>
           <tr>
-            <td>SMTP Host</td>
+            <td><strong>Gmail</strong></td>
             <td><code>smtp.gmail.com</code></td>
+            <td><code>587</code></td>
+            <td>Your Gmail address</td>
           </tr>
           <tr>
-            <td>SMTP Port</td>
-            <td><code>587</code> (TLS)</td>
+            <td><strong>SendGrid</strong></td>
+            <td><code>smtp.sendgrid.net</code></td>
+            <td><code>587</code></td>
+            <td><code>apikey</code> (literal)</td>
           </tr>
           <tr>
-            <td>Username</td>
-            <td><code>311@yourtown.gov</code></td>
-          </tr>
-          <tr>
-            <td>From Address</td>
-            <td><code>311@yourtown.gov</code></td>
+            <td><strong>Org relay</strong></td>
+            <td>Your server's SMTP host</td>
+            <td>Varies</td>
+            <td>Varies</td>
           </tr>
         </table>
-        <div class="ss-note">
-          <div class="ss-note-icon">💡</div>
-          <div>Gmail users: create an <a href="https://support.google.com/accounts/answer/185833" target="_blank">App
-              Password</a>. Emails auto-inject your township's branding.</div>
+
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div><strong>Gmail users:</strong> You must enable 2FA on your Google account first, then generate an <a href="https://support.google.com/accounts/answer/185833" target="_blank">App Password</a> under <em>Security → App Passwords</em>. Use the app password as your SMTP password.</div>
+        </div>
+
+        <p>Enter the host, port, from address, username, and password in Admin Console → <strong>Setup & Integration → Email (SMTP)</strong> and click <strong>Save SMTP Settings</strong>.</p>
+
+        <div class="ss-note success">
+          <div class="ss-note-icon">✉️</div>
+          <div>All notification emails automatically include your municipality's branding (logo, colors, name) — set those up in Step 14.</div>
         </div>
       </div>
     </div>
 
+    <!-- Step 11: SMS -->
     <div class="setup-step" id="ss-11">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">11</div>
         <div>
-          <div class="ss-title">SMS (Optional)</div>
-          <div class="ss-subtitle">Twilio text alerts</div>
+          <div class="ss-title">SMS Notifications (Optional)</div>
+          <div class="ss-subtitle">Twilio or custom HTTP API for text alerts</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
+        <h4>Option A: Twilio (recommended)</h4>
         <ul>
-          <li>Create a <a href="https://www.twilio.com/try-twilio" target="_blank">Twilio account</a></li>
-          <li>Get a phone number with SMS capability</li>
-          <li>Enter <strong>Account SID</strong>, <strong>Auth Token</strong>, and <strong>From Number</strong> in
-            Admin
-            Console</li>
+          <li>Create an account at <a href="https://www.twilio.com/try-twilio" target="_blank">twilio.com</a></li>
+          <li>Note your <strong>Account SID</strong> and <strong>Auth Token</strong> from the Console Dashboard</li>
+          <li>Go to <strong>Phone Numbers → Manage → Buy a number</strong> — get a number with SMS capability</li>
+          <li>In Admin Console → <strong>SMS Notifications</strong>, select "Twilio" and enter your credentials</li>
         </ul>
+
+        <h4>Option B: Custom HTTP API</h4>
+        <p>If you have an existing SMS gateway, select "Custom HTTP API" and provide your endpoint URL. Pinpoint sends a POST request with:</p>
+        <div class="cb">{ "to": "+1234567890", "message": "Your request #123 has been updated..." }</div>
+        <div class="ss-note">
+          <div class="ss-note-icon">💡</div>
+          <div>SMS is fully optional. Email notifications cover all the same status updates. SMS adds real-time text alerts for residents who opt in.</div>
+        </div>
       </div>
     </div>
 
@@ -2301,11 +2449,12 @@ nano .env</div>
           <div class="phase-divider-title">Make It Yours</div>
           <div class="phase-divider-sub">Boundaries, services, branding & legal</div>
         </div>
-        <div class="phase-divider-badge">Steps 12–15</div>
+        <div class="phase-divider-badge">Steps 12–14</div>
         <div class="phase-divider-chevron">▾</div>
       </div>
       <div class="phase-body">
 
+    <!-- Step 12: Municipality Boundaries -->
     <div class="setup-step" id="ss-12">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">12</div>
@@ -2327,6 +2476,7 @@ nano .env</div>
       </div>
     </div>
 
+    <!-- Step 13: Services & Departments -->
     <div class="setup-step" id="ss-13">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">13</div>
@@ -2363,16 +2513,18 @@ nano .env</div>
       </div>
     </div>
 
+    <!-- Step 14: Branding & Legal (combined) -->
     <div class="setup-step" id="ss-14">
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">14</div>
         <div>
-          <div class="ss-title">Branding</div>
-          <div class="ss-subtitle">Logo, colors, fonts</div>
+          <div class="ss-title">Branding & Legal</div>
+          <div class="ss-subtitle">Logo, colors, privacy policy, terms of service</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
+        <h4>Branding</h4>
         <p>In <strong>Admin Console → Branding</strong>:</p>
         <ul>
           <li><strong>Municipality Name</strong> — headers, emails, portal</li>
@@ -2381,19 +2533,7 @@ nano .env</div>
           <li><strong>Font</strong></li>
         </ul>
         <p>Auto-applied to Resident Portal, all emails, SMS, and Staff Dashboard.</p>
-      </div>
-    </div>
-
-    <div class="setup-step" id="ss-15">
-      <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">15</div>
-        <div>
-          <div class="ss-title">Legal Documents</div>
-          <div class="ss-subtitle">Privacy, Terms, Accessibility</div>
-        </div>
-        <div class="ss-chevron">▾</div>
-      </div>
-      <div class="ss-body">
+        <h4>Legal Documents</h4>
         <p>In <strong>Branding → Legal Documents</strong>:</p>
         <ul>
           <li><strong>Privacy Policy</strong> — data collection, retention, rights</li>
@@ -2415,16 +2555,17 @@ nano .env</div>
         </div>
         <div class="phase-divider-text">
           <div class="phase-divider-title">Go Live</div>
-          <div class="phase-divider-sub">Domain, updates, staff & launch checklist</div>
+          <div class="phase-divider-sub">Domain, checklist & maintenance</div>
         </div>
-        <div class="phase-divider-badge">Steps 16–20</div>
+        <div class="phase-divider-badge">Steps 15–16</div>
         <div class="phase-divider-chevron">▾</div>
       </div>
       <div class="phase-body">
 
-    <div class="setup-step" id="ss-16">
+    <!-- Step 15: Custom Domain -->
+    <div class="setup-step" id="ss-15">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">16</div>
+        <div class="ss-num">15</div>
         <div>
           <div class="ss-title">Custom Domain</div>
           <div class="ss-subtitle">Auto HTTPS via Let's Encrypt</div>
@@ -2453,75 +2594,18 @@ nano .env</div>
       </div>
     </div>
 
-    <div class="setup-step" id="ss-17">
+    <!-- Step 16: Go-Live & Maintenance (combined) -->
+    <div class="setup-step" id="ss-16">
       <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">17</div>
+        <div class="ss-num">16</div>
         <div>
-          <div class="ss-title">Automatic Updates (Optional)</div>
-          <div class="ss-subtitle">Watchtower patches at 3 AM daily</div>
+          <div class="ss-title">Go-Live Checklist & Maintenance</div>
+          <div class="ss-subtitle">Launch verification, backups, updates</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <div class="cb"># Enable
-          docker compose up -d watchtower
-
-          # Disable
-          docker compose stop watchtower
-
-          # Status
-          docker compose ps watchtower</div>
-        <div class="ss-note success">
-          <div class="ss-note-icon">💡</div>
-          <div>Works perfectly without Watchtower. Use for hands-off updates, or disable for manual control.</div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="setup-step" id="ss-18">
-      <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">18</div>
-        <div>
-          <div class="ss-title">Add Staff Users</div>
-          <div class="ss-subtitle">Invite and assign roles</div>
-        </div>
-        <div class="ss-chevron">▾</div>
-      </div>
-      <div class="ss-body">
-        <p>In <strong>Staff Management</strong>:</p>
-        <table class="ss-table">
-          <tr>
-            <th>Role</th>
-            <th>Access</th>
-          </tr>
-          <tr>
-            <td><strong>Staff</strong></td>
-            <td>View, manage, resolve requests</td>
-          </tr>
-          <tr>
-            <td><strong>Admin</strong></td>
-            <td>Full Admin Console access</td>
-          </tr>
-          <tr>
-            <td><strong>Researcher</strong></td>
-            <td>Privacy-preserved analytics</td>
-          </tr>
-        </table>
-        <p>Staff log in via Auth0 SSO — no passwords needed.</p>
-      </div>
-    </div>
-
-    <div class="setup-step" id="ss-19">
-      <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">19</div>
-        <div>
-          <div class="ss-title">Go-Live Checklist</div>
-          <div class="ss-subtitle">Verify before sharing with residents</div>
-        </div>
-        <div class="ss-chevron">▾</div>
-      </div>
-      <div class="ss-body">
+        <h4>Pre-Launch Checklist</h4>
         <table class="ss-table">
           <tr>
             <th>✓</th>
@@ -2572,22 +2656,57 @@ nano .env</div>
             <td>Full lifecycle test: submit → staff → resolve → email</td>
           </tr>
         </table>
-      </div>
-    </div>
 
-    <div class="setup-step" id="ss-20">
-      <div class="ss-header" onclick="toggleSetupStep(this)">
-        <div class="ss-num">20</div>
-        <div>
-          <div class="ss-title">Ongoing Maintenance</div>
-          <div class="ss-subtitle">Backups, updates, troubleshooting</div>
+        <h4>Automatic Updates (Optional)</h4>
+        <div class="cb"># Enable
+docker compose up -d watchtower
+
+# Disable
+docker compose stop watchtower
+
+# Status
+docker compose ps watchtower</div>
+        <div class="ss-note success">
+          <div class="ss-note-icon">💡</div>
+          <div>Works perfectly without Watchtower. Use for hands-off updates, or disable for manual control.</div>
         </div>
-        <div class="ss-chevron">▾</div>
-      </div>
-      <div class="ss-body">
-        <h4>Database backups</h4>
+
+        <h4>Database Backups</h4>
+        <p><strong>Automated (recommended):</strong> Configure S3-compatible storage in Admin Console → <strong>Setup & Integration → Database Backups</strong>:</p>
+        <table class="ss-table">
+          <tr>
+            <th>Field</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>S3 Bucket</code></td>
+            <td>Your bucket name (AWS S3, Oracle Object Storage, MinIO, etc.)</td>
+          </tr>
+          <tr>
+            <td><code>Access Key</code></td>
+            <td>IAM access key with s3:PutObject, s3:GetObject permissions</td>
+          </tr>
+          <tr>
+            <td><code>Secret Key</code></td>
+            <td>Corresponding secret key</td>
+          </tr>
+          <tr>
+            <td><code>Encryption Key</code></td>
+            <td>Passphrase for AES-256 backup encryption — <strong>store this securely</strong></td>
+          </tr>
+          <tr>
+            <td><code>Endpoint</code></td>
+            <td><em>Optional:</em> Custom endpoint for Oracle/MinIO (leave blank for AWS)</td>
+          </tr>
+        </table>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div><strong>Privacy note:</strong> Backups contain a full database snapshot including resident PII. Without the encryption key, backups are unreadable. Keep this key in a separate, secure location.</div>
+        </div>
+        <p><strong>Manual:</strong> Take a one-off backup any time:</p>
         <div class="cb">docker compose exec db pg_dump -U township township_db > backup_$(date +%Y%m%d).sql</div>
-        <h4>Manual updates</h4>
+
+        <h4>Manual Updates</h4>
         <div class="cb"># Download the new release
 VERSION=v1.1.6  # Replace with latest version
 curl -L "https://github.com/Pinpoint-311/Pinpoint-311/archive/refs/tags/${VERSION}.tar.gz" | tar -xz
@@ -2598,12 +2717,15 @@ cd Pinpoint-311-${VERSION#v}
 
 # Rebuild and restart
 docker compose up --build -d</div>
-        <h4>Database migrations</h4>
+
+        <h4>Database Migrations</h4>
         <p>Migrations run automatically on startup. To run manually:</p>
         <div class="cb">docker compose exec backend alembic upgrade head</div>
-        <h4>View logs</h4>
+
+        <h4>View Logs</h4>
         <div class="cb">docker compose logs -f backend</div>
-        <h4>Record retention</h4>
+
+        <h4>Record Retention</h4>
         <table class="ss-table">
           <tr>
             <th>State</th>
@@ -2630,8 +2752,6 @@ docker compose up --build -d</div>
             <td>3 years</td>
           </tr>
         </table>
-      </div>
-    </div>
       </div>
     </div>
 
