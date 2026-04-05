@@ -1965,8 +1965,16 @@ cd Pinpoint-311-${VERSION#v}</div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
-        <div class="cb">cp .env.example .env
-          nano .env</div>
+        <div class="cb"># 1. Generate a secure 32-byte secret key first
+openssl rand -hex 32
+
+# 2. Copy the config file and edit it
+cp .env.example .env
+nano .env</div>
+        <div class="ss-note success" style="margin-bottom: 1.2rem;">
+          <div class="ss-note-icon">🔒</div>
+          <div>Your <code>.env</code> file never leaves your server. This ensures your API keys and Resident Data stay securely within your own infrastructure.</div>
+        </div>
         <h4>Required variables</h4>
         <table class="ss-table">
           <tr>
@@ -1983,15 +1991,13 @@ cd Pinpoint-311-${VERSION#v}</div>
           </tr>
           <tr>
             <td><code>SECRET_KEY</code></td>
-            <td>Generate with the command below</td>
+            <td>Paste the secure key you generated above</td>
           </tr>
           <tr>
             <td><code>ADMIN_EMAIL</code></td>
             <td>Your admin contact email</td>
           </tr>
         </table>
-        <p>Generate your SECRET_KEY:</p>
-        <div class="cb">openssl rand -base64 32</div>
         <div class="ss-note success">
           <div class="ss-note-icon">💡</div>
           <div>Most API keys can be configured later via the Admin Console. You only <em>need</em> DB_PASSWORD,
@@ -2132,6 +2138,10 @@ cd Pinpoint-311-${VERSION#v}</div>
             <td><code>https://311.yourtown.gov</code></td>
           </tr>
         </table>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div><strong>Common Issue:</strong> Make sure your callback URL exactly matches your domain with the <code>/api/auth/callback</code> path appended. If there is a typo here, staff logins will fail routing back.</div>
+        </div>
         <h4>3. Enter in Admin Console</h4>
         <p>Go to <strong>Setup & Integration</strong>, enter your Auth0 <strong>Domain</strong>, <strong>Client
             ID</strong>, and <strong>Client Secret</strong>.</p>
@@ -2650,7 +2660,10 @@ docker compose up --build -d</div>
         btn.setAttribute('aria-label', 'Copy to clipboard');
         btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span>';
         btn.onclick = function() {
-          var text = block.textContent.replace(/^Copy(ed!)?/, '').trim();
+          var clone = block.cloneNode(true);
+          var cloneBtn = clone.querySelector('.cb-copy');
+          if (cloneBtn) { clone.removeChild(cloneBtn); }
+          var text = clone.textContent.trim();
           navigator.clipboard.writeText(text).then(function() {
             btn.classList.add('copied');
             btn.querySelector('span').textContent = 'Copied!';
