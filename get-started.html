@@ -1975,6 +1975,12 @@ nano .env</div>
           <div class="ss-note-icon">🔒</div>
           <div>Your <code>.env</code> file never leaves your server. This ensures your API keys and Resident Data stay securely within your own infrastructure.</div>
         </div>
+        
+        <div class="ss-note warn" style="margin-bottom: 1.2rem;">
+          <div class="ss-note-icon">⚠️</div>
+          <div><strong>Crucial DNS Step:</strong> If you are using a custom domain (e.g., <code>311.yourcity.gov</code>), you MUST point your DNS A-Record to this server's IP address <em>before</em> moving to Step 4. If you set <code>DOMAIN</code> below but the DNS is not pointed, the server will fail to start and throw SSL Protocol errors.</div>
+        </div>
+
         <h4>Required variables</h4>
         <table class="ss-table">
           <tr>
@@ -1983,7 +1989,7 @@ nano .env</div>
           </tr>
           <tr>
             <td><code>DOMAIN</code></td>
-            <td>Your domain, or <code>localhost</code> for testing</td>
+            <td>Your domain (e.g., <code>311.yourcity.gov</code>), or <code>localhost</code> for local testing</td>
           </tr>
           <tr>
             <td><code>DB_PASSWORD</code></td>
