@@ -691,19 +691,19 @@ docker compose exec backend alembic current
 
 ## Resource Requirements
 
-The entire Pinpoint 311 stack uses **less memory than a single Chrome tab**:
+The entire Pinpoint 311 stack uses **~490 MB of live idle RAM** across all 6 containerized services:
 
-| Component | Memory |
+| Component | Live Idle Memory |
 |---|---|
-| Backend (FastAPI) | ~50 MB |
-| Frontend (React) | ~30 MB |
-| PostgreSQL + PostGIS | ~40 MB |
-| Redis | ~10 MB |
-| Caddy | ~15 MB |
-| Celery Worker + Beat | ~40 MB |
-| **Total** | **~185 MB** |
+| Worker (Celery) | ~185 MB |
+| Backend (FastAPI) | ~150 MB |
+| PostgreSQL 16 + PostGIS | ~120 MB |
+| Caddy (HTTPS) | ~32 MB |
+| Redis | ~5 MB |
+| Frontend (Nginx) | ~3 MB |
+| **Total (idle)** | **~490 MB** |
 
-**Cost estimate:** $5–10/month on any cloud provider, or free on most free-tier VMs.
+**Deployment sizing:** Runs smoothly on an entry-level virtual machine (1–2 vCPUs, 2 GB RAM). Allocate 4 GB RAM for high-volume municipal deployments or heavy concurrent image redaction workloads. Cost is typically $5–10/month on any cloud provider, or free on standard VPS free tiers.
 
 ---
 
