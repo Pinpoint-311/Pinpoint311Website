@@ -96,18 +96,18 @@
       "$0 software license cost forever under the MIT license",
       "Pluggable GIS and mapping: Google Maps, Esri ArcGIS Online/Enterprise, Azure Maps, Apple MapKit JS",
       "Municipal boundary enforcement and PostGIS road centerline filtering (state & county roads caught before queue)",
-      "Multi-language support for 109 languages",
-      "Pluggable SSO with MFA, passkeys, and role-based access control (Auth0, Azure AD, Okta, OIDC)",
-      "Automated photo screening and privacy redaction for faces and license plates",
-      "Duplicate report detection via PostGIS spatial and text clustering",
-      "Clerk-configured records retention policies with separate legal hold safeguards",
-      "SMS notifications via Twilio and email updates via SMTP",
+      "Multi-language support for 100+ languages with cached UI and notification translation",
+      "Pluggable SSO with MFA, passkeys, and role-based access control (Auth0, Microsoft Entra ID, Okta, generic OIDC)",
+      "Automated photo screening and destructive privacy redaction for faces and license plates",
+      "Unlisted and private submissions with anonymous resident feedback",
+      "Clerk-configured records retention policies with separate administrative legal hold safeguards",
+      "SMS notifications via Twilio and email updates via SMTP with completion photo proof",
       "Self-hosted Docker deployment with full municipal data sovereignty",
-      "Real-time research portal with 50+ exportable fields (CSV/GeoJSON)",
-      "Open311 v2 compliant API",
+      "Real-time research suite with 59 exportable privacy-preserved fields (CSV/GeoJSON)",
+      "Open311 v2 compliant API and printable QR work orders for field crews",
       "Privacy-first architecture: no telemetry, no vendor phone-home",
       "Runs on standard cloud VPS (~490MB total idle memory footprint)",
-      "Optional human-in-the-loop decision support that never decides or closes tickets on its own"
+      "Optional human-in-the-loop decision support (pluggable Gemini, OpenAI, Claude) that never auto-closes tickets"
     ],
     "screenshot": "https://pinpoint311.org/og-image.png"
   }
@@ -2589,7 +2589,7 @@
           </div>
           <div class="compare-row">
             <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">AI triage</div>
-            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Gemini 3.1 Flash-Lite</div>
+            <div class="compare-cell compare-col highlight"><span class="check">✓</span> Pluggable LLM (Gemini, OpenAI, Claude)</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> None</div>
             <div class="compare-cell compare-col"><span class="cross">✗</span> Basic rules only</div>
           </div>
@@ -2737,35 +2737,45 @@
         </div>
         <div class="feat-card">
           <div class="feat-head">
-            <div class="feat-dot">PH</div>
-            <div class="feat-title">Multi-photo upload</div>
+            <div class="feat-dot">PR</div>
+            <div class="feat-title">Photo redaction &amp; screening</div>
           </div>
-          <div class="feat-desc">Up to 3 high-res images with client-side compression. Photos feed directly into AI
-            visual analysis.</div>
+          <div class="feat-desc">Pre-submission screening destructively blurs faces and license plates before storage, strips EXIF GPS metadata, and routes uncertain photos to a held review queue.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">UL</div>
+            <div class="feat-title">Unlisted &amp; private reports</div>
+          </div>
+          <div class="feat-desc">Residents can submit issues privately to municipal staff without publishing them on the public map or community feed.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">TL</div>
-            <div class="feat-title">Status timeline</div>
+            <div class="feat-title">Status timeline &amp; tracking</div>
           </div>
-          <div class="feat-desc">Clean visualization of the request journey: Received → In Progress → Resolved → Closed,
-            with SMS and email updates.</div>
+          <div class="feat-desc">Live status journey (Received → In Progress → Resolved → Closed) with magic links, email &amp; SMS updates, and completion photo proof.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">FB</div>
+            <div class="feat-title">Anonymous resident feedback</div>
+          </div>
+          <div class="feat-desc">Optional 5-point sentiment feedback survey upon ticket resolution without collecting PII or tracking resident identity.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">MP</div>
             <div class="feat-title">Public request map</div>
           </div>
-          <div class="feat-desc">Interactive map of all open and resolved requests, filterable by department, status,
-            date range, and service type.</div>
+          <div class="feat-desc">Interactive map of community requests, filterable by department, status, date range, and service type with automatic PII masking.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">RT</div>
-            <div class="feat-title">Smart routing</div>
+            <div class="feat-title">Smart road-based routing</div>
           </div>
-          <div class="feat-desc">Road-based routing rules automatically redirect state or county road reports to the
-            right agency with custom messaging.</div>
+          <div class="feat-desc">PostGIS corridor buffering automatically redirects state DOT and county highway reports to partner agencies with custom messaging.</div>
         </div>
       </div>
 
@@ -2814,10 +2824,23 @@
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">AH</div>
-            <div class="feat-title">Asset history</div>
+            <div class="feat-title">Asset history &amp; linked issues</div>
           </div>
-          <div class="feat-desc">When a request is tied to a physical asset (e.g., Hydrant #404), automatically surfaces
-            all past reports for that specific asset.</div>
+          <div class="feat-desc">When a request is tied to physical infrastructure (e.g., Hydrant #404), automatically surfaces all past maintenance history for that specific asset.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">WO</div>
+            <div class="feat-title">Printable work orders</div>
+          </div>
+          <div class="feat-desc">One-click generation of field crew dispatch sheets with embedded QR tracking codes, map overview, address, and triage notes.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">MI</div>
+            <div class="feat-title">Manual phone &amp; walk-in intake</div>
+          </div>
+          <div class="feat-desc">Staff can log requests on a resident's behalf from phone calls or walk-ins through the exact same routing and triage pipeline.</div>
         </div>
       </div>
 
@@ -2859,15 +2882,21 @@
             <div class="feat-dot">DR</div>
             <div class="feat-title">Document retention &amp; legal hold</div>
           </div>
-          <div class="feat-desc">Clerk-configured retention policies with separate legal hold safeguards and automatic Celery Beat archival.</div>
+          <div class="feat-desc">Clerk-configured retention policies with separate administrative legal hold safeguards to exempt contested records from automated archival.</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-head">
+            <div class="feat-dot">OM</div>
+            <div class="feat-title">Operations &amp; alert muting</div>
+          </div>
+          <div class="feat-desc">Temporarily silence repeating notification emails during scheduled maintenance windows without obscuring live health dashboards.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">LG</div>
-            <div class="feat-title">Legal pages</div>
+            <div class="feat-title">Legal pages &amp; disclaimers</div>
           </div>
-          <div class="feat-desc">Fully customizable Privacy Policy, Terms of Service, and Accessibility Statement with
-            sensible municipal defaults built in.</div>
+          <div class="feat-desc">Customizable Privacy Policy, Terms of Service, and Accessibility Statement with non-emergency audit logging built in.</div>
         </div>
       </div>
 
@@ -2941,8 +2970,7 @@
               <div class="ai-num">1</div>
               <div>
                 <div class="ai-item-title">Visual analysis</div>
-                <div class="ai-item-desc">Gemini 3.1 Flash-Lite "sees" uploaded photos to categorize hazards and provide
-                  richer context for staff triage.</div>
+                <div class="ai-item-desc">Multimodal vision models (Gemini, OpenAI, Anthropic, or local) "see" uploaded photos to categorize hazards and provide richer context for staff triage.</div>
               </div>
             </div>
             <div class="ai-item reveal">
@@ -2976,7 +3004,7 @@
           <div class="ai-vis-head">
             <div>
               <div class="ai-vis-title">AI Analysis</div>
-              <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">Gemini 3.1 Flash-Lite</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">Pluggable Multimodal Model</div>
             </div>
             <div class="ai-badge"
               style="background:rgba(34,211,165,.1);border-color:rgba(34,211,165,.25);color:var(--green)">Visual +
@@ -3387,7 +3415,7 @@
             <div class="sec-icon">SS</div>
             <div class="sec-title">Pluggable SSO</div>
           </div>
-          <div class="sec-desc">Zero-password authentication with MFA, passkeys, biometrics, and OIDC/SAML. Works with Auth0, Azure AD, Okta, or local auth.</div>
+          <div class="sec-desc">Zero-password authentication with MFA, passkeys, biometrics, and OIDC/SAML. Works with Auth0, Microsoft Entra ID (Azure AD), Okta, or generic OIDC.</div>
         </div>
         <div class="sec-card reveal">
           <div class="sec-head">

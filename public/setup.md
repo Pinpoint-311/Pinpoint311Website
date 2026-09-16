@@ -255,9 +255,9 @@ Google Maps powers the location picker, request map, and address autocomplete.
 
 ---
 
-## 8. Configure Google Cloud (AI Features)
+## 8. Configure Cloud Services & AI (Google Cloud Preset)
 
-Pinpoint 311 uses Google Vertex AI (Gemini 3.1 Flash-Lite) for intelligent features like photo analysis, request triage, priority scoring, and the AI Analytics Advisor.
+Pinpoint 311 features a pluggable AI architecture supporting Google Vertex AI (Gemini), OpenAI, Anthropic, or offline/local models. This guide covers the Google Cloud setup for intelligent features like photo analysis, request triage, priority scoring, and the AI Analytics Advisor.
 
 ### Step 1: Enable APIs
 

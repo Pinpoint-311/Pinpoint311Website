@@ -1125,7 +1125,7 @@ footer{
       <div class="compare-row">
         <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">AI triage</div>
         <div class="compare-cell compare-col"><span class="cross">✗</span> Basic rules only</div>
-        <div class="compare-cell compare-col highlight"><span class="check">✓</span> Gemini 3.0 Flash</div>
+        <div class="compare-cell compare-col highlight"><span class="check">✓</span> Pluggable LLM (Gemini, OpenAI, Claude)</div>
       </div>
       <div class="compare-row">
         <div class="compare-cell compare-col" style="font-weight:600;color:rgba(255,255,255,.7)">Photo analysis</div>
@@ -1247,20 +1247,28 @@ footer{
         <div class="feat-desc">Automated real-time translation powers full UI localization including service categories, status labels, and all notification emails in the resident's preferred language.</div>
       </div>
       <div class="feat-card">
-        <div class="feat-head"><div class="feat-dot">PH</div><div class="feat-title">Multi-photo upload</div></div>
-        <div class="feat-desc">Up to 3 high-res images with client-side compression. Photos feed directly into AI visual analysis.</div>
+        <div class="feat-head"><div class="feat-dot">PR</div><div class="feat-title">Photo redaction &amp; screening</div></div>
+        <div class="feat-desc">Pre-submission screening destructively blurs faces and license plates before storage, strips EXIF GPS metadata, and routes uncertain photos to a held review queue.</div>
       </div>
       <div class="feat-card">
-        <div class="feat-head"><div class="feat-dot">TL</div><div class="feat-title">Status timeline</div></div>
-        <div class="feat-desc">Clean visualization of the request journey: Received → In Progress → Resolved → Closed, with SMS and email updates.</div>
+        <div class="feat-head"><div class="feat-dot">UL</div><div class="feat-title">Unlisted &amp; private reports</div></div>
+        <div class="feat-desc">Residents can submit issues privately to municipal staff without publishing them on the public map or community feed.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-dot">TL</div><div class="feat-title">Status timeline &amp; tracking</div></div>
+        <div class="feat-desc">Live status journey (Received → In Progress → Resolved → Closed) with magic links, email &amp; SMS updates, and completion photo proof.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-dot">FB</div><div class="feat-title">Anonymous resident feedback</div></div>
+        <div class="feat-desc">Optional 5-point sentiment feedback survey upon ticket resolution without collecting PII or tracking resident identity.</div>
       </div>
       <div class="feat-card">
         <div class="feat-head"><div class="feat-dot">MP</div><div class="feat-title">Public request map</div></div>
-        <div class="feat-desc">Interactive map of all open and resolved requests, filterable by department, status, date range, and service type.</div>
+        <div class="feat-desc">Interactive map of community requests, filterable by department, status, date range, and service type with automatic PII masking.</div>
       </div>
       <div class="feat-card">
-        <div class="feat-head"><div class="feat-dot">RT</div><div class="feat-title">Smart routing</div></div>
-        <div class="feat-desc">Road-based routing rules automatically redirect state or county road reports to the right agency with custom messaging.</div>
+        <div class="feat-head"><div class="feat-dot">RT</div><div class="feat-title">Smart road-based routing</div></div>
+        <div class="feat-desc">PostGIS corridor buffering automatically redirects state DOT and county highway reports to partner agencies with custom messaging.</div>
       </div>
     </div>
 
@@ -1287,8 +1295,16 @@ footer{
         <div class="feat-desc">Conversational AI interface supporting multiple LLM backends. Ask natural language questions about your data — equity gaps, triage times, response patterns.</div>
       </div>
       <div class="feat-card">
-        <div class="feat-head"><div class="feat-dot">AH</div><div class="feat-title">Asset history</div></div>
-        <div class="feat-desc">When a request is tied to a physical asset (e.g., Hydrant #404), automatically surfaces all past reports for that specific asset.</div>
+        <div class="feat-head"><div class="feat-dot">AH</div><div class="feat-title">Asset history &amp; linked issues</div></div>
+        <div class="feat-desc">When a request is tied to physical infrastructure (e.g., Hydrant #404), automatically surfaces all past maintenance history for that specific asset.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-dot">WO</div><div class="feat-title">Printable work orders</div></div>
+        <div class="feat-desc">One-click generation of field crew dispatch sheets with embedded QR tracking codes, map overview, address, and triage notes.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-dot">MI</div><div class="feat-title">Manual phone &amp; walk-in intake</div></div>
+        <div class="feat-desc">Staff can log requests on a resident's behalf from phone calls or walk-ins through the exact same routing and triage pipeline.</div>
       </div>
     </div>
 
@@ -1307,16 +1323,20 @@ footer{
         <div class="feat-desc">Upload GeoJSON to visualize township assets on the staff map — parks, storm drains, zoning districts, hydrants.</div>
       </div>
       <div class="feat-card">
-        <div class="feat-head"><div class="feat-dot">UP</div><div class="feat-title">One-click updates</div></div>
-        <div class="feat-desc">Pull the latest code from GitHub and rebuild containers with a single button. Database backup and health check included automatically.</div>
+        <div class="feat-head"><div class="feat-dot">UP</div><div class="feat-title">Safe controlled updates</div></div>
+        <div class="feat-desc">VersionSwitcher allows admin-triggered updates with automated pre-update database snapshots, Alembic schema checks, and rollback safety.</div>
       </div>
       <div class="feat-card">
-        <div class="feat-head"><div class="feat-dot">DR</div><div class="feat-title">Document retention</div></div>
-        <div class="feat-desc">State-specific retention policies (TX, NJ, CA, etc.) with legal hold support and automatic Celery Beat archival.</div>
+        <div class="feat-head"><div class="feat-dot">DR</div><div class="feat-title">Document retention &amp; legal hold</div></div>
+        <div class="feat-desc">Clerk-configured retention policies with separate administrative legal hold safeguards to exempt contested records from automated archival.</div>
       </div>
       <div class="feat-card">
-        <div class="feat-head"><div class="feat-dot">LG</div><div class="feat-title">Legal pages</div></div>
-        <div class="feat-desc">Fully customizable Privacy Policy, Terms of Service, and Accessibility Statement with sensible municipal defaults built in.</div>
+        <div class="feat-head"><div class="feat-dot">OM</div><div class="feat-title">Operations &amp; alert muting</div></div>
+        <div class="feat-desc">Temporarily silence repeating notification emails during scheduled maintenance windows without obscuring live health dashboards.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-dot">LG</div><div class="feat-title">Legal pages &amp; disclaimers</div></div>
+        <div class="feat-desc">Customizable Privacy Policy, Terms of Service, and Accessibility Statement with non-emergency audit logging built in.</div>
       </div>
     </div>
 
@@ -1367,7 +1387,7 @@ footer{
             <div class="ai-num">1</div>
             <div>
               <div class="ai-item-title">Visual analysis</div>
-              <div class="ai-item-desc">Gemini 3.0 Flash "sees" uploaded photos to categorize hazards and provide richer context for staff triage.</div>
+              <div class="ai-item-desc">Multimodal vision models (Gemini, OpenAI, Anthropic, or local) "see" uploaded photos to categorize hazards and provide richer context for staff triage.</div>
             </div>
           </div>
           <div class="ai-item reveal">
@@ -1398,7 +1418,7 @@ footer{
         <div class="ai-vis-head">
           <div>
             <div class="ai-vis-title">AI Analysis</div>
-            <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">Gemini 3 Flash</div>
+            <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">Pluggable Multimodal Model</div>
           </div>
           <div class="ai-badge" style="background:rgba(34,211,165,.1);border-color:rgba(34,211,165,.25);color:var(--green)">Visual + Spatial Context</div>
         </div>
@@ -1685,7 +1705,7 @@ footer{
     <div class="sec-grid">
       <div class="sec-card reveal">
         <div class="sec-head"><div class="sec-icon">SS</div><div class="sec-title">Pluggable SSO</div></div>
-        <div class="sec-desc">Zero-password authentication with MFA, passkeys, biometrics, and OIDC/SAML. Works with Auth0, Azure AD, Okta, or local auth.</div>
+        <div class="sec-desc">Zero-password authentication with MFA, passkeys, biometrics, and OIDC/SAML. Works with Auth0, Microsoft Entra ID (Azure AD), Okta, or generic OIDC.</div>
       </div>
       <div class="sec-card reveal">
         <div class="sec-head"><div class="sec-icon">KM</div><div class="sec-title">Pluggable KMS &amp; Secrets</div></div>

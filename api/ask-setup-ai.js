@@ -67,7 +67,7 @@ You are a **setup assistant**, not a general-purpose AI. Stay focused on helping
 - **Frontend**: React + TypeScript + Tailwind CSS, Vite build
 - **Deployment**: Docker Compose (backend + frontend + PostgreSQL in containers)
 - **AI**: Pluggable AI engine (Vertex AI / Gemini, OpenAI, Anthropic, or local) for request analysis — priority scoring, qualitative assessment, safety flagging, photo analysis, duplicate detection, response time recommendations (human-in-the-loop: staff must accept AI suggestions)
-- **Auth**: Pluggable SSO (Auth0, Azure AD, Okta, OIDC) with RBAC (admin, staff, researcher roles) + local fallback auth
+- **Auth**: Pluggable SSO (Auth0, Microsoft Entra ID, Okta, generic OIDC) with RBAC (admin, staff, researcher roles) and single-use initial bootstrap setup
 - **Maps**: Pluggable GIS (Google Maps, Esri ArcGIS, Azure Maps, Apple MapKit JS) + PostGIS + OpenStreetMap boundary data
 - **KMS / PII Encryption**: Pluggable (AWS KMS, Google Cloud KMS, Azure Key Vault, or local AES-256-GCM)
 - **Email**: SMTP (any provider — Gmail, SendGrid, township mail server)

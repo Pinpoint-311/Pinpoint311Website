@@ -30,8 +30,8 @@ Pinpoint 311 is a production-ready, self-hosted 311 system that lets residents r
 - **Pluggable GIS & mapping**: Support for Google Maps, Esri ArcGIS Online & Enterprise, Azure Maps, or Apple MapKit JS.
 - **Automated photo redaction**: Pre-submit blurring of human faces and license plates with held review queue.
 - **109 languages**: Real-time translation for resident reporting and outbound text/email notifications.
-- **Research portal**: 50+ exportable fields in CSV/GeoJSON format with census integration for academic research and public records requests.
-- **Document retention & legal hold**: Clerk-configurable retention policies with distinct legal hold safeguards.
+- **Research suite**: 59 exportable privacy-preserved fields in CSV/GeoJSON format across 5 research packs with census integration for academic research and public records requests.
+- **Document retention & legal hold**: Clerk-configurable retention policies with distinct administrative legal hold safeguards.
 - **Safe version updates**: Admin-triggered VersionSwitcher updates with automated database snapshots and rollback protection.
 - **Security verified**: Enrolled in CISA's Cyber Hygiene vulnerability assessment program with consecutive clean scans. Independent WCAG 2.1 AA accessibility testing.
 
@@ -54,7 +54,7 @@ The AI does NOT route requests. Routing is rule-based (department assignment, ro
 - **Frontend**: React 18 + TypeScript + Tailwind CSS, Vite build, Nginx static serving
 - **AI**: Pluggable: Google Vertex AI (Gemini), OpenAI, Anthropic, or offline/local models
 - **Maps**: Pluggable: Google Maps API, Esri ArcGIS Online/Enterprise, Azure Maps, Apple MapKit JS
-- **Auth**: Pluggable: Auth0, Azure AD / Microsoft Entra, Okta, OIDC/SAML, or local auth (with MFA + passkeys)
+- **Auth**: Pluggable: Auth0, Microsoft Entra ID (Azure AD), Okta, or generic OIDC (with MFA + passkeys)
 - **PII Encryption / KMS**: Pluggable: AWS KMS, Google Cloud KMS, Azure Key Vault, or local AES-256-GCM
 - **Deployment**: Docker Compose with Caddy reverse proxy (auto-SSL)
 - **Memory Footprint**: ~490 MB total idle stack (Celery ~185 MB, Backend ~150 MB, PostgreSQL ~120 MB, Caddy ~32 MB, Redis ~5 MB, Frontend ~3 MB)
