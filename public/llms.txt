@@ -1,6 +1,6 @@
 # Pinpoint 311
 
-> Free, open-source 311 municipal reporting platform for local governments. $0 software license cost — replaces costly commercial municipal contracts ($15,000–50,000+/year). Introduced to the New Jersey Municipal Management Association (NJMMA) by the NJ Department of Community Affairs.
+> Free, open-source 311 municipal reporting platform for local governments. $0 software license cost — replaces costly commercial municipal contracts ($15,000–50,000+/year). Featured at the New Jersey Municipal Management Association (NJMMA) Fall Conference (September 17–18, 2026, Oyster Point Hotel in Red Bank, NJ), introduced by the NJ Department of Community Affairs.
 
 ## Summary
 
