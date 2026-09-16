@@ -4,19 +4,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pinpoint 311 — Free Open-Source Municipal Reporting Software</title>
+  <title>Pinpoint 311 — Free, Open-Source Municipal 311 Platform</title>
   <meta name="description"
-    content="Pinpoint 311 is a free, open-source 311 reporting platform for local governments. AI-powered triage, Google Maps integration, and self-hosted — replace expensive systems like SeeClickFix at zero cost." />
+    content="Pinpoint 311 is a free, open-source 311 municipal reporting platform for local governments. Multi-provider mapping, staff decision support, PostGIS jurisdiction routing, and self-hosted Docker deployment at zero software license cost." />
   <meta name="keywords"
-    content="311 system, municipal reporting, open source, free government software, civic tech, infrastructure reporting, SeeClickFix alternative, GovPilot alternative, pothole reporting, city services" />
+    content="311 system, municipal reporting, open source, free government software, civic tech, infrastructure reporting, municipal 311, pothole reporting, city services, NJMMA, PostGIS, self-hosted 311, local government software" />
   <meta name="author" content="Parth Gupta" />
   <link rel="canonical" href="https://pinpoint311.org/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Pinpoint 311 — Free Open-Source Municipal Reporting Software" />
+  <meta property="og:title" content="Pinpoint 311 — Free, Open-Source Municipal 311 Platform" />
   <meta property="og:description"
-    content="Replace expensive 311 systems with a free, AI-powered, open-source platform. Self-hosted, privacy-first, and designed for every community." />
+    content="A free, open-source 311 platform built for municipalities. Self-hosted, privacy-first, and designed for every community." />
   <meta property="og:url" content="https://pinpoint311.org/" />
   <meta property="og:site_name" content="Pinpoint 311" />
   <meta property="og:locale" content="en_US" />
@@ -26,7 +26,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Pinpoint 311 — Free Municipal Reporting Software" />
+  <meta name="twitter:title" content="Pinpoint 311 — Free Municipal 311 Platform" />
+  <meta name="twitter:description" content="A free, open-source 311 platform built for municipalities. Self-hosted, privacy-first, and zero software license fees." />
   <meta name="twitter:image" content="https://pinpoint311.org/og-image.png" />
 
   <!-- AI / LLM Discovery -->
@@ -55,22 +56,22 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Pinpoint 311",
-    "alternateName": ["Pinpoint311", "Pinpoint 311 System"],
-    "description": "Free, open-source 311 municipal reporting platform for local governments. AI-powered request analysis via Google Gemini, Google Maps integration, multi-language support, and self-hosted Docker deployment. Replaces expensive systems like SeeClickFix and GovPilot at zero cost.",
+    "alternateName": ["Pinpoint311", "Pinpoint 311 Municipal Platform"],
+    "description": "Free, open-source 311 municipal reporting platform for local governments. Staff decision support, multi-provider mapping (Google, Esri ArcGIS, Azure Maps, Apple Maps), multi-language support (109 languages), automated photo redaction, and self-hosted Docker deployment at zero software license cost.",
     "applicationCategory": "GovernmentApplication",
     "applicationSubCategory": "311 Municipal Reporting System",
     "operatingSystem": "Linux, Docker",
     "url": "https://pinpoint311.org",
     "downloadUrl": "https://github.com/Pinpoint-311/Pinpoint-311",
     "installUrl": "https://pinpoint311.org/get-started.html",
-    "softwareVersion": "1.2.0",
+    "softwareVersion": "2.0.0",
     "license": "https://opensource.org/licenses/MIT",
     "isAccessibleForFree": true,
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD",
-      "description": "Completely free. No subscription fees, no per-seat charges. Only costs are server hosting (~$5-11/month) and optional Google Cloud API usage.",
+      "description": "Completely free open-source software under the MIT license. No subscription fees, no per-seat charges. Municipalities pay only their direct server hosting (~$5-6/month) and optional provider API usage (~$2-11/month).",
       "availability": "https://schema.org/InStock"
     },
     "author": {
@@ -90,23 +91,23 @@
         "taxID": "81-2908499"
       }
     },
-    "keywords": "311 system, free 311 software, open source 311, municipal reporting, civic tech, SeeClickFix alternative, GovPilot alternative, free government software, pothole reporting, city services app, infrastructure reporting, self-hosted 311, AI triage, township 311, local government software, resident reporting platform",
+    "keywords": "311 system, free 311 software, open source 311, municipal reporting, civic tech, free government software, pothole reporting, city services app, infrastructure reporting, self-hosted 311, township 311, local government software, resident reporting platform, NJMMA, PostGIS",
     "featureList": [
-      "AI-powered request analysis and priority scoring via Google Gemini — $0 software cost vs SeeClickFix ($15,000-50,000/year)",
-      "Google Maps integration with municipal boundary enforcement and jurisdiction filtering",
-      "Multi-language support (100+ languages via Google Translate)",
-      "Auth0 SSO with MFA and passkeys — admin, staff, and researcher roles",
-      "Photo analysis — AI assesses uploaded images for severity and blocking",
-      "Duplicate detection — automatically identifies similar nearby reports",
-      "Safety and content flagging — flags inappropriate or malicious submissions",
-      "SMS notifications via Twilio (optional)",
-      "Self-hosted Docker deployment — full data sovereignty, no vendor lock-in",
-      "Real-time analytics dashboard with 60+ exportable fields",
-      "Research portal with census-integrated CSV/GeoJSON export",
-      "Open311 v2 API compliant",
-      "Privacy-first architecture — no telemetry, no phone-home",
-      "Runs on a $5-11/month cloud server (~160MB memory footprint)",
-      "Human-in-the-loop AI — staff must accept or override all AI suggestions"
+      "$0 software license cost forever under the MIT license",
+      "Pluggable GIS and mapping: Google Maps, Esri ArcGIS Online/Enterprise, Azure Maps, Apple MapKit JS",
+      "Municipal boundary enforcement and PostGIS road centerline filtering (state & county roads caught before queue)",
+      "Multi-language support for 109 languages",
+      "Auth0 SSO with MFA, passkeys, and role-based access control (Admin, Staff, Researcher)",
+      "Automated photo screening and privacy redaction for faces and license plates",
+      "Duplicate report detection via PostGIS spatial and text clustering",
+      "Clerk-configured records retention policies with separate legal hold safeguards",
+      "SMS notifications via Twilio and email updates via SMTP",
+      "Self-hosted Docker deployment with full municipal data sovereignty",
+      "Real-time research portal with 50+ exportable fields (CSV/GeoJSON)",
+      "Open311 v2 compliant API",
+      "Privacy-first architecture: no telemetry, no vendor phone-home",
+      "Runs on standard cloud VPS (~490MB total idle memory footprint)",
+      "Optional human-in-the-loop decision support that never decides or closes tickets on its own"
     ],
     "screenshot": "https://pinpoint311.org/og-image.png"
   }
@@ -123,15 +124,23 @@
         "name": "How much does Pinpoint 311 cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Pinpoint 311 is completely free. It is an open-source, MIT-licensed platform with no subscription fees, no per-seat charges, and no hidden costs. The only expenses are your own server hosting (as low as $5/month) and optional Google Cloud API usage."
+          "text": "Pinpoint 311 is completely free under the MIT open-source license. There are no subscription fees, no per-seat charges, and no vendor contracts. Municipalities only pay for their own direct hosting (~$5-6/month) and optional provider API usage (~$2-11/month)."
         }
       },
       {
         "@type": "Question",
-        "name": "How does Pinpoint 311 compare to SeeClickFix or GovPilot?",
+        "name": "How does Pinpoint 311 compare to commercial 311 platforms?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Pinpoint 311 provides comparable features to SeeClickFix ($15,000-50,000/year) and GovPilot ($25,000-80,000/year) at zero cost. It includes AI-powered triage, multi-language support, and full data ownership — features that competitors charge extra for or don't offer."
+          "text": "Pinpoint 311 provides comparable or superior features to commercial platforms ($15,000–50,000+/year) at zero software licensing cost. It includes staff decision support, multi-language support (109 languages), PostGIS road corridor checks, photo redaction, and complete municipal data ownership without recurring vendor contracts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Pinpoint 311 participating in municipal conferences like NJMMA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Pinpoint 311 was introduced to the New Jersey Municipal Management Association (NJMMA) by the NJ Department of Community Affairs as a modern, free civic infrastructure tool for local governments."
         }
       },
       {
@@ -139,7 +148,7 @@
         "name": "Is Pinpoint 311 a nonprofit?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Pinpoint 311 is a 501(c)(3) nonprofit project fiscally sponsored by Hack Club (EIN: 81-2908499). All donations are tax-deductible."
+          "text": "Yes. Pinpoint 311 is a 501(c)(3) nonprofit project fiscally sponsored by Hack Club (EIN: 81-2908499)."
         }
       },
       {
@@ -147,7 +156,7 @@
         "name": "Can my municipality self-host Pinpoint 311?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Pinpoint 311 runs on any Linux server with Docker. You maintain full control of your data. Deployment takes 15-30 minutes with prebuilt Docker images."
+          "text": "Yes. Pinpoint 311 runs on any standard Linux server or cloud VPS with Docker. The municipality retains full data ownership and control. Deployment takes 15-30 minutes with prebuilt Docker Compose configurations."
         }
       }
     ]
@@ -213,10 +222,41 @@
       border-radius: 3px
     }
 
+    /* ── TOP ANNOUNCEMENT (NJMMA) ── */
+    .top-announcement {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 201;
+      height: 38px;
+      background: #201a4c;
+      border-bottom: 1px solid rgba(165, 180, 252, 0.2);
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      font-size: 0.8rem;
+      color: #e0e7ff;
+      text-align: center;
+    }
+
+    .announcement-tag {
+      background: #4338ca;
+      color: #ffffff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
     /* ── NAV ── */
     nav {
       position: fixed;
-      top: 0;
+      top: 38px;
       left: 0;
       right: 0;
       z-index: 200;
@@ -303,7 +343,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 100px 1.5rem 5rem;
+      padding: 138px 1.5rem 5rem;
       text-align: center;
       overflow: hidden;
     }
@@ -366,20 +406,7 @@
       height: 6px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 7px var(--green);
-      animation: blink 2s infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: .4
-      }
+      box-shadow: 0 0 6px var(--green);
     }
 
     .hero-h1 {
@@ -2250,6 +2277,12 @@
 
 <body>
 
+  <!-- ── TOP ANNOUNCEMENT (NJMMA) ── -->
+  <div class="top-announcement">
+    <span class="announcement-tag">NJMMA 2026</span>
+    <span>Introduced to the New Jersey Municipal Management Association by the <strong>NJ Department of Community Affairs</strong>.</span>
+  </div>
+
   <!-- ── NAV ── -->
   <nav>
     <a class="nav-logo" href="/">
@@ -2282,8 +2315,8 @@
     <div class="hero-badge"><span class="badge-dot"></span>501(c)(3) nonprofit — free &amp; open source</div>
 
     <h1 class="hero-h1">
-      <em>Advanced</em> municipal reporting software.<br />
-      <strong>Zero cost.</strong> No compromise.
+      <em>A free, open-source</em> 311 platform<br />
+      <strong>built for municipalities.</strong>
     </h1>
 
     <div class="rotating-line">
@@ -2294,8 +2327,8 @@
       <span>— not software.</span>
     </div>
 
-    <p class="hero-sub">Give residents a seamless way to report issues and your staff powerful tools to manage them.
-      Keep every dollar where it belongs.</p>
+    <p class="hero-sub">For towns that cannot justify a commercial 311 contract, or would rather spend the money elsewhere.
+      Give residents an easy way to report issues and staff powerful tools to manage them.</p>
 
     <div class="hero-actions">
       <button class="btn-primary" onclick="window.location.href='demo-launcher.html'">Try Live Demo →</button>
@@ -2308,7 +2341,7 @@
     <div class="hero-proof">
       <span>501(c)(3) Nonprofit</span>
       <div class="proof-sep"></div>
-      <span>Runs on a $5/mo server</span>
+      <span>~$2–11/mo direct API cost</span>
       <div class="proof-sep"></div>
       <span>Open311 v2 compliant</span>
       <div class="proof-sep"></div>
@@ -2360,18 +2393,18 @@
     <div class="stats-bar">
       <div class="stat">
         <div class="stat-val"><span>$0</span></div>
-        <div class="stat-lbl">Annual license cost</div>
+        <div class="stat-lbl">Annual software license</div>
       </div>
       <div class="stat">
         <div class="stat-val">109<span></span></div>
         <div class="stat-lbl">Languages supported</div>
       </div>
       <div class="stat">
-        <div class="stat-val">60<span>+</span></div>
+        <div class="stat-val">50<span>+</span></div>
         <div class="stat-lbl">Research data fields</div>
       </div>
       <div class="stat">
-        <div class="stat-val">~160<span>MB</span></div>
+        <div class="stat-val">~490<span>MB</span></div>
         <div class="stat-lbl">Total memory footprint</div>
       </div>
     </div>
@@ -2416,7 +2449,7 @@
       <div class="compare-swipe-hint">Swipe to compare →</div>
       <div class="compare-scroll-wrap">
         <div class="compare-grid reveal">
-          <!-- Headers: Feature | Pinpoint | Email | SeeClickFix -->
+          <!-- Headers: Feature | Pinpoint | Email | Commercial Platforms -->
           <div class="compare-col">
             <div class="compare-head" style="color:var(--muted)">Feature</div>
           </div>
@@ -2427,7 +2460,7 @@
             <div class="compare-head" style="color:var(--muted)">Email & Phone</div>
           </div>
           <div class="compare-col">
-            <div class="compare-head" style="color:var(--muted)">SeeClickFix / Commercial</div>
+            <div class="compare-head" style="color:var(--muted)">Commercial 311 Platforms</div>
           </div>
 
           <div class="compare-row">
@@ -2721,18 +2754,16 @@
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">UP</div>
-            <div class="feat-title">One-click updates</div>
+            <div class="feat-title">Safe controlled updates</div>
           </div>
-          <div class="feat-desc">Pull the latest code from GitHub and rebuild containers with a single button. Database
-            backup and health check included automatically.</div>
+          <div class="feat-desc">VersionSwitcher allows admin-triggered updates with automated pre-update database snapshots, Alembic schema checks, and rollback safety.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">DR</div>
-            <div class="feat-title">Document retention</div>
+            <div class="feat-title">Document retention &amp; legal hold</div>
           </div>
-          <div class="feat-desc">State-specific retention policies (TX, NJ, CA, etc.) with legal hold support and
-            automatic Celery Beat archival.</div>
+          <div class="feat-desc">Clerk-configured retention policies with separate legal hold safeguards and automatic Celery Beat archival.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
@@ -2749,10 +2780,9 @@
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">GF</div>
-            <div class="feat-title">Boundary enforcement</div>
+            <div class="feat-title">Boundary &amp; corridor checks</div>
           </div>
-          <div class="feat-desc">Point-in-polygon checks against uploaded GeoJSON boundaries. Requests dropped outside
-            jurisdiction are auto-rejected.</div>
+          <div class="feat-desc">Point-in-polygon checks against township boundaries. State DOT and county highway reports are filtered before entering DPW queues.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
@@ -2772,18 +2802,17 @@
         </div>
         <div class="feat-card">
           <div class="feat-head">
-            <div class="feat-dot">MC</div>
-            <div class="feat-title">Marker clustering</div>
+            <div class="feat-dot">MP</div>
+            <div class="feat-title">Pluggable map providers</div>
           </div>
-          <div class="feat-desc">Auto-groups nearby markers on the resident-facing map via Google Maps MarkerClusterer
-            for clean visual density.</div>
+          <div class="feat-desc">Choose from Google Maps, Esri ArcGIS Online &amp; Enterprise, Azure Maps, or Apple MapKit JS — no vendor lock-in.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
             <div class="feat-dot">PX</div>
             <div class="feat-title">Proximity analysis</div>
           </div>
-          <div class="feat-desc">AI checks if issues are near critical infrastructure — schools, hospitals, fire
+          <div class="feat-desc">Context checks verify if issues are near critical infrastructure — schools, hospitals, fire
             stations — using PostGIS with Nominatim fallback.</div>
         </div>
         <div class="feat-card">
@@ -3112,18 +3141,18 @@
           You'd save this every year vs. commercial alternatives</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem">
           <div>
-            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. SeeClickFix</div>
-            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveSCF">$10,600</span><span
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. Small Commercial Contract</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveSmall">$10,600</span><span
                 style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
           </div>
           <div>
-            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. PublicStuff / Accela</div>
-            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveAccela">$17,600</span><span
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. Mid-Sized Municipal Contract</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveMid">$17,600</span><span
                 style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
           </div>
           <div>
-            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. GovPilot 311</div>
-            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveGovPilot">$14,600</span><span
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. Enterprise 311 Platform</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveEnterprise">$14,600</span><span
                 style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
           </div>
         </div>
@@ -3140,8 +3169,8 @@
       <div class="reveal">
         <div class="section-label">Tech Stack</div>
         <h2 class="section-h2">Production-grade.<br /><em>Runs on less than a Chrome tab.</em></h2>
-        <p class="section-sub" style="margin-top:.6rem">The entire stack uses ~160MB of RAM. Suitable for free-tier
-          cloud VMs or any existing municipal server running Docker.</p>
+        <p class="section-sub" style="margin-top:.6rem">The entire stack uses ~490MB of RAM. Suitable for standard 1 GB
+          cloud VPS instances ($5–6/mo) or any existing municipal server running Docker.</p>
       </div>
       <div class="tech-grid">
         <div class="tech-card reveal">
@@ -3153,7 +3182,7 @@
           <div class="tech-desc">Python 3.11 async API</div>
         </div>
         <div class="tech-card reveal">
-          <div class="tech-name">PostgreSQL 15</div>
+          <div class="tech-name">PostgreSQL 16</div>
           <div class="tech-desc">+ PostGIS for geospatial</div>
         </div>
         <div class="tech-card reveal">
@@ -3181,8 +3210,8 @@
           <div class="tech-desc">Version-controlled migrations</div>
         </div>
         <div class="tech-card reveal">
-          <div class="tech-name">Watchtower</div>
-          <div class="tech-desc">Auto security patches at 3am</div>
+          <div class="tech-name">VersionSwitcher</div>
+          <div class="tech-desc">Controlled updates + DB backup</div>
         </div>
         <div class="tech-card reveal">
           <div class="tech-name">Google Cloud KMS</div>
@@ -3196,51 +3225,51 @@
 
       <div class="resource-bar reveal" style="margin-top:2rem">
         <div class="resource-head">
-          <div class="resource-title">Memory footprint — entire production stack</div>
-          <div class="resource-note">A single Gmail tab uses 200–400 MB</div>
+          <div class="resource-title">Memory footprint — entire production stack (~490 MB)</div>
+          <div class="resource-note">A single desktop browser tab uses 200–400 MB</div>
         </div>
         <div class="resource-rows">
           <div class="r-row">
             <div class="r-label">Celery Worker</div>
             <div class="r-bar">
-              <div class="r-fill" style="width:58%"></div>
+              <div class="r-fill" style="width:38%"></div>
             </div>
-            <div class="r-mem">94 MB</div>
+            <div class="r-mem">~185 MB</div>
           </div>
           <div class="r-row">
-            <div class="r-label">FastAPI</div>
+            <div class="r-label">FastAPI Backend</div>
             <div class="r-bar">
-              <div class="r-fill" style="width:14%"></div>
+              <div class="r-fill" style="width:31%"></div>
             </div>
-            <div class="r-mem">23 MB</div>
+            <div class="r-mem">~150 MB</div>
           </div>
           <div class="r-row">
-            <div class="r-label">PostgreSQL</div>
+            <div class="r-label">PostgreSQL 16</div>
             <div class="r-bar">
-              <div class="r-fill" style="width:11%"></div>
+              <div class="r-fill" style="width:24%"></div>
             </div>
-            <div class="r-mem">18 MB</div>
+            <div class="r-mem">~120 MB</div>
           </div>
           <div class="r-row">
             <div class="r-label">Caddy</div>
             <div class="r-bar">
-              <div class="r-fill" style="width:9%"></div>
+              <div class="r-fill" style="width:7%"></div>
             </div>
-            <div class="r-mem">14 MB</div>
+            <div class="r-mem">~32 MB</div>
           </div>
           <div class="r-row">
             <div class="r-label">Redis</div>
             <div class="r-bar">
-              <div class="r-fill" style="width:3%"></div>
-            </div>
-            <div class="r-mem">4 MB</div>
-          </div>
-          <div class="r-row">
-            <div class="r-label">Nginx (frontend)</div>
-            <div class="r-bar">
               <div class="r-fill" style="width:2%"></div>
             </div>
-            <div class="r-mem">3 MB</div>
+            <div class="r-mem">~5 MB</div>
+          </div>
+          <div class="r-row">
+            <div class="r-label">Frontend (Nginx)</div>
+            <div class="r-bar">
+              <div class="r-fill" style="width:1%"></div>
+            </div>
+            <div class="r-mem">~3 MB</div>
           </div>
         </div>
       </div>
@@ -3283,11 +3312,10 @@
         </div>
         <div class="sec-card reveal">
           <div class="sec-head">
-            <div class="sec-icon">SC</div>
-            <div class="sec-title">CI/CD security scanning</div>
+            <div class="sec-icon">CH</div>
+            <div class="sec-title">CISA Cyber Hygiene</div>
           </div>
-          <div class="sec-desc">CodeQL static analysis, OWASP ZAP dynamic testing, and Trivy container scanning on every
-            push. Dependabot for weekly dependency updates.</div>
+          <div class="sec-desc">Enrolled in CISA's Cyber Hygiene vulnerability assessment program with consecutive clean scans. CodeQL and Trivy container scanning in CI.</div>
         </div>
         <div class="sec-card reveal">
           <div class="sec-head">
@@ -3481,9 +3509,9 @@
         } else { freeWrap.style.display = 'none'; }
 
         const annualCost = total * 12;
-        document.getElementById('saveSCF').textContent = '$' + Math.round((total <= 11 ? 11000 : total <= 63 ? 15000 : 20000) - annualCost).toLocaleString();
-        document.getElementById('saveAccela').textContent = '$' + Math.round((total <= 11 ? 18000 : total <= 63 ? 22000 : 30000) - annualCost).toLocaleString();
-        document.getElementById('saveGovPilot').textContent = '$' + Math.round((total <= 11 ? 15000 : total <= 63 ? 18000 : 25000) - annualCost).toLocaleString();
+        document.getElementById('saveSmall').textContent = '$' + Math.round((total <= 11 ? 11000 : total <= 63 ? 15000 : 20000) - annualCost).toLocaleString();
+        document.getElementById('saveMid').textContent = '$' + Math.round((total <= 11 ? 18000 : total <= 63 ? 22000 : 30000) - annualCost).toLocaleString();
+        document.getElementById('saveEnterprise').textContent = '$' + Math.round((total <= 11 ? 15000 : total <= 63 ? 18000 : 25000) - annualCost).toLocaleString();
 
         const pct = (sliderVal / 100) * 100;
         slider.style.background = `linear-gradient(to right, var(--purple) ${pct}%, rgba(255,255,255,.1) ${pct}%)`;

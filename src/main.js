@@ -174,8 +174,7 @@ function generateSummary() {
 
   const currentSystemLabels = {
     'none': 'None / Phone only',
-    'seeclickfix': 'SeeClickFix',
-    'qalert': 'QAlert',
+    'commercial': 'Commercial 311 platform',
     'other-vendor': 'Other vendor',
     'custom': 'Custom/in-house'
   };

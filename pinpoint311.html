@@ -133,10 +133,8 @@ section{position:relative;z-index:1}
 .badge-dot{
   width:6px;height:6px;border-radius:50%;
   background:var(--green);
-  box-shadow:0 0 7px var(--green);
-  animation:blink 2s infinite;
+  box-shadow:0 0 6px var(--green);
 }
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 
 .hero-h1{
   position:relative;z-index:2;
@@ -1076,7 +1074,7 @@ footer{
     <div class="reveal">
       <div class="section-label">Why Pinpoint</div>
       <h2 class="section-h2">Built for municipalities,<br/><em>not for vendor profit</em></h2>
-      <p class="section-sub">SeeClickFix and similar platforms charge $5,000–20,000/year, lock you in, and own your data. Pinpoint 311 gives you the same or better for free.</p>
+      <p class="section-sub">Commercial platforms charge $10,000–50,000+/year, lock you in, and own your data. Pinpoint 311 gives you more at zero software licensing cost.</p>
     </div>
 
     <!-- Value prop reel -->
@@ -1105,7 +1103,7 @@ footer{
         <div class="compare-head" style="color:var(--muted)">Feature</div>
       </div>
       <div class="compare-col">
-        <div class="compare-head" style="color:var(--muted)">SeeClickFix / Commercial</div>
+        <div class="compare-head" style="color:var(--muted)">Commercial 311 Platforms</div>
       </div>
       <div class="compare-col highlight">
         <div class="compare-head">Pinpoint 311 <span class="compare-tag">Free</span></div>
@@ -1618,16 +1616,16 @@ footer{
       <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:1.1rem">You'd save this every year vs. commercial alternatives</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem">
         <div>
-          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. SeeClickFix</div>
-          <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveSCF">$10,600</span><span style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. Small Commercial Contract</div>
+          <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveSmall">$10,600</span><span style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
         </div>
         <div>
-          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. PublicStuff / Accela</div>
-          <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveAccela">$17,600</span><span style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. Mid-Sized Municipal Contract</div>
+          <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveMid">$17,600</span><span style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
         </div>
         <div>
-          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. GovPilot 311</div>
-          <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveGovPilot">$14,600</span><span style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.2rem">vs. Enterprise 311 Platform</div>
+          <div style="font-size:1.4rem;font-weight:700;color:var(--green)"><span id="saveEnterprise">$14,600</span><span style="font-size:.8rem;font-weight:400;color:var(--muted)">/yr</span></div>
         </div>
       </div>
     </div>
@@ -1643,35 +1641,35 @@ footer{
     <div class="reveal">
       <div class="section-label">Tech Stack</div>
       <h2 class="section-h2">Production-grade.<br/><em>Runs on less than a Chrome tab.</em></h2>
-      <p class="section-sub" style="margin-top:.6rem">The entire stack uses ~160MB of RAM. Suitable for free-tier cloud VMs or any existing municipal server running Docker.</p>
+      <p class="section-sub" style="margin-top:.6rem">The entire stack uses ~490MB of RAM. Suitable for standard 1 GB VPS instances ($5–6/mo) or any existing municipal server running Docker.</p>
     </div>
     <div class="tech-grid">
       <div class="tech-card reveal"><div class="tech-name">React 18</div><div class="tech-desc">Frontend + Vite + TypeScript</div></div>
       <div class="tech-card reveal"><div class="tech-name">FastAPI</div><div class="tech-desc">Python 3.11 async API</div></div>
-      <div class="tech-card reveal"><div class="tech-name">PostgreSQL 15</div><div class="tech-desc">+ PostGIS for geospatial</div></div>
-      <div class="tech-card reveal"><div class="tech-name">Vertex AI</div><div class="tech-desc">Gemini 3.0 Flash multimodal</div></div>
+      <div class="tech-card reveal"><div class="tech-name">PostgreSQL 16</div><div class="tech-desc">+ PostGIS for geospatial</div></div>
+      <div class="tech-card reveal"><div class="tech-name">Vertex AI</div><div class="tech-desc">Gemini 3.1 Flash-Lite multimodal</div></div>
       <div class="tech-card reveal"><div class="tech-name">Redis</div><div class="tech-desc">Caching + Celery queue</div></div>
       <div class="tech-card reveal"><div class="tech-name">Auth0</div><div class="tech-desc">SSO + MFA + Passkeys</div></div>
       <div class="tech-card reveal"><div class="tech-name">Caddy</div><div class="tech-desc">Automatic HTTPS / TLS</div></div>
       <div class="tech-card reveal"><div class="tech-name">Tailwind + Framer</div><div class="tech-desc">Glassmorphism UI</div></div>
       <div class="tech-card reveal"><div class="tech-name">Alembic</div><div class="tech-desc">Version-controlled migrations</div></div>
-      <div class="tech-card reveal"><div class="tech-name">Watchtower</div><div class="tech-desc">Auto security patches at 3am</div></div>
+      <div class="tech-card reveal"><div class="tech-name">VersionSwitcher</div><div class="tech-desc">Controlled updates + DB backup</div></div>
       <div class="tech-card reveal"><div class="tech-name">Google Cloud KMS</div><div class="tech-desc">AES-256 PII encryption</div></div>
       <div class="tech-card reveal"><div class="tech-name">Open311 v2</div><div class="tech-desc">Standard GeoReport API</div></div>
     </div>
 
     <div class="resource-bar reveal" style="margin-top:2rem">
       <div class="resource-head">
-        <div class="resource-title">Memory footprint — entire production stack</div>
-        <div class="resource-note">A single Gmail tab uses 200–400 MB</div>
+        <div class="resource-title">Memory footprint — entire production stack (~490 MB)</div>
+        <div class="resource-note">A single desktop browser tab uses 200–400 MB</div>
       </div>
       <div class="resource-rows">
-        <div class="r-row"><div class="r-label">Celery Worker</div><div class="r-bar"><div class="r-fill" style="width:58%"></div></div><div class="r-mem">94 MB</div></div>
-        <div class="r-row"><div class="r-label">FastAPI</div><div class="r-bar"><div class="r-fill" style="width:14%"></div></div><div class="r-mem">23 MB</div></div>
-        <div class="r-row"><div class="r-label">PostgreSQL</div><div class="r-bar"><div class="r-fill" style="width:11%"></div></div><div class="r-mem">18 MB</div></div>
-        <div class="r-row"><div class="r-label">Caddy</div><div class="r-bar"><div class="r-fill" style="width:9%"></div></div><div class="r-mem">14 MB</div></div>
-        <div class="r-row"><div class="r-label">Redis</div><div class="r-bar"><div class="r-fill" style="width:3%"></div></div><div class="r-mem">4 MB</div></div>
-        <div class="r-row"><div class="r-label">Nginx (frontend)</div><div class="r-bar"><div class="r-fill" style="width:2%"></div></div><div class="r-mem">3 MB</div></div>
+        <div class="r-row"><div class="r-label">Celery Worker</div><div class="r-bar"><div class="r-fill" style="width:38%"></div></div><div class="r-mem">~185 MB</div></div>
+        <div class="r-row"><div class="r-label">FastAPI Backend</div><div class="r-bar"><div class="r-fill" style="width:31%"></div></div><div class="r-mem">~150 MB</div></div>
+        <div class="r-row"><div class="r-label">PostgreSQL 16</div><div class="r-bar"><div class="r-fill" style="width:24%"></div></div><div class="r-mem">~120 MB</div></div>
+        <div class="r-row"><div class="r-label">Caddy</div><div class="r-bar"><div class="r-fill" style="width:7%"></div></div><div class="r-mem">~32 MB</div></div>
+        <div class="r-row"><div class="r-label">Redis</div><div class="r-bar"><div class="r-fill" style="width:2%"></div></div><div class="r-mem">~5 MB</div></div>
+        <div class="r-row"><div class="r-label">Frontend (Nginx)</div><div class="r-bar"><div class="r-fill" style="width:1%"></div></div><div class="r-mem">~3 MB</div></div>
       </div>
     </div>
   </div>
@@ -1700,8 +1698,8 @@ footer{
         <div class="sec-desc">Every lifecycle event — submission, assignment, comment, status change — is logged for OPRA/FOIA compliance and legal discovery.</div>
       </div>
       <div class="sec-card reveal">
-        <div class="sec-head"><div class="sec-icon">SC</div><div class="sec-title">CI/CD security scanning</div></div>
-        <div class="sec-desc">CodeQL static analysis, OWASP ZAP dynamic testing, and Trivy container scanning on every push. Dependabot for weekly dependency updates.</div>
+        <div class="sec-head"><div class="sec-icon">CH</div><div class="sec-title">CISA Cyber Hygiene</div></div>
+        <div class="sec-desc">Enrolled in CISA's Cyber Hygiene vulnerability assessment program with consecutive clean scans. CodeQL and container scanning in CI.</div>
       </div>
       <div class="sec-card reveal">
         <div class="sec-head"><div class="sec-icon">WC</div><div class="sec-title">WCAG 2.1 AA</div></div>
@@ -1887,9 +1885,9 @@ setInterval(advanceRot, 2400);
     } else { freeWrap.style.display='none'; }
 
     const annualCost = total * 12;
-    document.getElementById('saveSCF').textContent = '$' + Math.round((total<=11?11000:total<=63?15000:20000) - annualCost).toLocaleString();
-    document.getElementById('saveAccela').textContent = '$' + Math.round((total<=11?18000:total<=63?22000:30000) - annualCost).toLocaleString();
-    document.getElementById('saveGovPilot').textContent = '$' + Math.round((total<=11?15000:total<=63?18000:25000) - annualCost).toLocaleString();
+    document.getElementById('saveSmall').textContent = '$' + Math.round((total<=11?11000:total<=63?15000:20000) - annualCost).toLocaleString();
+    document.getElementById('saveMid').textContent = '$' + Math.round((total<=11?18000:total<=63?22000:30000) - annualCost).toLocaleString();
+    document.getElementById('saveEnterprise').textContent = '$' + Math.round((total<=11?15000:total<=63?18000:25000) - annualCost).toLocaleString();
 
     const pct = (sliderVal / 100) * 100;
     slider.style.background = `linear-gradient(to right, var(--purple) ${pct}%, rgba(255,255,255,.1) ${pct}%)`;

@@ -927,8 +927,7 @@
                   us by phone/email</span></label>
               <label class="radio-opt"><input type="radio" name="current311" value="basic" /> <span>Basic web form
                   only</span></label>
-              <label class="radio-opt"><input type="radio" name="current311" value="paid" /> <span>Yes — paid platform
-                  (SeeClickFix, GovPilot, etc.)</span></label>
+              <label class="radio-opt"><input type="radio" name="current311" value="paid" /> <span>Yes — paid commercial platform</span></label>
               <label class="radio-opt"><input type="radio" name="current311" value="other" /> <span>Something
                   else</span></label>
             </div>
@@ -1999,6 +1998,10 @@ nano .env</div>
             <td><code>ADMIN_EMAIL</code></td>
             <td>Your admin contact email</td>
           </tr>
+          <tr>
+            <td><code>INITIAL_ADMIN_PASSWORD</code></td>
+            <td>A strong temporary password for seeding the initial local admin account during bootstrap</td>
+          </tr>
         </table>
         <div class="ss-note success">
           <div class="ss-note-icon">💡</div>
@@ -2074,8 +2077,8 @@ nano .env</div>
         </ol>
         <p style="color:#a5b4fc; font-size:0.9em">💡 If your browser shows an SSL error, use port 8000 instead: <code>http://your-server-ip:8000/login</code></p>
         <h4>Option B: Terminal</h4>
-        <p>Alternatively, run this on the server:</p>
-        <div class="cb">curl -X POST http://localhost:8000/api/auth/bootstrap</div>
+        <p>Alternatively, run this on the server (pass <code>-F "password=..."</code> if <code>INITIAL_ADMIN_PASSWORD</code> is set):</p>
+        <div class="cb">curl -X POST http://localhost:8000/api/auth/bootstrap -F "password=YOUR_INITIAL_ADMIN_PASSWORD"</div>
         <p>Copy the <code>login_url</code> from the JSON response and open it in your browser.</p>
         <div class="ss-note warn">
           <div class="ss-note-icon">⚠️</div>
@@ -2126,6 +2129,10 @@ nano .env</div>
           <li>Choose <strong>Regular Web Application</strong></li>
           <li>In the app's <strong>Settings</strong> tab, copy the <strong>Domain</strong>, <strong>Client ID</strong>, and <strong>Client Secret</strong></li>
         </ul>
+        <div class="ss-note warn">
+          <div class="ss-note-icon">⚠️</div>
+          <div><strong>Important:</strong> Under the app's <strong>Organizations</strong> tab, ensure <em>"Require users to belong to an organization"</em> is DISABLED. If this is checked, all staff logins will fail with an unauthorized error.</div>
+        </div>
 
         <h4>3. Configure callback URLs</h4>
         <table class="ss-table">
@@ -2962,7 +2969,7 @@ docker compose up --build -d</div>
 
     const current311Labels = {
       no: 'No — phone/email only', basic: 'Basic web form',
-      paid: 'Paid platform (SeeClickFix, GovPilot, etc.)', other: 'Other'
+      paid: 'Paid commercial platform', other: 'Other'
     };
     const itLabels = {
       yes_it: 'Has IT staff / server', cloud: 'Cloud VM',
@@ -3084,16 +3091,11 @@ docker compose up --build -d</div>
       cursor: pointer;
       display: grid;
       place-items: center;
-      box-shadow: 0 4px 24px rgba(99, 102, 241, 0.4), 0 0 0 0 rgba(99,102,241,0);
+      box-shadow: 0 4px 24px rgba(99, 102, 241, 0.4);
       transition: transform .2s, box-shadow .3s;
-      animation: ai-fab-pulse 3s ease-in-out infinite;
     }
     .ai-fab:hover { transform: scale(1.1); box-shadow: 0 6px 32px rgba(99,102,241,0.5) }
     .ai-fab svg { width: 26px; height: 26px; color: white; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
-    @keyframes ai-fab-pulse {
-      0%, 100% { box-shadow: 0 4px 24px rgba(99,102,241,0.4), 0 0 0 0 rgba(99,102,241,0.3) }
-      50% { box-shadow: 0 4px 24px rgba(99,102,241,0.4), 0 0 0 8px rgba(99,102,241,0) }
-    }
 
     .ai-panel {
       position: fixed;
