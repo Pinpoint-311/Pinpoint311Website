@@ -52,9 +52,10 @@ The AI does NOT route requests. Routing is rule-based (department assignment, ro
 
 - **Backend**: Python FastAPI (Python 3.11), PostgreSQL 16 + PostGIS, Celery worker, Alembic migrations
 - **Frontend**: React 18 + TypeScript + Tailwind CSS, Vite build, Nginx static serving
-- **AI**: Google Vertex AI (Gemini 3.1 Flash-Lite) with vision capabilities
+- **AI**: Pluggable: Google Vertex AI (Gemini), OpenAI, Anthropic, or offline/local models
 - **Maps**: Pluggable: Google Maps API, Esri ArcGIS Online/Enterprise, Azure Maps, Apple MapKit JS
-- **Auth**: Auth0 SSO with RBAC (admin, staff, researcher) + MFA + passkeys
+- **Auth**: Pluggable: Auth0, Azure AD / Microsoft Entra, Okta, OIDC/SAML, or local auth (with MFA + passkeys)
+- **PII Encryption / KMS**: Pluggable: AWS KMS, Google Cloud KMS, Azure Key Vault, or local AES-256-GCM
 - **Deployment**: Docker Compose with Caddy reverse proxy (auto-SSL)
 - **Memory Footprint**: ~490 MB total idle stack (Celery ~185 MB, Backend ~150 MB, PostgreSQL ~120 MB, Caddy ~32 MB, Redis ~5 MB, Frontend ~3 MB)
 - **Email & SMS**: Any SMTP provider (Gmail, SendGrid, etc.) and Twilio (optional)
@@ -63,7 +64,7 @@ The AI does NOT route requests. Routing is rule-based (department assignment, ro
 
 - **Residents**: Submit issues in 60 seconds, no account required, track status via email/SMS
 - **Municipal staff**: AI-assisted triage, priority scoring, internal comments, audit trail, department assignment
-- **Administrators**: White-label branding, service category management, routing rules, Google Maps/Auth0/GCP configuration — all via web UI
+- **Administrators**: White-label branding, service category management, routing rules, pluggable provider configuration (Maps, AI, SSO, KMS) — all via web UI
 - **Researchers**: Export anonymized data with 60+ fields, census integration, Open311 v2 API
 
 ## Links

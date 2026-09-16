@@ -49,10 +49,10 @@ You are a **setup assistant**, not a general-purpose AI. Stay focused on helping
 - **vs Commercial Alternatives**: Replaces expensive commercial systems ($15,000–50,000+/year) at zero software license cost. Includes staff decision support, multi-language support, and full data ownership.
 
 ## Key Features
-- AI-powered request analysis via Google Vertex AI (Gemini 3.1 Flash-Lite): priority scoring (1-10), qualitative assessment, severity/impact metrics, safety and content flagging, photo analysis, duplicate detection, and recommended response times
-- Google Maps integration with municipal boundary enforcement, optional 45° tilt and 3D buildings via Map ID
-- Multi-language support (109 languages via Google Translate)
-- Auth0 SSO with MFA and passkeys (admin, staff, researcher roles)
+- AI-powered request analysis with pluggable provider support (Google Vertex AI / Gemini, OpenAI, Anthropic, or offline): priority scoring (1-10), qualitative assessment, severity/impact metrics, safety and content flagging, photo analysis, duplicate detection, and recommended response times
+- Pluggable GIS and mapping (Google Maps, Esri ArcGIS Online/Enterprise, Azure Maps, Apple MapKit JS) with municipal boundary enforcement
+- Multi-language support (109 languages)
+- Pluggable SSO (Auth0, Azure AD, Okta, OIDC/SAML) with MFA and passkeys (admin, staff, researcher roles)
 - Resident-facing submission portal — no login required for residents
 - Real-time analytics dashboard and research portal
 - SMS notifications via Twilio (optional)
@@ -66,9 +66,10 @@ You are a **setup assistant**, not a general-purpose AI. Stay focused on helping
 - **Backend**: Python FastAPI, PostgreSQL + PostGIS, Alembic migrations
 - **Frontend**: React + TypeScript + Tailwind CSS, Vite build
 - **Deployment**: Docker Compose (backend + frontend + PostgreSQL in containers)
-- **AI**: Google Vertex AI (Gemini) for request analysis — priority scoring, qualitative assessment, safety flagging, photo analysis, duplicate detection, response time recommendations (human-in-the-loop: staff must accept AI suggestions)
-- **Auth**: Auth0 SSO with RBAC (admin, staff, researcher roles) + local fallback auth
-- **Maps**: Google Maps API + PostGIS + OpenStreetMap boundary data
+- **AI**: Pluggable AI engine (Vertex AI / Gemini, OpenAI, Anthropic, or local) for request analysis — priority scoring, qualitative assessment, safety flagging, photo analysis, duplicate detection, response time recommendations (human-in-the-loop: staff must accept AI suggestions)
+- **Auth**: Pluggable SSO (Auth0, Azure AD, Okta, OIDC) with RBAC (admin, staff, researcher roles) + local fallback auth
+- **Maps**: Pluggable GIS (Google Maps, Esri ArcGIS, Azure Maps, Apple MapKit JS) + PostGIS + OpenStreetMap boundary data
+- **KMS / PII Encryption**: Pluggable (AWS KMS, Google Cloud KMS, Azure Key Vault, or local AES-256-GCM)
 - **Email**: SMTP (any provider — Gmail, SendGrid, township mail server)
 - **SMS**: Twilio (optional)
 

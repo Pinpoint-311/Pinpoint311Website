@@ -1904,19 +1904,23 @@ sudo ufw enable</div>
         </div>
 
 
-        <h4>Recommended (Optional)</h4>
+        <h4>Recommended (Optional Providers)</h4>
         <table class="ss-table">
           <tr>
             <th>Service</th>
-            <th>Why</th>
+            <th>Why &amp; Provider Options</th>
           </tr>
           <tr>
-            <td><strong>Google Cloud</strong></td>
-            <td>Maps, Vertex AI (Gemini), Translate, Secret Manager</td>
+            <td><strong>Cloud Services (GCP / AWS / Azure)</strong></td>
+            <td>Vertex AI / Bedrock / Azure OpenAI, Maps, Translation, KMS PII encryption &amp; Secret Manager</td>
           </tr>
           <tr>
-            <td><strong>Auth0 Account</strong></td>
-            <td>Staff SSO, MFA, passkeys — <a href="https://auth0.com/signup" target="_blank">free tier</a></td>
+            <td><strong>SSO / Auth Provider</strong></td>
+            <td>Staff SSO, MFA, passkeys — Auth0 (<a href="https://auth0.com/signup" target="_blank">free tier</a>), Azure AD, Okta, or local auth</td>
+          </tr>
+          <tr>
+            <td><strong>GIS &amp; Mapping</strong></td>
+            <td>Google Maps, Esri ArcGIS Online/Enterprise, Azure Maps, or Apple MapKit JS</td>
           </tr>
           <tr>
             <td><strong>Custom Domain</strong></td>
@@ -1924,7 +1928,7 @@ sudo ufw enable</div>
           </tr>
           <tr>
             <td><strong>SMTP Server</strong></td>
-            <td>Confirmation & status emails</td>
+            <td>Confirmation &amp; status emails (any SMTP provider)</td>
           </tr>
         </table>
       </div>
@@ -2114,12 +2118,16 @@ nano .env</div>
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">6</div>
         <div>
-          <div class="ss-title">Configure Auth0 (SSO)</div>
-          <div class="ss-subtitle">Zero-password staff authentication with MFA</div>
+          <div class="ss-title">Configure SSO (Auth0 Preset)</div>
+          <div class="ss-subtitle">Zero-password staff authentication with MFA (Auth0, Azure AD, or Okta)</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
+        <div class="ss-note" style="margin-bottom:1.25rem">
+          <div class="ss-note-icon">ℹ️</div>
+          <div><strong>Provider Flexibility:</strong> Pinpoint 311 supports multiple SSO providers (Auth0, Microsoft Entra ID / Azure AD, Okta, or any generic OIDC provider). This guide walks through Auth0 as a popular turnkey option with a generous free tier.</div>
+        </div>
         <h4>1. Create an Auth0 account</h4>
         <p>Go to <a href="https://auth0.com" target="_blank">auth0.com</a> and create a free account (or use your organization's existing tenant). The free tier supports up to 7,000 active users.</p>
 
@@ -2178,12 +2186,16 @@ nano .env</div>
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">7</div>
         <div>
-          <div class="ss-title">Google Cloud (AI, KMS & Secrets)</div>
-          <div class="ss-subtitle">Vertex AI, Translation, KMS encryption & Secret Manager</div>
+          <div class="ss-title">Cloud Services: AI, KMS &amp; Secrets (GCP Preset)</div>
+          <div class="ss-subtitle">Vertex AI, Translation, KMS encryption &amp; Secret Manager</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
+        <div class="ss-note" style="margin-bottom:1.25rem">
+          <div class="ss-note-icon">ℹ️</div>
+          <div><strong>Provider Flexibility:</strong> While this guide details Google Cloud (Vertex AI, Cloud KMS, and Secret Manager), Pinpoint 311 also supports AWS (Bedrock, AWS KMS, Secrets Manager) and Azure (Azure OpenAI, Azure Key Vault), or local keys and self-hosted models.</div>
+        </div>
         <h4>1. Create or select a GCP project</h4>
         <p>Go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> and create a new project or select an existing one. Note your <strong>Project ID</strong> (not the project name).</p>
         <div class="ss-note">
@@ -2274,12 +2286,16 @@ nano .env</div>
       <div class="ss-header" onclick="toggleSetupStep(this)">
         <div class="ss-num">8</div>
         <div>
-          <div class="ss-title">Configure Google Maps</div>
-          <div class="ss-subtitle">Location picker, boundary maps, address autocomplete</div>
+          <div class="ss-title">Configure Maps (Google Maps Preset)</div>
+          <div class="ss-subtitle">Location picker, boundary maps, address autocomplete (Google, Esri, Azure)</div>
         </div>
         <div class="ss-chevron">▾</div>
       </div>
       <div class="ss-body">
+        <div class="ss-note" style="margin-bottom:1.25rem">
+          <div class="ss-note-icon">ℹ️</div>
+          <div><strong>Provider Flexibility:</strong> Pinpoint 311 features a pluggable GIS architecture supporting Google Maps, Esri ArcGIS Online &amp; Enterprise, Azure Maps, or Apple MapKit JS. This guide covers the Google Maps setup.</div>
+        </div>
         <h4>1. Create an API key</h4>
         <ul>
           <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console → Credentials</a></li>

@@ -46,8 +46,8 @@ Before you begin, make sure you have the following:
 
 | Requirement | Why | How to Get It |
 |---|---|---|
-| **Google Cloud Project** | Maps, Vertex AI (Gemini), Translate, and optional Secret Manager | [Create a project](https://console.cloud.google.com/projectcreate) in Google Cloud Console. |
-| **Auth0 Account** | Staff & admin authentication (SSO, MFA, passkeys) | [Sign up free](https://auth0.com/signup) — the free tier supports up to 7,500 active users. |
+| **Cloud Services (GCP / AWS / Azure)** | Maps, AI triage (Gemini / Bedrock / Azure OpenAI), Translate, KMS encryption & Secret Manager | Create a project in Google Cloud, AWS, or Azure. Google Cloud is used as the reference quickstart. |
+| **SSO / Auth Provider** | Staff & admin authentication (SSO, MFA, passkeys) via Auth0, Microsoft Entra / Azure AD, or Okta | [Sign up free for Auth0](https://auth0.com/signup) — the free tier supports up to 7,500 active users. |
 | **Custom Domain** | Production URL like `311.yourtown.gov` | Purchase from any registrar, or use a subdomain of your municipality's existing domain. |
 | **SMTP Email Server** | Send confirmation & status emails to residents | Your municipality may already have one, or use a service like Gmail SMTP, SendGrid, or Amazon SES. |
 

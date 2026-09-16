@@ -97,7 +97,7 @@
       "Pluggable GIS and mapping: Google Maps, Esri ArcGIS Online/Enterprise, Azure Maps, Apple MapKit JS",
       "Municipal boundary enforcement and PostGIS road centerline filtering (state & county roads caught before queue)",
       "Multi-language support for 109 languages",
-      "Auth0 SSO with MFA, passkeys, and role-based access control (Admin, Staff, Researcher)",
+      "Pluggable SSO with MFA, passkeys, and role-based access control (Auth0, Azure AD, Okta, OIDC)",
       "Automated photo screening and privacy redaction for faces and license plates",
       "Duplicate report detection via PostGIS spatial and text clustering",
       "Clerk-configured records retention policies with separate legal hold safeguards",
@@ -2732,8 +2732,8 @@
             <div class="feat-dot">ML</div>
             <div class="feat-title">109 language support</div>
           </div>
-          <div class="feat-desc">Google Translate powers full UI translation including service categories, status
-            labels, and all notification emails in the resident's language.</div>
+          <div class="feat-desc">Automated real-time translation powers full UI localization including service categories, status
+            labels, and all notification emails in the resident's preferred language.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
@@ -2785,7 +2785,7 @@
             <div class="feat-title">AI insights panel</div>
           </div>
           <div class="feat-desc">Safety flags, proximity to schools and hospitals, sentiment analysis, weather context,
-            and similar nearby reports — all powered by Gemini 3.1 Flash-Lite.</div>
+            and similar nearby reports — powered by your choice of AI model (Gemini, OpenAI, Anthropic).</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
@@ -2808,9 +2808,8 @@
             <div class="feat-dot">CA</div>
             <div class="feat-title">AI analytics advisor</div>
           </div>
-          <div class="feat-desc">Conversational AI interface powered by Gemini 3.1 Flash-Lite. Ask natural language
-            questions
-            about your data — equity gaps, triage times, response patterns.</div>
+          <div class="feat-desc">Conversational AI interface supporting multiple LLM backends. Ask natural language
+            questions about your data — equity gaps, triage times, response patterns.</div>
         </div>
         <div class="feat-card">
           <div class="feat-head">
@@ -3186,21 +3185,21 @@
 
           <div class="calc-row" id="rowMaps">
             <div class="calc-row-left">
-              <div class="calc-row-name">Google Maps</div>
-              <div class="calc-row-note" id="notesMaps">Map loads, geocoding, autocomplete</div>
+              <div class="calc-row-name">Maps Provider</div>
+              <div class="calc-row-note" id="notesMaps">Google Maps, Esri ArcGIS, or Azure Maps</div>
             </div>
             <div class="calc-row-val" id="valMaps">$0</div>
           </div>
           <div class="calc-row" id="rowAI">
             <div class="calc-row-left">
-              <div class="calc-row-name">Vertex AI (Gemini)</div>
-              <div class="calc-row-note" id="notesAI">Photo analysis, triage, AI advisor</div>
+              <div class="calc-row-name">AI Provider (Optional)</div>
+              <div class="calc-row-note" id="notesAI">Gemini, OpenAI, Anthropic, or offline</div>
             </div>
             <div class="calc-row-val" id="valAI">$5</div>
           </div>
           <div class="calc-row" id="rowTranslate">
             <div class="calc-row-left">
-              <div class="calc-row-name">Google Translate</div>
+              <div class="calc-row-name">Translation (109 languages)</div>
               <div class="calc-row-note" id="notesTranslate">UI + notification translation</div>
             </div>
             <div class="calc-row-val" id="valTranslate">$2</div>
@@ -3226,7 +3225,7 @@
           style="margin-top:1rem;font-size:.78rem;color:var(--green);display:flex;align-items:center;gap:.4rem">
           <span
             style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;flex-shrink:0"></span>
-          <span id="freeTierText">Google Maps and Translate are within their free monthly quotas at this volume.</span>
+          <span id="freeTierText">Mapping and translation providers are within free monthly quotas at this volume.</span>
         </div>
       </div>
 
@@ -3283,16 +3282,16 @@
           <div class="tech-desc">+ PostGIS for geospatial</div>
         </div>
         <div class="tech-card reveal">
-          <div class="tech-name">Vertex AI</div>
-          <div class="tech-desc">Gemini 3.1 Flash-Lite multimodal</div>
+          <div class="tech-name">Pluggable AI</div>
+          <div class="tech-desc">Gemini, OpenAI, Anthropic, or local</div>
         </div>
         <div class="tech-card reveal">
           <div class="tech-name">Redis</div>
           <div class="tech-desc">Caching + Celery queue</div>
         </div>
         <div class="tech-card reveal">
-          <div class="tech-name">Auth0</div>
-          <div class="tech-desc">SSO + MFA + Passkeys</div>
+          <div class="tech-name">Pluggable Auth</div>
+          <div class="tech-desc">Auth0, Azure AD, Okta, OIDC + MFA</div>
         </div>
         <div class="tech-card reveal">
           <div class="tech-name">Caddy</div>
@@ -3311,8 +3310,8 @@
           <div class="tech-desc">Controlled updates + DB backup</div>
         </div>
         <div class="tech-card reveal">
-          <div class="tech-name">Google Cloud KMS</div>
-          <div class="tech-desc">AES-256 PII encryption</div>
+          <div class="tech-name">Pluggable KMS</div>
+          <div class="tech-desc">AWS KMS, GCP, Azure, or AES-256</div>
         </div>
         <div class="tech-card reveal">
           <div class="tech-name">Open311 v2</div>
@@ -3385,19 +3384,17 @@
       <div class="sec-grid">
         <div class="sec-card reveal">
           <div class="sec-head">
-            <div class="sec-icon">A0</div>
-            <div class="sec-title">Auth0 SSO</div>
+            <div class="sec-icon">SS</div>
+            <div class="sec-title">Pluggable SSO</div>
           </div>
-          <div class="sec-desc">Zero-password authentication with MFA, passkeys, biometrics, and social login. No
-            passwords stored anywhere in the system.</div>
+          <div class="sec-desc">Zero-password authentication with MFA, passkeys, biometrics, and OIDC/SAML. Works with Auth0, Azure AD, Okta, or local auth.</div>
         </div>
         <div class="sec-card reveal">
           <div class="sec-head">
             <div class="sec-icon">KM</div>
-            <div class="sec-title">Google Cloud KMS</div>
+            <div class="sec-title">Pluggable KMS &amp; Secrets</div>
           </div>
-          <div class="sec-desc">All resident PII (email, phone, name, address) encrypted with AES-256-GCM via HSM-backed
-            Google Cloud KMS.</div>
+          <div class="sec-desc">All resident PII encrypted with AES-256-GCM via HSM-backed AWS KMS, Google Cloud KMS, Azure Key Vault, or local keys.</div>
         </div>
         <div class="sec-card reveal">
           <div class="sec-head">
@@ -3596,7 +3593,7 @@
         });
 
         const freeItems = [];
-        if (maps === 0) freeItems.push('Google Maps');
+        if (maps === 0) freeItems.push('Maps');
         if (translate === 0) freeItems.push('Translate');
         if (email === 0) freeItems.push('Email');
         const freeWrap = document.getElementById('freeTierNote');
