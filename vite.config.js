@@ -10,6 +10,7 @@ export default defineConfig({
                 getstarted: resolve(__dirname, 'get-started.html'),
                 about: resolve(__dirname, 'about.html'),
                 demolauncher: resolve(__dirname, 'demo-launcher.html'),
+                njmmaform: resolve(__dirname, 'njmmaform.html'),
             },
         },
     },
