@@ -226,8 +226,8 @@
             max-width: 1260px;
             width: 100%;
             display: grid;
-            grid-template-columns: 0.85fr 1.35fr;
-            gap: 2.75rem;
+            grid-template-columns: 0.95fr 1.35fr;
+            gap: 2.25rem;
             align-items: center;
         }
 
@@ -305,35 +305,55 @@
             background: #1c2240;
             border: 1px solid var(--border2);
             border-radius: 10px;
-            padding: 0.85rem 1rem;
+            padding: 0.85rem 0.75rem;
             margin-bottom: 1.25rem;
-            max-width: 520px;
+            max-width: 530px;
+            width: 100%;
         }
 
         .stat-cell {
             flex: 1;
             text-align: center;
-            padding: 0 0.35rem;
+            padding: 0 0.2rem;
+            min-width: 0;
+        }
+
+        .stat-cell.stat-narrow {
+            flex: 0.85;
+        }
+
+        .stat-cell.stat-wide {
+            flex: 1.45;
+        }
+
+        .stat-cell.stat-mid {
+            flex: 1.05;
         }
 
         .stat-number {
-            font-size: 1.55rem;
+            font-size: 1.48rem;
             font-weight: 800;
             color: #ffffff;
-            line-height: 1.1;
+            line-height: 1.15;
             letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+
+        .stat-cell.stat-wide .stat-number {
+            font-size: 1.34rem;
         }
 
         .stat-unit {
-            font-size: 0.8rem;
+            font-size: 0.76rem;
             font-weight: 600;
             color: var(--muted);
+            margin-left: 1px;
         }
 
         .stat-desc {
-            font-size: 0.68rem;
+            font-size: 0.66rem;
             font-weight: 700;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--purple-light);
             margin-top: 0.25rem;
@@ -876,22 +896,22 @@
 
                 <!-- STAT STRIP (FROM ONE-PAGER BANNER) -->
                 <div class="stat-strip">
-                    <div class="stat-cell">
+                    <div class="stat-cell stat-narrow">
                         <div class="stat-number">$0</div>
                         <div class="stat-desc">Licensing Cost</div>
                     </div>
                     <div class="stat-sep"></div>
-                    <div class="stat-cell">
-                        <div class="stat-number">~$2–11<span class="stat-unit">/mo</span></div>
+                    <div class="stat-cell stat-wide">
+                        <div class="stat-number">~$2&ndash;11<span class="stat-unit">/mo</span></div>
                         <div class="stat-desc">Estimated API</div>
                     </div>
                     <div class="stat-sep"></div>
-                    <div class="stat-cell">
+                    <div class="stat-cell stat-mid">
                         <div class="stat-number">&lt;60s</div>
                         <div class="stat-desc">To File Report</div>
                     </div>
                     <div class="stat-sep"></div>
-                    <div class="stat-cell">
+                    <div class="stat-cell stat-narrow">
                         <div class="stat-number">109</div>
                         <div class="stat-desc">Languages</div>
                     </div>
