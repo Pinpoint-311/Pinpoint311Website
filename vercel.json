@@ -1,9 +1,8 @@
 {
     "cleanUrls": true,
     "trailingSlash": false,
-    "rewrites": [
-        { "source": "/njmma", "destination": "/njmmaform.html" },
-        { "source": "/njmma-form", "destination": "/njmmaform.html" },
-        { "source": "/njmmaform", "destination": "/njmmaform.html" }
+    "redirects": [
+        { "source": "/njmma", "destination": "/njmmaform", "permanent": false },
+        { "source": "/njmma-form", "destination": "/njmmaform", "permanent": false }
     ]
 }
