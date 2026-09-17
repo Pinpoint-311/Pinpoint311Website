@@ -223,11 +223,11 @@
         .kiosk-grid {
             position: relative;
             z-index: 1;
-            max-width: 1240px;
+            max-width: 1260px;
             width: 100%;
             display: grid;
-            grid-template-columns: 1fr 1.25fr;
-            gap: 2.5rem;
+            grid-template-columns: 0.85fr 1.35fr;
+            gap: 2.75rem;
             align-items: center;
         }
 
@@ -240,7 +240,7 @@
 
         /* BIGGER NJMMA HEADER (NO BLINKING DOT) */
         .njmma-header-block {
-            margin-bottom: 0.9rem;
+            margin-bottom: 1.1rem;
         }
 
         .njmma-main-badge {
@@ -248,18 +248,18 @@
             background: #201a4c;
             border: 1.5px solid rgba(165, 180, 252, 0.45);
             color: #ffffff;
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             font-weight: 800;
             letter-spacing: 0.09em;
             text-transform: uppercase;
-            padding: 0.35rem 0.95rem;
+            padding: 0.4rem 1.05rem;
             border-radius: 6px;
-            box-shadow: 0 2px 12px rgba(32, 26, 76, 0.5);
-            margin-bottom: 0.45rem;
+            box-shadow: 0 2px 14px rgba(32, 26, 76, 0.5);
+            margin-bottom: 0.5rem;
         }
 
         .njmma-dca-sub {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--purple-light);
             font-weight: 500;
             letter-spacing: 0.01em;
@@ -272,12 +272,12 @@
 
         /* HERO TITLE & SUBTITLE (MATCHING ONE-PAGER) */
         .hero-title {
-            font-size: clamp(1.85rem, 2.7vw, 2.5rem);
+            font-size: clamp(2rem, 3vw, 2.75rem);
             font-weight: 300;
-            line-height: 1.15;
+            line-height: 1.16;
             letter-spacing: -0.03em;
             color: var(--white);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
         }
 
         .hero-title em {
@@ -291,10 +291,10 @@
         }
 
         .hero-sub {
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             color: var(--muted);
-            line-height: 1.5;
-            margin-bottom: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 1.35rem;
             max-width: 480px;
         }
 
@@ -305,9 +305,9 @@
             background: #1c2240;
             border: 1px solid var(--border2);
             border-radius: 10px;
-            padding: 0.65rem 0.75rem;
-            margin-bottom: 1rem;
-            max-width: 500px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1.25rem;
+            max-width: 520px;
         }
 
         .stat-cell {
@@ -317,7 +317,7 @@
         }
 
         .stat-number {
-            font-size: 1.35rem;
+            font-size: 1.55rem;
             font-weight: 800;
             color: #ffffff;
             line-height: 1.1;
@@ -325,24 +325,24 @@
         }
 
         .stat-unit {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: var(--muted);
         }
 
         .stat-desc {
-            font-size: 0.64rem;
+            font-size: 0.68rem;
             font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--purple-light);
-            margin-top: 0.2rem;
+            margin-top: 0.25rem;
             white-space: nowrap;
         }
 
         .stat-sep {
             width: 1px;
-            height: 32px;
+            height: 36px;
             background: var(--border2);
             flex-shrink: 0;
         }
@@ -351,15 +351,14 @@
         .quote-banner {
             background: rgba(99, 102, 241, 0.08);
             border: 1px solid var(--purple-border);
-            border-left: 3px solid var(--purple);
+            border-left: 3.5px solid var(--purple);
             border-radius: 6px;
-            padding: 0.55rem 0.85rem;
-            font-size: 0.8rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.86rem;
             color: #e0e7ff;
-            line-height: 1.45;
+            line-height: 1.5;
             font-style: italic;
-            margin-bottom: 1rem;
-            max-width: 500px;
+            max-width: 520px;
         }
 
         /* ── KEY MUNICIPAL CAPABILITIES (COMPACT) ── */
@@ -397,19 +396,19 @@
             stroke: var(--green);
         }
 
-        /* ── RIGHT COLUMN: COMPACT INSTITUTIONAL FORM CARD ── */
+        /* ── RIGHT COLUMN: INSTITUTIONAL FORM CARD ── */
         .form-card {
             background: var(--navy-card);
             border: 1px solid var(--border2);
-            border-radius: 12px;
-            padding: 1.35rem 1.65rem 1.25rem;
+            border-radius: 14px;
+            padding: 1.6rem 2rem;
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
             position: relative;
         }
 
         .card-header {
-            margin-bottom: 0.9rem;
-            padding-bottom: 0.65rem;
+            margin-bottom: 1.1rem;
+            padding-bottom: 0.75rem;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
@@ -417,42 +416,34 @@
         }
 
         .card-header-title {
-            font-size: 0.98rem;
+            font-size: 1.12rem;
             font-weight: 700;
             color: var(--white);
             letter-spacing: -0.01em;
         }
 
-        .card-header-sub {
-            font-size: 0.7rem;
-            color: var(--muted2);
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
-            font-weight: 600;
-        }
-
         .form-grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 0.65rem;
+            gap: 0.95rem;
+            margin-bottom: 0.85rem;
         }
 
         .field-group {
             display: flex;
             flex-direction: column;
-            gap: 0.22rem;
+            gap: 0.28rem;
         }
 
         .field-group.full {
-            margin-bottom: 0.65rem;
+            margin-bottom: 0.85rem;
         }
 
         .field-label {
-            font-size: 0.74rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.88);
-            letter-spacing: 0.02em;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.01em;
         }
 
         .field-label span.req {
@@ -465,9 +456,9 @@
             width: 100%;
             background: #151929;
             border: 1px solid var(--border2);
-            border-radius: 6px;
-            padding: 0.48rem 0.75rem;
-            font-size: 0.84rem;
+            border-radius: 7px;
+            padding: 0.62rem 0.85rem;
+            font-size: 0.92rem;
             font-family: inherit;
             color: var(--white);
             outline: none;
@@ -476,8 +467,8 @@
 
         .input-text::placeholder,
         .input-textarea::placeholder {
-            color: rgba(255, 255, 255, 0.32);
-            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.86rem;
         }
 
         .input-text:focus,
@@ -488,37 +479,37 @@
 
         .input-textarea {
             resize: none;
-            height: 48px;
-            line-height: 1.35;
+            height: 56px;
+            line-height: 1.4;
         }
 
         /* ── INTEREST MODEL (MATCHING ONE-PAGER CARDS) ── */
         .interest-label {
-            font-size: 0.74rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.88);
-            margin-bottom: 0.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.45rem;
             display: block;
         }
 
         .interest-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
+            gap: 0.65rem;
+            margin-bottom: 0.85rem;
         }
 
         .interest-card {
             background: #151929;
             border: 1px solid var(--border2);
-            border-radius: 6px;
-            padding: 0.5rem 0.6rem;
+            border-radius: 8px;
+            padding: 0.65rem 0.75rem;
             cursor: pointer;
             transition: all .16s ease;
             user-select: none;
             display: flex;
             flex-direction: column;
-            gap: 0.2rem;
+            gap: 0.25rem;
         }
 
         .interest-card:hover {
@@ -535,12 +526,12 @@
         .interest-top {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.45rem;
         }
 
         .radio-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             border: 1.5px solid var(--border2);
             flex-shrink: 0;
@@ -557,22 +548,22 @@
         }
 
         .interest-title {
-            font-size: 0.78rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--white);
             line-height: 1.2;
         }
 
         .interest-snippet {
-            font-size: 0.68rem;
+            font-size: 0.72rem;
             color: var(--muted);
-            line-height: 1.3;
-            padding-left: 1.15rem;
+            line-height: 1.35;
+            padding-left: 1.35rem;
         }
 
         /* ── SUBMIT BUTTON ── */
         .submit-wrap {
-            margin-top: 0.75rem;
+            margin-top: 0.85rem;
             display: flex;
             flex-direction: column;
             gap: 0.4rem;
@@ -583,9 +574,9 @@
             background: var(--purple);
             color: var(--white);
             border: none;
-            padding: 0.65rem 1.25rem;
-            border-radius: 6px;
-            font-size: 0.88rem;
+            padding: 0.82rem 1.4rem;
+            border-radius: 8px;
+            font-size: 0.96rem;
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
@@ -593,7 +584,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            box-shadow: 0 0 20px var(--purple-glow);
+            box-shadow: 0 0 24px var(--purple-glow);
             transition: transform .16s, box-shadow .16s, opacity .16s;
         }
 
@@ -910,34 +901,6 @@
                 <div class="quote-banner">
                     &ldquo;Every dollar and hour not spent on software is more for potholes, sidewalks, and parks.&rdquo;
                 </div>
-
-                <!-- VALUE PROPS (FROM ONE-PAGER) -->
-                <div class="inst-points">
-                    <div class="inst-point">
-                        <div class="inst-bullet">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div><strong>Jurisdiction routing:</strong> State and county road reports caught before your queue</div>
-                    </div>
-                    <div class="inst-point">
-                        <div class="inst-bullet">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div><strong>Isolated per town:</strong> Complete municipal data sovereignty on your own servers or cloud</div>
-                    </div>
-                    <div class="inst-point">
-                        <div class="inst-bullet">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div><strong>Staff decision support:</strong> Geospatial maps, OPRA records, and 50+ planning fields</div>
-                    </div>
-                </div>
             </div>
 
             <!-- RIGHT COLUMN: COMPACT INSTITUTIONAL FORM -->
@@ -945,7 +908,6 @@
                 <form id="interestForm" novalidate>
                     <div class="card-header">
                         <span class="card-header-title">Municipal Partnership Registry</span>
-                        <span class="card-header-sub">Session Intake</span>
                     </div>
 
                     <!-- ERROR CALLOUT -->
@@ -1060,7 +1022,7 @@
                         Interest registered for <span id="respMunName"></span>
                     </div>
                     <p class="success-text">
-                        Your intake has been recorded with our conference team. Technical documentation and next steps will be transmitted directly to your email.
+                        Your interest has been registered. Technical documentation and next steps will be sent directly to your email.
                     </p>
 
                     <div class="conference-box">
